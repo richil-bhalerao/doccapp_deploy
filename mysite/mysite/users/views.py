@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate,login
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from models import moocsList,ipaddress,registerUser
 import json, requests, base64
 from django.http import *
 import urllib2, urllib
@@ -159,7 +158,7 @@ def save_Profile(request):
     print "result ---> ", status
     return HttpResponseRedirect("/dashboard")
 
-
+########################################################################################
 
 
 
