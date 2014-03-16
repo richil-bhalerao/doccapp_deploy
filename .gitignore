@@ -1,0 +1,16 @@
+docc/bottle.pyc
+docc/course.pyc
+docc/data/__init__.pyc
+docc/data/storage.pyc
+docc/professor.pyc
+docc/service.pyc
+docc/session.pyc
+docc/user.pyc
+mysite/mysite/__init__.pyc
+mysite/mysite/settings.pyc
+mysite/mysite/urls.pyc
+mysite/mysite/users/__init__.pyc
+mysite/mysite/users/admin.pyc
+mysite/mysite/users/models.pyc
+mysite/mysite/users/views.pyc
+mysite/mysite/wsgi.pyc
