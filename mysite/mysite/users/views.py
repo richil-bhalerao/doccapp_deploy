@@ -4,6 +4,7 @@ from django.template import RequestContext
 import json, requests, base64
 from django.http import *
 import urllib2, urllib
+from urllib2 import urlopen
 from httplib import HTTP
 
 
@@ -120,10 +121,10 @@ def logout(request):
 
 def courseContentSelection(request):
     print 'Django: In course content selection page'
-    status = requests.get(url='http://127.0.0.1:8080/courseContentSelection')
-    print status.json()
-    data = status.json()
-    return render_to_response('courseContentSelection.html', {'data':data}, context_instance=RequestContext(request))
+#     status = requests.get(url='http://127.0.0.1:8080/courseContentSelection')
+#     print status.json()
+#     data = status.json()
+    return render_to_response('courseContentSelection.html', context_instance=RequestContext(request))
 
 def edit_Profile(request):
     print 'Views: Edit profile'
@@ -160,7 +161,21 @@ def save_Profile(request):
 
 ########################################################################################
 
+##############################Recommendation##################################
 
+def mostViewed(request):
+    print 'inside most Viewed'
+    url = "http://127.0.0.1:8080/mostviewedcontent"
+    data = urlopen(url).read()
+    # do whatever you want
+    return HttpResponse(data, mimetype="application/json")
+
+def mostRated(request):
+    print 'inside most Viewed'
+    url = "http://127.0.0.1:8080/mostratedcontent"
+    data = urlopen(url).read()
+    # do whatever you want
+    return HttpResponse(data, mimetype="application/json")
 
 
 

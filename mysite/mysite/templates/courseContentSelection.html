@@ -1,28 +1,30 @@
 <html style="-moz-user-select: none;" xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
- <link rel="stylesheet" href="/resources/demos/style.css">
-<meta charset="utf-8"><title>User Page</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content=""><meta name="author" content=""><link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
+<meta charset="utf-8"><title>User Page</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content=""><meta name="author" content="">
+
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+
 <script>
 $(function() {
-$( "#accordion" ).accordion();
+	$( "#accordion" ).accordion();
 });
 </script>
-<script>
-  $(function () {
-    $('#myTab a:last').tab('show')
-  })
-</script>
+
 </head>
 
 <body class="">
-  <div class="navbar navbar-default navbar-static-top">
+  <div class="navbar navbar-inverse navbar-static-top">
     <style>
       .body{padding-top:70px}
     </style>
@@ -53,127 +55,151 @@ $( "#accordion" ).accordion();
                    <li class="active"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
                
                   <li class="inactive"> <a href="#">Help</a></li>
-                </ul>
-
-                <div class="btn-group btn-lg navbar-right">
-                  <button type="button" class="btn btn-primary">My Profile</button>
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  <li class="inactive"> 
+                    <div class="btn-group btn-lg navbar-right">
+                      <button type="button" class="btn btn-primary">My Profile</button>
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Edit Profile</a></li>
-                    <li><a href="#">Course settings</a></li>
-                    <li class="divider"></li>
-                    <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
-                  </ul>
-                </div>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Edit Profile</a></li>
+                        <li><a href="#">Course settings</a></li>
+                        <li class="divider"></li>
+                        <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
+                      </ul>
+                  </div>
+                  </li>
+                </ul>
+              
+
+              
                 
               </div>
-            </div>
-  </div>
-  <div class="container">
-     <div class = "container">
-    <div class="well well-sm">
-        <h1 class="text-primary"><center>Select your content!</center></h1>
-    </div> 
-    
-    <div  class="row">
-   
-      <div id = "accordion" class="col-md-3">
-         <h3> <b> <i>COURSE CONTENTS </i></b></h3>
-			<div>
-			<p>
-			Chose your contents from the topics below to start your course.
-			</p>
-			</div><h3><b>Introduction to DB</b></h3>
-			<div>
-			<ul>
-			<li><a>List item one</a></li>
-			<li><a>List item two</a></li>
-			<li><a>List item three</a></li>
-			</ul>
-			</div>
-			<h3><b>Basic DB rules</b></h3>
-			<div>
-			<ul>
-			<li><a>List item one</a></li>
-			<li><a>List item two</a></li>
-			<li><a>List item three</a></li>
-			</ul>
-			</div>
-			<h3><b>SQL Querying</b></h3>
-			<div>
-			<ul>
-			<li><a>List item one</a></li>
-			<li><a>List item two</a></li>
-			<li><a>List item three</a></li>
-			</ul>
-			<ul>
-			<li><a>List item one</a></li>
-			<li><a>List item two</a></li>
-			<li><a>List item three</a></li>
-			</ul>
-			</div>
-			<h3><a>What is NoSQL?</a></h3>
-			<div>
-			<ul>
-			<li><a>List item one</a></li>
-			<li><a>List item two</a></li>
-			<li><a>List item three</a></li>
-			</ul>
-			</div>
+
       </div>
-      
+  </div>
+  
+  <div class="container">
+  	<div class="row">
+  	<div class="well well-sm">
+        <h1 class="text-primary"><center>Select your content!</center></h1>
+    </div>
+    </div>
+  	
+	 <div  class="row">  
+	 <div class="col-md-3">
+	     accordion - List of course categories here 
+	</div>
       
       <div class="col col-md-9">
         <ul class="nav nav-tabs" id="myTab">
-  <li class="active"><a href="#home" data-toggle="tab">View All</a></li>
-  <li><a href="#profile" data-toggle="tab">Most Viewed</a></li>
-  <li><a href="#messages" data-toggle="tab">Best Rated</a></li>
-  <li><a href="#settings" data-toggle="tab">We Suggest..</a></li>
-</ul>
+		  <li class="active" id="tb_viewall"><a href="#viewall" data-toggle="tab">View All</a></li>
+		  <li id="tb_mostviewed"><a href="#mostviewed" data-toggle="tab">Most Viewed</a></li>
+		  <li id="tb_mostrated"><a href="#mostrated" data-toggle="tab">Best Rated</a></li>
+		  <li id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
+		</ul>
         <br/>
         <div class="tab-content">
-  <div class="tab-pane active" id="home"> 
-<ul class="media-list">
- {%for data in data%}
-  <li class="media">
-    <a class="pull-left" href="#">
-      <img class="media-object" src="http://www.reviversoft.com/blog/wp-content/uploads/2013/05/Compatibility_Adobe_PDF_Logo.jpg" width="64" height="64">
-    </a>
-    <div class="media-body">
-    
-      <h4 class="media-heading">{{ data.ContentName }} by {{data.Professor}}</h4>
-      <p>{{data.Description}}</p>
-       <p><a href="#" class="btn btn-primary" role="button">Select</a> <a href="#" class="btn btn-default" role="button">Cancel</a></p>
-    </div>
-  </li>
-   {%endfor%}
-</ul>
-</div>
-  <div class="tab-pane" id="profile">
-  <div class="row">
-   {%for data in data%}
-    <div class="thumbnail" style="float: left; width: 33%; height:350px">
-      <img src="http://www.reviversoft.com/blog/wp-content/uploads/2013/05/Compatibility_Adobe_PDF_Logo.jpg" width="100" height="100">
-      <div class="caption">
-      <center>
-        <h3>{{ data.ContentName }}</h3>
-        <h4>Professor: {{data.Professor}} </h4>
-        <p>{{data.Description}}</p>
-        <p><a href="#" class="btn btn-primary" role="button">Select</a> </p>
-        <center>
-      </div>
-    </div>
-     {%endfor%}
-
-</div>
-  
-</div>
-  <div class="tab-pane" id="messages">...</div>
-  <div class="tab-pane" id="settings">...</div>
-</div>
+        
+		  	<div class="tab-pane active" id="viewall"> 
+				<p> viewall </p>
+			</div>
+	  		
+	  		<div class="tab-pane" id="mostviewed">
+	  			<p> most viewed </p>
+			</div>
+		  	
+		  	<div class="tab-pane" id="mostrated">
+				<p> most rated</p>
+			</div>
+		  	
+		  	<div class="tab-pane" id="wesuggest">
+				<p>we suggest</p>
+			</div>
+		</div>
     </div>
   </div>
+  
+  <ul class="pager">
+  	<li><a href="#">Previous</a></li>
+  	<li><a href="#">Next</a></li>
+	</ul>
+	
+ </div> 
+  
+ <!-- Start templates -->
+<script id="recordTemplate" type="tuts/template">
+ <div class="panel-group" id="accordion">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{index}">
+          Content Name: {content_name}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{index}" class="panel-collapse collapse">
+      <div class="panel-body">
+        Provided by: {professor_name}
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+ <!-- End of templates -->
+  
+ <!--  Start Ajax calls -->
+	<script>
+	(function() {
+		$('#tb_mostviewed').on('click', function(e){
+			
+			$.getJSON('/mostViewed/', function( data ) {
+				
+				frag='';
+				$.each( data, function( index, line ) {
+					if (index==5)
+						return false;
+					var template = $.trim( $('#recordTemplate').html());
+					
+					frag += template.replace( /{content_name}/ig, line.Name)
+					        		.replace( /{professor_name}/ig, line.prof_username)
+					        		.replace( /{index}/ig, index)
+					
+				});	
+				console.log(frag);
+				$('#mostviewed').html(frag);
+					
+				
+			});
+			
+		});
+		
+		$('#tb_mostrated').on('click', function(e){
+			
+			$.getJSON('/mostRated/', function( data ) {
+				
+				frag='';
+				$.each( data, function( index, line ) {
+					if (index==5)
+						return false;
+					var template = $.trim( $('#recordTemplate').html());
+					
+					frag += template.replace( /{content_name}/ig, line.Name)
+					        		.replace( /{professor_name}/ig, line.prof_username)
+					        		.replace( /{index}/ig, index)
+					
+					
+				});
+				console.log(frag);
+				$('#mostrated').html(frag);
+			});
+			
+		});
+		
+	})();
+	
+	 
+ 
+	</script>
 </body>

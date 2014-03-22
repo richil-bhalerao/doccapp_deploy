@@ -23,18 +23,20 @@ from bson.objectid import ObjectId
 from json import JSONEncoder
 from pymongo import *
 from data.storage import Storage
+from recoengine import RecoEngine
 
 storageobj = None
 sessionobj = None
 status = None
+recoObj = None
 
 
-'''class MongoEncoder(JSONEncoder):
+class MongoEncoder(JSONEncoder):
     def default(self, obj, **kwargs):
         if isinstance(obj, ObjectId):
             return str(obj)
         else:
-            return JSONEncoder.default(obj, **kwargs) ''' 
+            return JSONEncoder.default(obj, **kwargs) 
 
 
 
@@ -54,8 +56,9 @@ def root():
 
 def setup():
    print '\n**** service initialization ****\n'
-   global storageobj, sessionobj
+   global storageobj, sessionobj, recoObj
    storageobj = Storage()
+   recoObj = RecoEngine()
    connection = Connection('localhost', 27017)
    sessionobj = Session(connection.doccdb) 
 
@@ -148,7 +151,60 @@ def saveProfile():
 ###########################################################################
 
 
+#===================================Recommendation service==============================================
 
+@route('/mostviewedcontent', method='GET')
+def getMostViewed():
+    print 'you are in getMostViewed service'
+    
+    try:
+        cursor = recoObj.getMostViewedContent()
+        entity = [d for d in cursor]
+    except:
+        traceback.print_exc()
+        abort(404, 'Most viewed cannot be retrieved')    
+        
+    if not entity:
+        abort(404, 'No content found')       
+        
+    return MongoEncoder().encode(entity)
+
+
+@route('/mostratedcontent', method='GET')
+def getMostRated():
+    print 'you are in getmostratedViewed service'
+    
+    try:
+        cursor = recoObj.getMostRatedContent()
+        entity = [d for d in cursor]
+    except:
+        traceback.print_exc()
+        abort(404, 'Most viewed cannot be retrieved')    
+        
+    if not entity:
+        abort(404, 'No content found')       
+        
+    return MongoEncoder().encode(entity)
+
+@route('/wesuggest/:username', method='GET')
+def getWeSuggest(username):
+    print 'You are in get we suggest service'
+    print username
+    
+    try:
+        cursor = recoObj.getWeSuggest(username)
+        entity = [d for d in cursor]
+        print entity
+    except:
+        traceback.print_exc()
+        abort(404, 'suggested content cannot be retrieved')    
+        
+    if not entity:
+        abort(404, 'No content for recommendation')       
+    
+    
+    
+    return MongoEncoder().encode(entity)
     
    
 
