@@ -8,6 +8,7 @@ from urllib2 import urlopen
 from httplib import HTTP
 
 
+
 ########## Clean code ####################################### 
 #index page 
 def index(request):
@@ -133,6 +134,7 @@ def courseContentSelection(request):
     # do whatever you want
     return render_to_response('courseContentSelection.html', {"data":data.json()}, context_instance=RequestContext(request))
 
+
 def edit_Profile(request):
     print 'Views: Edit profile'
     print request.session['user']
@@ -191,9 +193,24 @@ def mostRated(request):
     headers = {'content-type': 'application/json'}
     data=requests.put(url, data=json.dumps(payload), headers=headers)
     print data;
+    return HttpResponse(data, mimetype="application/json")
+
+def viewAll(request):
+    print 'inside view All'
+    url = "http://127.0.0.1:8080/viewAll"
+    data = urlopen(url).read()
+    print data
     # do whatever you want
     return HttpResponse(data, mimetype="application/json")
 
+def addToCart(request):
+    print 'inside Add to cart'
+    id = request.GET.get('courseId','')
+    user = request.session['user']
+    payload = {"username": user['username'], "contentId":id}
+    print payload
+    status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
+    return render_to_response('courseContentSelection.html',context_instance=RequestContext(request))
 
 
 

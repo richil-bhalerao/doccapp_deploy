@@ -55,7 +55,15 @@ class Storage(object):
             self.db[collection].update({fieldname:value},{'$set': data});
         except:
             traceback.print_exc() 
-            return "Error: Data cannot be updated"    
+            return "Error: Data cannot be updated"  
+        
+    def updateArray(self, collection, fieldname, value, data):
+        print 'In Storage.update method'
+        try:
+            self.db[collection].update({fieldname:value},{'$addToSet': data});
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be updated"   
     
     def getAll(self, collection):
         print 'In Storage.getAll method'
@@ -64,11 +72,15 @@ class Storage(object):
         except:
             traceback.print_exc() 
             return "All data cannot be retrieved" 
+        
+        
     
     ############################### End##############################################
     
     
     ############################ Extra functions #####################################
+    
+    
     
     def remove(self, collection, fieldname, value):
         print 'In Storage.remove method'
