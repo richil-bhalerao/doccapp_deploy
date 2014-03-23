@@ -81,7 +81,7 @@ class RecoEngine(object):
     def getMostRatedContent(self, sub_category):
         
         try:
-            return self.db['content'].find().sort('Rating', pymongo.DESCENDING)
+            return self.db['content'].find({'sub_category': sub_category}).sort('Rating', pymongo.DESCENDING)
         except:
             traceback.print_exc()
             
