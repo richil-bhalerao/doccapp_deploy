@@ -123,8 +123,15 @@ def courseContentSelection(request):
     print 'Django: In course content selection page'
 #     status = requests.get(url='http://127.0.0.1:8080/courseContentSelection')
 #     print status.json()
-#     data = status.json()
-    return render_to_response('courseContentSelection.html', context_instance=RequestContext(request))
+    print 'inside We Suggest'
+    user = request.session['user']
+    payload = {"username":user['username']}
+    url = "http://127.0.0.1:8080/wesuggest/" #+ user['username']
+    #data = urlopen(url).read()
+    data=requests.get(url, data=json.dumps(payload))
+    print data.json();
+    # do whatever you want
+    return render_to_response('courseContentSelection.html', {"data":data.json()}, context_instance=RequestContext(request))
 
 def edit_Profile(request):
     print 'Views: Edit profile'
@@ -186,7 +193,6 @@ def mostRated(request):
     print data;
     # do whatever you want
     return HttpResponse(data, mimetype="application/json")
-
 
 
 

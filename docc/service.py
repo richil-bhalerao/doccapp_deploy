@@ -190,15 +190,33 @@ def getMostRated():
         
     return MongoEncoder().encode(entity)
 
-@route('/wesuggest/:username', method='GET')
-def getWeSuggest(username):
+@route('/wesuggest/', method='GET')
+def getWeSuggest():
     print 'You are in get we suggest service'
+    username = request.body.read()
     print username
-    
+    user = json.loads(username)
+    print user['username']
     try:
-        cursor = recoObj.getWeSuggest(username)
+        cursor = recoObj.getWeSuggest(user['username'])
         entity = [d for d in cursor]
-        print entity
+        
+        list1 = []
+        list2 = []
+        
+        
+        for e in entity:
+            list1.append(e[0])
+            list2.append(e[1])
+            
+        list2.append("Fisher")
+        #print list2
+        contents = storageobj.getInArray('content', 'Name', list2)
+        #jsonData["Similarity"].append(list1)
+        #jsonData["CourseId"].append(list2)
+        values = [d for d in contents]
+        print values            
+
     except:
         traceback.print_exc()
         abort(404, 'suggested content cannot be retrieved')    
@@ -206,9 +224,9 @@ def getWeSuggest(username):
     if not entity:
         abort(404, 'No content for recommendation')       
     
+  #  print  MongoEncoder().encode(entity)
     
-    
-    return MongoEncoder().encode(entity)
+    return MongoEncoder().encode(values)
     
    
 

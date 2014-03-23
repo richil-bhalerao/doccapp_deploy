@@ -89,20 +89,54 @@ $(function() {
   	
 	 <div  class="row">  
 	 <div class="col-md-3">
-	     accordion - List of course categories here 
+	    <div class="Well"> 
+	    <ul class="nav nav-tabs nav-stacked">
+  			<li class="active"><a>CAT1</a></li>
+		    <li><a href="#">sub2</a></li>
+  			<li><a href="#">sub3</a></li>
+  			<li><a href="#">sub4</a></li>
+  		</ul>	    
+		</div>	 
+		<div class="well"> 
+	    <ul class="nav nav-tabs nav-stacked">
+  			<li class="active">CAT5</li>
+  			<li><a href="#">sub6</a></li>
+  			<li><a href="#">sub7</a></li>
+  			<li><a href="#">sub8</a></li>
+  			<li><a href="#">sub9</a></li>
+  		</ul>	    
+		</div>
+  		<div class="well"> 
+	    <ul class="nav nav-tabs nav-stacked">
+  			<li><a href="#">sub10</a></li>
+			<li><a href="#">sub11</a></li>
+			<li><a href="#">sub12</a></li>
+			<li><a href="#">sub13</a></li>
+			<li><a href="#">sub14</a></li>
+		</ul>	    
+		</div>
+		<div class="well"> 
+	    <ul class="nav nav-tabs nav-stacked">
+			<li><a href="#">sub15</a></li>
+			<li><a href="#">sub16</a></li>
+			<li><a href="#">sub17</a></li>
+			<li><a href="#">sub18</a></li>
+			<li><a href="#">sub19</a></li>
+		</ul>
+	    </div>	     
 	</div>
       
       <div class="col col-md-9">
         <ul class="nav nav-tabs" id="myTab">
-		  <li class="active" id="tb_viewall"><a href="#viewall" data-toggle="tab">View All</a></li>
+		  <li class="active" id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
 		  <li id="tb_mostviewed"><a href="#mostviewed" data-toggle="tab">Most Viewed</a></li>
 		  <li id="tb_mostrated"><a href="#mostrated" data-toggle="tab">Best Rated</a></li>
-		  <li id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
+		  <li id="tb_viewall"><a href="#viewall" data-toggle="tab">View All</a></li>
 		</ul>
         <br/>
         <div class="tab-content">
         
-		  	<div class="tab-pane active" id="viewall"> 
+		  	<div class="tab-pane" id="viewall"> 
 				<p> viewall </p>
 			</div>
 	  		
@@ -114,7 +148,12 @@ $(function() {
 				<p> most rated</p>
 			</div>
 		  	
-		  	<div class="tab-pane" id="wesuggest">
+		  	<div class="tab-pane active" id="wesuggest">
+		  		
+		  		{% for i in data%}
+		  		{{i.Name}}<br>
+		  		{%endfor%}
+		  		
 				<p>we suggest</p>
 			</div>
 		</div>
@@ -178,6 +217,28 @@ $(function() {
 		$('#tb_mostrated').on('click', function(e){
 			
 			$.getJSON('/mostRated/', function( data ) {
+				
+				frag='';
+				$.each( data, function( index, line ) {
+					if (index==5)
+						return false;
+					var template = $.trim( $('#recordTemplate').html());
+					
+					frag += template.replace( /{content_name}/ig, line.Name)
+					        		.replace( /{professor_name}/ig, line.prof_username)
+					        		.replace( /{index}/ig, index)
+					
+					
+				});
+				console.log(frag);
+				$('#mostrated').html(frag);
+			});
+			
+		});
+		
+		$('#tb_wesuggest').on('click', function(e){
+			
+			$.getJSON('/courseContentSelection/', function( data ) {
 				
 				frag='';
 				$.each( data, function( index, line ) {
