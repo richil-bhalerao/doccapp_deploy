@@ -81,6 +81,13 @@ class RecoEngine(object):
     def getMostRatedContent(self):
         
         try:
-            return self.db['content'].find().sort('rating', pymongo.DESCENDING)
+            return self.db['content'].find().sort('Rating', pymongo.DESCENDING)
+        except:
+            traceback.print_exc()
+            
+    def getViewAllContent(self):
+        
+        try:
+            return self.db['content'].find()
         except:
             traceback.print_exc()

@@ -8,11 +8,10 @@
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
+
  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
-
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 
 <script>
@@ -94,28 +93,28 @@ $(function() {
       
       <div class="col col-md-9">
         <ul class="nav nav-tabs" id="myTab">
-		  <li class="active" id="tb_viewall"><a href="#viewall" data-toggle="tab">View All</a></li>
+		   <li  class="active" id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
 		  <li id="tb_mostviewed"><a href="#mostviewed" data-toggle="tab">Most Viewed</a></li>
 		  <li id="tb_mostrated"><a href="#mostrated" data-toggle="tab">Best Rated</a></li>
-		  <li id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
+          <li id="tb_viewall"><a href="#viewall" data-toggle="tab">View All</a></li>
 		</ul>
         <br/>
         <div class="tab-content">
         
-		  	<div class="tab-pane active" id="viewall"> 
-				<p> viewall </p>
+		  	<div class="tab-pane active" id="viewall">
+				<p>Loading...</p>
 			</div>
 	  		
 	  		<div class="tab-pane" id="mostviewed">
-	  			<p> most viewed </p>
+	  			<p>Loading...</p>
 			</div>
 		  	
 		  	<div class="tab-pane" id="mostrated">
-				<p> most rated</p>
+				<p> Loading...</p>
 			</div>
 		  	
 		  	<div class="tab-pane" id="wesuggest">
-				<p>we suggest</p>
+				<p>Loading...</p>
 			</div>
 		</div>
     </div>
@@ -130,25 +129,75 @@ $(function() {
   
  <!-- Start templates -->
 <script id="recordTemplate" type="tuts/template">
- <div class="panel-group" id="accordion">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{index}">
-          Content Name: {content_name}
-        </a>
-      </h4>
+    
+    
+    
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="http://news.sudanvisiondaily.com/images/pdf-icon.png" alt="...">
+            <div class="caption">
+                <center>
+                <h3>{content_name}</h3>
+                <h4>professor: {professor_name}</h4>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#{id}">View</button>
+                </center>
+            </div>
+        </div>
     </div>
-    <div id="collapse{index}" class="panel-collapse collapse">
-      <div class="panel-body">
-        Provided by: {professor_name}
-      </div>
+    
+    
+    <div class="modal fade" id="{id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel"> <center> {content_name} </center></h4>
+   
     </div>
-  </div>
-</div>
+    <div class="modal-body">
+    <h4> Course Name: {content_name} </h4>
+    <h4> professor: {professor_name} </h4> <a> View Profile</a>
+    <p>  Course Description: {Description}<p>
+    <p>  Type: {Type} </p>
+    <p> Id: {id}</p>
+    <p>  Sub Category: {sub_category}</p>
+    
+    
+	</div>
+    
+    <div class="modal-footer">
+    <form id="addToCart" method="GET" action="http://127.0.0.1:8000/addToCart/">
+    <button type="submit" class="btn btn-primary" name="courseId" id="courseId" value="{id}">Add to your cart - {id} </button>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+
 </script>
+
+<!--
+ Richil's code: Panels for dispalying content
+ 
+ <div class="panel-group" id="accordion">
+ <div class="panel panel-primary">
+ <div class="panel-heading">
+ <h4 class="panel-title">
+ <a data-toggle="collapse" data-parent="#accordion" href="#collapse{index}">
+ Content Name: {content_name}
+ </a>
+ </h4>
+ </div>
+ <div id="collapse{index}" class="panel-collapse collapse">
+ <div class="panel-body">
+ Provided by: {professor_name}
+ </div>
+ </div>
+ </div>
+ </div>
+ -->
  <!-- End of templates -->
-  
+ 
  <!--  Start Ajax calls -->
 	<script>
 	(function() {
@@ -158,12 +207,17 @@ $(function() {
 				
 				frag='';
 				$.each( data, function( index, line ) {
-					if (index==5)
+					if (index==500)
 						return false;
 					var template = $.trim( $('#recordTemplate').html());
 					
 					frag += template.replace( /{content_name}/ig, line.Name)
 					        		.replace( /{professor_name}/ig, line.prof_username)
+                                    .replace( /{Description}/ig, line.Description)
+                                    .replace( /{Rating}/ig, line.Rating)
+                                    .replace( /{Type}/ig, line.Type)
+                                    .replace( /{sub_category}/ig, line.sub_category)
+                                    .replace( /{id}/ig, line._id)
 					        		.replace( /{index}/ig, index)
 					
 				});	
@@ -175,13 +229,42 @@ $(function() {
 			
 		});
 		
+     $('#tb_viewall').on('click', function(e){
+                            
+                            $.getJSON('/viewAll/', function( data ) {
+                                      
+                                      frag='';
+                                      $.each( data, function( index, line ) {
+                                             if (index==12)
+                                             return false;
+                                             var template = $.trim( $('#recordTemplate').html());
+                                             
+                                             frag += template.replace( /{content_name}/ig, line.Name)
+                                             .replace( /{professor_name}/ig, line.prof_username)
+                                             .replace( /{Description}/ig, line.Description)
+                                             .replace( /{Rating}/ig, line.Rating)
+                                             .replace( /{Type}/ig, line.Type)
+                                             .replace( /{sub_category}/ig, line.sub_category)
+                                             .replace( /{id}/ig, line._id)
+                                             .replace( /{index}/ig, index)
+                                             
+                                             });	
+                                      console.log(frag);
+                                      $('#viewall').html(frag);
+                                      
+                                      
+                                      });
+                            
+                            });
+     
+     
 		$('#tb_mostrated').on('click', function(e){
 			
 			$.getJSON('/mostRated/', function( data ) {
 				
 				frag='';
 				$.each( data, function( index, line ) {
-					if (index==5)
+					if (index==12)
 						return false;
 					var template = $.trim( $('#recordTemplate').html());
 					

@@ -120,7 +120,7 @@ def professorSignIn():
 @route('/courseContentSelection', method='GET')
 def courseContentSelection():
     print 'Bottle: you are in courseContentSelection'
-    cursor = storageobj.getAll('courseContent')
+    cursor = storageobj.getAll('content')
     entity = [d for d in cursor]
     print entity     
     return  entity
@@ -143,7 +143,7 @@ def saveProfile():
     user = json.loads(entity)
     print "PAYLOAD USER ---> ", user
     print "USERNAME ---> ", user['username']
-    status = storageobj.update('user', 'username', user['username'], user)
+    status = storageobj.updateArray('user', 'username', user['username'], user)
     print "STATUS ---> ", status
     return status
 
@@ -205,8 +205,53 @@ def getWeSuggest(username):
     
     
     return MongoEncoder().encode(entity)
+
+
+
+#------------------------------------ @ Roopak - Adding the content to user's cart -----------------------------------#
+
+@route('/viewAll', method='GET')
+def getViewAll():
+    print 'you are in getViewAll service'
     
-   
+    try:
+        cursor = recoObj.getViewAllContent()
+        entity = [d for d in cursor]
+    except:
+        traceback.print_exc()
+        abort(404, 'Most viewed cannot be retrieved')    
+        
+    if not entity:
+        abort(404, 'No content found')       
+        
+    return MongoEncoder().encode(entity)
+
+
+
+
+
+
+
+
+
+
+
+
+
+@route('/addToCart', method='POST')
+def addToCart():
+    print "In Add to Cart "
+    entity = request.body.read()
+    payload = json.loads(entity)
+    print "PAYLOAD USER ---> ", payload
+    print "USERNAME ---> ", payload['username']
+    print "CONTENT ID--->", payload['contentId']
+    data = {"ContupdatentId": payload['contentId']}
+    status = storageobj.updateArray('user', 'username', payload['username'], data)
+    print "STATUS ---> ", status
+    return status
+
+#----------------------------------------------------------------------End --------------------------------------------------#
 
    
    

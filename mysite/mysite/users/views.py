@@ -8,6 +8,7 @@ from urllib2 import urlopen
 from httplib import HTTP
 
 
+
 ########## Clean code ####################################### 
 #index page 
 def index(request):
@@ -121,10 +122,10 @@ def logout(request):
 
 def courseContentSelection(request):
     print 'Django: In course content selection page'
-#     status = requests.get(url='http://127.0.0.1:8080/courseContentSelection')
-#     print status.json()
-#     data = status.json()
-    return render_to_response('courseContentSelection.html', context_instance=RequestContext(request))
+    #status = requests.get(url='http://127.0.0.1:8080/courseContentSelection')
+    #print status.json()
+    #data = status.json()
+    return render_to_response('courseContentSelection.html',context_instance=RequestContext(request))
 
 def edit_Profile(request):
     print 'Views: Edit profile'
@@ -174,9 +175,26 @@ def mostRated(request):
     print 'inside most Viewed'
     url = "http://127.0.0.1:8080/mostratedcontent"
     data = urlopen(url).read()
+    print data
     # do whatever you want
     return HttpResponse(data, mimetype="application/json")
 
+def viewAll(request):
+    print 'inside view All'
+    url = "http://127.0.0.1:8080/viewAll"
+    data = urlopen(url).read()
+    print data
+    # do whatever you want
+    return HttpResponse(data, mimetype="application/json")
+
+def addToCart(request):
+    print 'inside Add to cart'
+    id = request.GET.get('courseId','')
+    user = request.session['user']
+    payload = {"username": user['username'], "contentId":id}
+    print payload
+    status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
+    return render_to_response('courseContentSelection.html',context_instance=RequestContext(request))
 
 
 

@@ -22,8 +22,10 @@ urlpatterns = patterns('',
     (r'^course/$','mysite.users.views.addcourse'),
      (r'^register/$','mysite.users.views.createUser'),
      (r'^courseContentSelection/$','mysite.users.views.courseContentSelection'),
+     (r'^addToCart/$','mysite.users.views.addToCart'),
     (r'^dashboard/$','mysite.users.views.dashboard'), 
     (r'^professorDashboard/$','mysite.users.views.professorDashboard'), 
     (r'^mostViewed/$','mysite.users.views.mostViewed'),
-    (r'^mostRated/$','mysite.users.views.mostRated')  
+    (r'^mostRated/$','mysite.users.views.mostRated'),
+     (r'^viewAll/$','mysite.users.views.viewAll')  
 )
