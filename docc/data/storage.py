@@ -40,6 +40,15 @@ class Storage(object):
             traceback.print_exc() 
             return "Error: Data cannot be retrieved"
         
+    def getInArray(self, collection, fieldname, values ):
+        print 'In Storage.get method'
+        try:
+            return self.db[collection].find({fieldname:{'$in': values}})
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"
+    
+        
     def update(self, collection, fieldname, value, data):
         print 'In Storage.update method'
         try:
