@@ -153,13 +153,16 @@ def saveProfile():
 
 #===================================Recommendation service==============================================
 
-@route('/mostviewedcontent', method='GET')
+@route('/mostviewedcontent', method='PUT')
 def getMostViewed():
     print 'you are in getMostViewed service'
-    
+    entity = request.body.read()
+    data = json.loads(entity)
+    #print 'DATA - > ' + data['sub_category']
     try:
-        cursor = recoObj.getMostViewedContent()
+        cursor = recoObj.getMostViewedContent(data['sub_category'])
         entity = [d for d in cursor]
+        
     except:
         traceback.print_exc()
         abort(404, 'Most viewed cannot be retrieved')    
@@ -170,12 +173,13 @@ def getMostViewed():
     return MongoEncoder().encode(entity)
 
 
-@route('/mostratedcontent', method='GET')
+@route('/mostratedcontent', method='PUT')
 def getMostRated():
     print 'you are in getmostratedViewed service'
-    
+    entity = request.body.read()
+    data = json.loads(entity)
     try:
-        cursor = recoObj.getMostRatedContent()
+        cursor = recoObj.getMostRatedContent(data['sub_category'])
         entity = [d for d in cursor]
     except:
         traceback.print_exc()

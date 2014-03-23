@@ -167,16 +167,24 @@ def save_Profile(request):
 def mostViewed(request):
     print 'inside most Viewed'
     url = "http://127.0.0.1:8080/mostviewedcontent"
-    data = urlopen(url).read()
+    #data = urlopen(url).read()
+    payload = {'sub_category':"sub1"}
+    headers=''
+    headers = {'content-type': 'application/json'}
+    data=requests.put(url, data=json.dumps(payload), headers=headers)
+    print data;
     # do whatever you want
     return HttpResponse(data, mimetype="application/json")
 
 def mostRated(request):
-    print 'inside most Viewed'
+    print 'inside most Rated'
     url = "http://127.0.0.1:8080/mostratedcontent"
-    data = urlopen(url).read()
-    print data
-    # do whatever you want
+    #data = urlopen(url).read()
+    payload = {'sub_category':"sub1"}
+    headers=''
+    headers = {'content-type': 'application/json'}
+    data=requests.put(url, data=json.dumps(payload), headers=headers)
+    print data;
     return HttpResponse(data, mimetype="application/json")
 
 def viewAll(request):
