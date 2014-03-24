@@ -14,6 +14,7 @@ from httplib import HTTP
 def index(request):
     return render_to_response('index.html', context_instance=RequestContext(request))
 
+
 #creating a user : register
 def createUser(request):
    print 'in create user'
@@ -28,7 +29,7 @@ def createUser(request):
       fname = request.POST['fname']
       lname = request.POST['lname']
       encryptedpassword = base64.b64encode(password)
-      payload = {"username":username, 'password':encryptedpassword,"email":email,"fname":fname,"lname":lname}
+      payload = {"username":username, 'password':encryptedpassword,"email":email,"fname":fname,"lname":lname, "ContentId":[]}
       print payload
       status=requests.post(url='http://127.0.0.1:8080/register',data=json.dumps(payload), headers=headers)
       print status.status_code
@@ -45,8 +46,17 @@ def createUser(request):
 # Render dashboard page
 def dashboard(request):
     if request.session.get('isValid',True):
+        print "In Dashboard"
+        user = request.session['user']
+        print "User"
         print request.session['user']
-        return render_to_response('dashboard.html', {'user':request.session['user']}, context_instance=RequestContext(request))
+        payload = {"username":user['username']}
+        content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
+        print "Content"
+        print content.json()
+#         for i in content:
+#             print i
+        return render_to_response('dashboard.html', {'user':request.session['user'], 'content': content.json()}, context_instance=RequestContext(request))
     else:
         print 'Session invalid'
         return HttpResponseRedirect("http://www.google.com")
@@ -210,7 +220,7 @@ def addToCart(request):
     payload = {"username": user['username'], "contentId":id}
     print payload
     status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
-    return render_to_response('courseContentSelection.html',context_instance=RequestContext(request))
+    return HttpResponseRedirect("/courseContentSelection")
 
 
 

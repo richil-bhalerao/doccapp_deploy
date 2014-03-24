@@ -95,7 +95,7 @@ def signIn():
     else:
         print 'incorrect pwd'
         data = {}
-    return data
+    return MongoEncoder().encode(data)
 
 @route('/professorSignIn', method='PUT')
 def professorSignIn():
@@ -114,7 +114,7 @@ def professorSignIn():
     else:
         data = None
     
-    return data
+    return MongoEncoder().encode(data)
 
 ### RP: TO DO: Incomplete 
 @route('/courseContentSelection', method='GET')
@@ -123,7 +123,7 @@ def courseContentSelection():
     cursor = storageobj.getAll('content')
     entity = [d for d in cursor]
     print entity     
-    return  entity
+    return  MongoEncoder().encode(entity)
 
 @route('/getProfile', method='PUT')
 def get_user():
@@ -133,7 +133,7 @@ def get_user():
     username = json.loads(entity)
     entity = storageobj.get('user', 'username', username['username'])
     print 'ENTITY ---> ', entity
-    return entity
+    return MongoEncoder().encode(entity)
 
 
 @route('/saveProfile', method='POST')
@@ -145,7 +145,7 @@ def saveProfile():
     print "USERNAME ---> ", user['username']
     status = storageobj.updateArray('user', 'username', user['username'], user)
     print "STATUS ---> ", status
-    return status
+    return MongoEncoder().encode(status)
 
 
 ###########################################################################
@@ -250,30 +250,33 @@ def getViewAll():
         
     return MongoEncoder().encode(entity)
 
-
-
-
-
-
-
-
-
-
-
-
-
 @route('/addToCart', method='POST')
 def addToCart():
-    print "In Add to Cart "
+    print "In Add to Cart"
     entity = request.body.read()
     payload = json.loads(entity)
     print "PAYLOAD USER ---> ", payload
     print "USERNAME ---> ", payload['username']
     print "CONTENT ID--->", payload['contentId']
-    data = {"ContupdatentId": payload['contentId']}
+    data = {"ContentId": ObjectId(payload['contentId'])}
     status = storageobj.updateArray('user', 'username', payload['username'], data)
     print "STATUS ---> ", status
     return status
+
+@route('/getUserContent', method='GET')
+def get_user_Content():
+    print 'You are in get user content'
+    username = ''
+    entity = request.body.read()
+    username = json.loads(entity)
+    user = storageobj.get('user', 'username', username['username'])
+    print 'USER ---> ', user
+    print user['ContentId']
+    content = storageobj.getInArray('content', '_id', user['ContentId'])
+    print content
+    contents = [c for c in content]
+    print contents
+    return MongoEncoder().encode(contents)
 
 #----------------------------------------------------------------------End --------------------------------------------------#
 
