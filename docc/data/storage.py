@@ -41,9 +41,10 @@ class Storage(object):
             return "Error: Data cannot be retrieved"
         
     def getInArray(self, collection, fieldname, values ):
-        print 'In Storage.get method'
+        print 'In Storage.getInArray method'
         try:
             return self.db[collection].find({fieldname:{'$in': values}})
+        # Add a sort as per sub category in the above line
         except:
             traceback.print_exc() 
             return "Error: Data cannot be retrieved"
@@ -58,10 +59,11 @@ class Storage(object):
             return "Error: Data cannot be updated"  
         
     def updateArray(self, collection, fieldname, value, data):
-        print 'In Storage.update method'
+        print 'In Storage.update Array method'
+        print data
         try:
-            status = self.db[collection].update({fieldname:value},{'$addToSet': data});
-            print status
+           status = self.db[collection].update({fieldname:value},{'$addToSet': data});
+           print status
         except:
             traceback.print_exc() 
             return "Error: Data cannot be updated"   

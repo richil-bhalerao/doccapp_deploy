@@ -49,7 +49,7 @@ $(function() {
                 href="##">Login</a>-->
 
                 <ul class="nav navbar-right navbar-nav">
-                <li class="inactive"> <a href="#">Dashboard</a></li>
+                <li class="inactive"> <a href="http://127.0.0.1:8000/dashboard">Dashboard</a></li>
                   <li class="inactive"> <a href="#">Course</a></li>
                    <li class="active"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
                
@@ -152,13 +152,58 @@ $(function() {
 		  	
 
 		  	<div class="tab-pane active" id="wesuggest">
-		  		
+		  		{% load docc_tag %}
 		  		{% for i in data%}
-		  		{{i.Name}}<br>
-		  		{%endfor%}
 		  		
-				<p>we suggest</p>
-
+		  		
+		  		
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="http://news.sudanvisiondaily.com/images/pdf-icon.png" alt="...">
+                            <div class="caption">
+                                <center>
+                                    <h3>{{i.Name}}</h3>
+                                    <h4>professor: {{i.prof_username}}</h4>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#{{i | mongo_id}}">View</button>
+                                </center>
+                            </div>
+                            </div>
+                </div>
+                
+                
+                <div class="modal fade" id="{{i | mongo_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel"> <center> {{i.Name}} </center></h4>
+                                
+                            </div>
+                            <div class="modal-body">
+                                <h4> Course Name: {{i.Name}} </h4>
+                                <h4> professor: {{i.prof_username}} </h4> <a> View Profile</a>
+                                <p>  Course Description: {{i.Description}}<p>
+                                <p>  Type: {{i.Type}} </p>
+                                <p> Id: {{i | mongo_id}}</p>
+                                <p>  Sub Category: {{i.sub_category}}</p>
+                                
+                                
+                            </div>
+                            <script>
+                                function added_to_cart()
+                                {
+                                    alert("Course added to your cart!");
+                                }
+                            </script>
+                            <div class="modal-footer">
+                                <form id="addToCart" method="GET" action="http://127.0.0.1:8000/addToCart/">
+                                    <button type="submit" class="btn btn-primary" name="courseId" id="courseId" value="{{i | mongo_id}}" >Add to your cart - {{i | mongo_id}} </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{%endfor%}
 			</div>
 		</div>
     </div>
