@@ -60,7 +60,8 @@ class Storage(object):
     def updateArray(self, collection, fieldname, value, data):
         print 'In Storage.update method'
         try:
-            self.db[collection].update({fieldname:value},{'$addToSet': data});
+            status = self.db[collection].update({fieldname:value},{'$addToSet': data});
+            print status
         except:
             traceback.print_exc() 
             return "Error: Data cannot be updated"   

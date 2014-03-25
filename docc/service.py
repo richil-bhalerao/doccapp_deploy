@@ -143,7 +143,7 @@ def saveProfile():
     user = json.loads(entity)
     print "PAYLOAD USER ---> ", user
     print "USERNAME ---> ", user['username']
-    status = storageobj.updateArray('user', 'username', user['username'], user)
+    status = storageobj.update('user', 'username', user['username'], user)
     print "STATUS ---> ", status
     return status
 
@@ -270,7 +270,7 @@ def addToCart():
     print "PAYLOAD USER ---> ", payload
     print "USERNAME ---> ", payload['username']
     print "CONTENT ID--->", payload['contentId']
-    data = {"ContupdatentId": payload['contentId']}
+    data = {"ContentId": payload['contentId']}
     status = storageobj.updateArray('user', 'username', payload['username'], data)
     print "STATUS ---> ", status
     return status

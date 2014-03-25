@@ -212,7 +212,14 @@ def addToCart(request):
     status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
     return render_to_response('courseContentSelection.html',context_instance=RequestContext(request))
 
+def uploadFile(request):
+    
+    return HttpResponseRedirect("/uploadContent")
 
+
+def upload(request):
+    
+    return render_to_response('uploadContent.html', context_instance=RequestContext(request))
 
 
 

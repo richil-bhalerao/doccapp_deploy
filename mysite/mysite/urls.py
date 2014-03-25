@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     (r'^professorDashboard/$','mysite.users.views.professorDashboard'), 
     (r'^mostViewed/$','mysite.users.views.mostViewed'),
     (r'^mostRated/$','mysite.users.views.mostRated'),
-     (r'^viewAll/$','mysite.users.views.viewAll')  
+     (r'^viewAll/$','mysite.users.views.viewAll'),  
+     (r'^upload/$','mysite.users.views.uploadFile'),
+     (r'^uploadContent/$','mysite.users.views.upload')    
 
 )

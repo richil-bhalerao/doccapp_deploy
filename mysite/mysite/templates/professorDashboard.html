@@ -12,6 +12,8 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
+        rel="stylesheet" type="text/css">
   </head>
   
   <body class="">
@@ -72,29 +74,93 @@
 <br>
 
 
-
-  <div class = "container">
-    <h3><small class="text-primary"><b>Welcome {{user.fname}}!</b></small></h3>
-    <div class="well well-sm">
-        <h1 class="text-primary"><center>Dashboard </center></h1>
-    </div> 
-
-    <div class="col col-md-4">
-      <div class="list-group">
-        <a href="#" class="list-group-item active">
-          <strong>Professor profile</strong>
-        </a>
-        <a href="#" class="list-group-item">Email: {{user.email}}</a>
-        <a href="#" class="list-group-item">First Name: {{user.fname}}</a>
-        <a href="#" class="list-group-item">Last Name: {{user.lname}}</a>
-      </div>
+<div class = "container">
+    <div class="row">
+        <div class="span3">
+        <div class="col-sm-4 col-md-3 user-details">
+            <div class="user-image">
+                <img src="http://profile.ak.fbcdn.net/hprofile-ak-ash2/1116609_623079471_199585914_q.jpg" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle">
+            </div>
+            <div class="user-info-block">
+                <div class="user-heading">
+                    <h4>{{user.fname}} {{user.lname}}</h4>
+                    <span class="help-block">{{user.email}}</span>
+                </div>
+                <ul class="navigation">
+                    <li class="active">
+                        <a data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Account Information" href="#information">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Settings" href="#settings">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Events" href="#events">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tooltip" data-placement="top" title="Upload Contents" href="http://127.0.0.1:8000/uploadContent">
+                            <span class="glyphicon glyphicon-upload"></span>
+						</a>
+                    </li>
+                </ul>
+                <script>
+				      $('a').tooltip({
+				     'delay': { show: 1, hide: 0  }
+				});
+                </script>
+                <div class="user-body">
+                    <div class="tab-content">
+                        <div id="information" class="tab-pane active">
+                        	<h4>Account Information</h4>
+                            <ul class="list-group">
+							  <li class="list-group-item">Name: {{user.fname}} {{user.lname}} </li>
+							  <li class="list-group-item"> School: {{user.organization}}</li>
+							  
+							</ul>
+                        </div>
+                        <br>
+                        <br>
+                        <div id="settings" class="tab-pane">
+                            <h4>Settings</h4>
+                            <a> Update your settings</a>
+                        </div>
+                    
+                        <div id="events" class="tab-pane">
+                            <h4>Events</h4>
+                            <ul class="list-group">
+							  <li class="list-group-item">1. <a> Online Study Group - Mon, 03/23/2014</a> </li>
+							 </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="span9">
+            <div class="col-md-9">
+                <div class="well">
+                    <h2 class="text-primary"><center> Dashboard</center></h2>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
     </div>
 
-    <div class=""
-
-  </div
-
-    <br>
     <br>
 
                 <script>
