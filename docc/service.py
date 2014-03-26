@@ -263,6 +263,17 @@ def addToCart():
     print "STATUS ---> ", status
     return status
 
+@route('/uploadContent', method='POST')
+def uploadContent():
+    print "In Upload Content"
+    entity = request.body.read()
+    payload = json.loads(entity)
+    print "PAYLOAD USER ---> ", payload
+    status = storageobj.add('content', payload)
+    print "----"
+    print status
+    return str(ObjectId(status))
+    
 @route('/getUserContent', method='GET')
 def get_user_Content():
     print 'You are in get user content'

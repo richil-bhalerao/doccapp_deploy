@@ -222,13 +222,26 @@ def addToCart(request):
     status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
     return HttpResponseRedirect("/courseContentSelection")
 
-def uploadFile(request):
-    
-    return HttpResponseRedirect("/uploadContent")
+
 
 
 def upload(request):
-    
+    print request.session['user']
+    if request.POST:
+            print 'VIEWS: In upload'
+            payload=''
+            headers=''
+            headers = {'content-type': 'application/json'}
+            contentName = request.POST['name']
+            subCategory = request.POST['sub_category']
+            description = request.POST['description']
+            user = request.session['user']
+            username = user['username']
+            payload = {'Name':contentName, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":""}
+            print payload
+            status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
+            print status.status_code
+            return HttpResponseRedirect("/professorDashboard")
     return render_to_response('uploadContent.html', context_instance=RequestContext(request))
 
 

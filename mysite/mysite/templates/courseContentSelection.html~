@@ -1,0 +1,205 @@
+<html style="-moz-user-select: none;" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+
+<meta charset="utf-8"><title>User Page</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content=""><meta name="author" content="">
+
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+
+<script>
+$(function() {
+	$( "#accordion" ).accordion();
+});
+</script>
+
+</head>
+
+<body class="">
+  <div class="navbar navbar-inverse navbar-static-top">
+    <style>
+      .body{padding-top:70px}
+    </style>
+   <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-left navbar-nav">
+                
+                  <li class="inactive"> <a href="#">About</a>
+
+                  </li>
+                  <li class="inactive"> <a href="#">Contact Us</a>
+
+                  </li>
+                </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
+                href="##">Login</a>-->
+
+                <ul class="nav navbar-right navbar-nav">
+                <li class="inactive"> <a href="#">Dashboard</a></li>
+                  <li class="inactive"> <a href="#">Course</a></li>
+                   <li class="active"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
+               
+                  <li class="inactive"> <a href="#">Help</a></li>
+                  <li class="inactive"> 
+                    <div class="btn-group btn-lg navbar-right">
+                      <button type="button" class="btn btn-primary">My Profile</button>
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Edit Profile</a></li>
+                        <li><a href="#">Course settings</a></li>
+                        <li class="divider"></li>
+                        <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
+                      </ul>
+                  </div>
+                  </li>
+                </ul>
+              
+
+              
+                
+              </div>
+
+      </div>
+  </div>
+  
+  <div class="container">
+  	<div class="row">
+  	<div class="well well-sm">
+        <h1 class="text-primary"><center>Select your content!</center></h1>
+    </div>
+    </div>
+  	
+	 <div  class="row">  
+	 <div class="col-md-3">
+	     accordion - List of course categories here 
+	</div>
+      
+      <div class="col col-md-9">
+        <ul class="nav nav-tabs" id="myTab">
+		  <li class="active" id="tb_viewall"><a href="#viewall" data-toggle="tab">View All</a></li>
+		  <li id="tb_mostviewed"><a href="#mostviewed" data-toggle="tab">Most Viewed</a></li>
+		  <li id="tb_mostrated"><a href="#mostrated" data-toggle="tab">Best Rated</a></li>
+		  <li id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
+		</ul>
+        <br/>
+        <div class="tab-content">
+        
+		  	<div class="tab-pane active" id="viewall"> 
+				<p> viewall </p>
+			</div>
+	  		
+	  		<div class="tab-pane" id="mostviewed">
+	  			<p> most viewed </p>
+			</div>
+		  	
+		  	<div class="tab-pane" id="mostrated">
+				<p> most rated</p>
+			</div>
+		  	
+		  	<div class="tab-pane" id="wesuggest">
+				<p>we suggest</p>
+			</div>
+		</div>
+    </div>
+  </div>
+  
+  <ul class="pager">
+  	<li><a href="#">Previous</a></li>
+  	<li><a href="#">Next</a></li>
+	</ul>
+	
+ </div> 
+  
+ <!-- Start templates -->
+<script id="recordTemplate" type="tuts/template">
+ <div class="panel-group" id="accordion">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{index}">
+          Content Name: {content_name}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{index}" class="panel-collapse collapse">
+      <div class="panel-body">
+        Provided by: {professor_name}
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+ <!-- End of templates -->
+  
+ <!--  Start Ajax calls -->
+	<script>
+	(function() {
+		$('#tb_mostviewed').on('click', function(e){
+			
+			$.getJSON('/mostViewed/', function( data ) {
+				
+				frag='';
+				$.each( data, function( index, line ) {
+					if (index==5)
+						return false;
+					var template = $.trim( $('#recordTemplate').html());
+					
+					frag += template.replace( /{content_name}/ig, line.Name)
+					        		.replace( /{professor_name}/ig, line.prof_username)
+					        		.replace( /{index}/ig, index)
+					
+				});	
+				console.log(frag);
+				$('#mostviewed').html(frag);
+					
+				
+			});
+			
+		});
+		
+		$('#tb_mostrated').on('click', function(e){
+			
+			$.getJSON('/mostRated/', function( data ) {
+				
+				frag='';
+				$.each( data, function( index, line ) {
+					if (index==5)
+						return false;
+					var template = $.trim( $('#recordTemplate').html());
+					
+					frag += template.replace( /{content_name}/ig, line.Name)
+					        		.replace( /{professor_name}/ig, line.prof_username)
+					        		.replace( /{index}/ig, index)
+					
+					
+				});
+				console.log(frag);
+				$('#mostrated').html(frag);
+			});
+			
+		});
+		
+	})();
+	
+	 
+ 
+	</script>
+</body>

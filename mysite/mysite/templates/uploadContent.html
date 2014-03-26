@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html style="" class="" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>DOCC Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+    rel="stylesheet" type="text/css">
+    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/uploadContent.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+  </head>
+  
+  <body class="">
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="navbar navbar-inverse navbar-fixed-top">
+            <style>
+              .body{padding-top:70px}
+            </style>
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-left navbar-nav">
+                
+                  <li class="inactive"> <a href="#">About</a>
+
+                  </li>
+                  <li class="inactive"> <a href="#">Contact Us</a>
+
+                  </li>
+                </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
+                href="##">Login</a>-->
+
+                <ul class="nav navbar-right navbar-nav">
+                <li class="active"> <a href="#">Dashboard</a></li>
+                   <li class="inactive"> <a href="http://127.0.0.1:8000/upload/">Upload Content</a></li>
+                 
+                  <li class="inactive"> <a href="#">Help</a></li>
+                  <li>
+                  	<div class="btn-group btn-lg navbar-right">
+                  <button type="button" class="btn btn">My Profile</button>
+                  <button type="button" class="btn btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="http://127.0.0.1:8000/editProfile">Edit Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
+                  </ul>
+                </div>
+                  </li>
+                </ul>
+
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+      <h3>
+        <small class="text-primary"><b>Welcome {{user.fname}}!</b>
+
+        </small>
+      </h3>
+      <div class="well well-sm">
+        <h2 class="text-primary">
+          <center>Upload Content To DOCC
+            <br>
+          </center>
+        </h2>
+      </div>
+      <div class="col col-md-4">
+        <div class="list-group"></div>
+      </div>
+      <div class="" <="" div="" <br="">
+        <br>
+        <script>
+          $('#logout').on('click',function(){
+
+                      window.location.href = 'http://127.0.0.1:8000/logout/'  
+                    });
+                  });
+        </script>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-1"></div>
+        <div class="col col-md-4">
+          	<div class="container">
+    <div class="row">
+		
+		<form role="form" class="col-md-5 go-right" method='POST' action="http://127.0.0.1:8000/upload/">
+		{% csrf_token %}
+		<h3 class="text-primary">Details About Content</h3>
+        <div class="form-group">
+			<input id="name" name="name" type="text" class="form-control" required>
+			<label for="name">Content Name</label>
+		</div>
+		<div class="form-group">
+			<input id="sub_category" name="sub_category" type="text" class="form-control" required>
+			<label for="sub_category">Sub Category</label>
+		</div>
+		<div class="form-group">
+			<textarea id="description" name="description" class="form-control" required></textarea>
+			<label for="description">Description</label>
+		</div>
+		<div class="form-group">
+			<input type='file' name='fileUpload' required/>
+		</div>
+		<div class="form-group">
+			<button type="submit" id="uploadContent" class="btn btn-success">
+  				<span class="glyphicon glyphicon-upload"></span>Upload
+			</button>
+							
+		</div>	
+		
+		</form>
+		
+   </div>
+   </div>
+</div>
+                   
+          
+
+        </div>
+        
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </body>
+
+</html>

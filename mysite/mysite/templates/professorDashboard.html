@@ -20,7 +20,7 @@
     <div class="container">
       <div class="row">
         <div class="col col-md-6">
-          <div class="navbar navbar-default navbar-fixed-top">
+          <div class="navbar navbar-inverse navbar-fixed-top">
             <style>
               .body{padding-top:70px}
             </style>
@@ -35,31 +35,38 @@
               </div>
               <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-left navbar-nav">
-                  <li class="active"> <a href="#">About</a>
+                
+                  <li class="inactive"> <a href="#">About</a>
 
                   </li>
-                  <li class="active"> <a href="#">Contact Us</a>
+                  <li class="inactive"> <a href="#">Contact Us</a>
 
                   </li>
                 </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
                 href="##">Login</a>-->
 
                 <ul class="nav navbar-right navbar-nav">
-                  <li class="inactive"> <a href="#">Course</a></li>
+                <li class="active"> <a href="#">Dashboard</a></li>
+                   <li class="inactive"> <a href="http://127.0.0.1:8000/upload">Upload Content</a></li>
+                 
                   <li class="inactive"> <a href="#">Help</a></li>
-                </ul>
-                <div class="btn-group btn-lg navbar-right">
-                  <button type="button" class="btn btn-primary">My Profile</button>
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  <li>
+                  	<div class="btn-group btn-lg navbar-right">
+                  <button type="button" class="btn btn">My Profile</button>
+                  <button type="button" class="btn btn dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Edit Profile</a></li>
+                    <li><a href="http://127.0.0.1:8000/editProfile">Edit Profile</a></li>
                     <li class="divider"></li>
                     <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
                   </ul>
                 </div>
+                  </li>
+                </ul>
+
+                
                 
               </div>
             </div>
@@ -103,7 +110,7 @@
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tooltip" data-placement="top" title="Upload Contents" href="http://127.0.0.1:8000/uploadContent">
+                        <a data-toggle="tooltip" data-placement="top" title="Upload Contents" href="http://127.0.0.1:8000/upload">
                             <span class="glyphicon glyphicon-upload"></span>
 						</a>
                     </li>
