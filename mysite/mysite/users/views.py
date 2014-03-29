@@ -14,6 +14,8 @@ from httplib import HTTP
 def index(request):
     return render_to_response('index.html', context_instance=RequestContext(request))
 
+def nav(request):
+    return render_to_response('nav.html', context_instance=RequestContext(request))
 
 #creating a user : register
 def createUser(request):
