@@ -2,18 +2,8 @@
 <html style="" class="" xmlns="http://www.w3.org/1999/xhtml" lang="en">
   
   <head>
-    <meta charset="utf-8">
-    <title>DOCC Home Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
-    rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
-    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
-        rel="stylesheet" type="text/css">
+
+
   </head>
   
   <body class="">
@@ -36,25 +26,20 @@
               <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-left navbar-nav">
                 
-                  <li class="inactive"> <a href="#">About</a>
-
-                  </li>
-                  <li class="inactive"> <a href="#">Contact Us</a>
-
-                  </li>
-                </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
-                href="##">Login</a>-->
+                  <li id="aboutUs"> <a href="http://127.0.0.1:8000/aboutUs">About</a></li>
+                  <li id="contactUs"> <a href="http://127.0.0.1:8000/contactUs">Contact Us</a></li>
+                </ul> 
 
                 <ul class="nav navbar-right navbar-nav">
-                <li class="inactive"> <a href="#">Dashboard</a></li>
-                  <li class="inactive"> <a href="#">Course</a></li>
-                   <li class="inactive"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
+                <li id="dashboard"> <a href="http://127.0.0.1:8000/dashboard">Dashboard</a></li>
+                  <li id="course" > <a href="http://127.0.0.1:8000/viewCourse">Course</a></li>
+                   <li id="courseContentSelection"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
                  
-                  <li class="inactive"> <a href="#">Help</a></li>
+                  <li id="help"> <a href="http://127.0.0.1:8000/help">Help</a></li>
                   <li>
                   	<div class="btn-group btn-lg navbar-right">
-                  <button type="button" class="btn btn">My Profile</button>
-                  <button type="button" class="btn btn dropdown-toggle" data-toggle="dropdown">
+                  
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">My profile
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
@@ -67,9 +52,6 @@
                 </div>
                   </li>
                 </ul>
-
-                
-                
               </div>
             </div>
           </div>

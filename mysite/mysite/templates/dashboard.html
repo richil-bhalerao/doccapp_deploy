@@ -14,23 +14,28 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
     <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
         rel="stylesheet" type="text/css">
-        <script>
-        $(function() {
-$("#navigation").load("nav"); 
-}); 
-</script>
+      
+        
+       
   </head>
   
   <body class="">
-    <div class="container" id="navigation">
-      
-    </div>
+      <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
+    <script>
+          $(function() {
+            $("#navigation").load("http://127.0.0.1:8000/nav");
+            $("#dashboard").addClass('active');
+            }); 
+    </script>
+   <div id="navigation">
+   </div>
 
 <br>
 <br>
 <br>
 <br>
 
+<!-- Copy till here for navigation bar-->
 
 
   <div class = "container">

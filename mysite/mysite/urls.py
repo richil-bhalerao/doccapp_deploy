@@ -28,8 +28,6 @@ urlpatterns = patterns('',
     (r'^mostViewed/$','mysite.users.views.mostViewed'),
     (r'^mostRated/$','mysite.users.views.mostRated'),
      (r'^viewAll/$','mysite.users.views.viewAll'),  
-     (r'^upload/$','mysite.users.views.upload')  
-     (r'^/(*)/nav/$','mysite.users.views.nav')  
-
-
+     (r'^upload/$','mysite.users.views.upload'),
+     (r'^nav/$','mysite.users.views.nav'), 
 )

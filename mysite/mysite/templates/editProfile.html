@@ -15,77 +15,22 @@
   </head>
   
   <body class="">
-    <div class="container">
-      <div class="row">
-        <div class="col col-md-6">
-          <div class="navbar navbar-default navbar-fixed-top">
-            <style>
-              .body{padding-top:70px}
-            </style>
-            <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-left navbar-nav">
-                  <li class="inactive"> <a href="#">About</a>
+      <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
+    <script>
+          $(function() {
+            $("#navigation").load("http://127.0.0.1:8000/nav");
+            $("#dashboard").addClass('active');
+            }); 
+    </script>
+   <div id="navigation">
+   </div>
 
-                  </li>
-                  <li class="inactive"> <a href="#">Contact Us</a>
+<br>
+<br>
+<br>
+<br>
 
-                  </li>
-                </ul>
-                <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
-                href="##">Login</a>-->
-                <ul class="nav navbar-right navbar-nav">
-                  <li class="active"> <a href="#">Dashboard</a>
-
-                  </li>
-                  <li class="inactive"> <a href="#">Course</a>
-
-                  </li>
-                  <li class="inactive"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a>
-
-                  </li>
-                  <li class="inactive"> <a href="#">Help</a>
-
-                  </li>
-                </ul>
-                <div class="btn-group btn-lg navbar-right">
-                  <button type="button" class="btn btn-primary">My Profile</button>
-                  <button type="button" class="btn btn-primary dropdown-toggle"
-                  data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Edit Profile</a>
-
-                    </li>
-                    <li><a href="#">Course settings</a>
-
-                    </li>
-                    <li class="divider"></li>
-                    <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a>
-
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
+<!-- Copy till here for navigation bar-->
     <div class="container">
       <h3>
         <small class="text-primary"><b>Welcome {{user.fname}}!</b>
@@ -176,7 +121,7 @@
               <label>Country</label>
               <select name="country" class="form-control">
                 <option value="AF">Afghanistan</option>
-                <option value="AX">��land Islands</option>
+                <option value="AX">������land Islands</option>
                 <option value="AL">Albania</option>
                 <option value="DZ">Algeria</option>
                 <option value="AS">American Samoa</option>
@@ -229,10 +174,10 @@
                 <option value="CD">Congo, the Democratic Republic of the</option>
                 <option value="CK">Cook Islands</option>
                 <option value="CR">Costa Rica</option>
-                <option value="CI">C��te d'Ivoire</option>
+                <option value="CI">C������te d'Ivoire</option>
                 <option value="HR">Croatia</option>
                 <option value="CU">Cuba</option>
-                <option value="CW">Cura��ao</option>
+                <option value="CW">Cura������ao</option>
                 <option value="CY">Cyprus</option>
                 <option value="CZ">Czech Republic</option>
                 <option value="DK">Denmark</option>
@@ -355,11 +300,11 @@
                 <option value="PT">Portugal</option>
                 <option value="PR">Puerto Rico</option>
                 <option value="QA">Qatar</option>
-                <option value="RE">R��union</option>
+                <option value="RE">R������union</option>
                 <option value="RO">Romania</option>
                 <option value="RU">Russian Federation</option>
                 <option value="RW">Rwanda</option>
-                <option value="BL">Saint Barth��lemy</option>
+                <option value="BL">Saint Barth������lemy</option>
                 <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
                 <option value="KN">Saint Kitts and Nevis</option>
                 <option value="LC">Saint Lucia</option>

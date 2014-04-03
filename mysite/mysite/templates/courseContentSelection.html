@@ -19,65 +19,31 @@ $(function() {
 	$( "#accordion" ).accordion();
 });
 </script>
+<script>
+    $(function() {
+      $("#navigation").load("http://127.0.0.1:8000/nav");
+      });
+    </script>
 
 </head>
 
 <body class="">
-  <div class="navbar navbar-inverse navbar-static-top">
-    <style>
-      .body{padding-top:70px}
-    </style>
-   <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-left navbar-nav">
-                
-                  <li class="inactive"> <a href="#">About</a>
-
-                  </li>
-                  <li class="inactive"> <a href="#">Contact Us</a>
-
-                  </li>
-                </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
-                href="##">Login</a>-->
-
-                <ul class="nav navbar-right navbar-nav">
-                <li class="inactive"> <a href="http://127.0.0.1:8000/dashboard">Dashboard</a></li>
-                  <li class="inactive"> <a href="#">Course</a></li>
-                   <li class="active"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
-               
-                  <li class="inactive"> <a href="#">Help</a></li>
-                  <li class="inactive"> 
-                    <div class="btn-group btn-lg navbar-right">
-                      <button type="button" class="btn btn-primary">My Profile</button>
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Edit Profile</a></li>
-                        <li><a href="#">Course settings</a></li>
-                        <li class="divider"></li>
-                        <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
-                      </ul>
-                  </div>
-                  </li>
-                </ul>
-              
-
-              
-                
-              </div>
-
-      </div>
-  </div>
+    <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
+    <script>
+        $(function() {
+          $("#navigation").load("http://127.0.0.1:8000/nav");
+          $("#dashboard").addClass('active');
+          });
+        </script>
+    <div id="navigation">
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!-- Copy till here for navigation bar-->
   
   <div class="container">
   	<div class="row">
