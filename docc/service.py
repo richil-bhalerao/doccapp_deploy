@@ -6,7 +6,7 @@ Last updated on 03/02/2014
 import time
 import sys
 import socket
-
+import gridfs
 # bottle framework
 from bottle import request, response, route, run, template, abort
 
@@ -69,10 +69,11 @@ def create_user():
     user=''
     entity = request.body.read()
     user = json.loads(entity)
-    print user
-    print '----'
-    status = storageobj.add('user', user)
-    print "----"
+    if user['usertype'] == 'Professor':
+        status = storageobj.add('professor', user['dbpayload'])
+    else:
+        status = storageobj.add('user', user['dbpayload'])
+    
     print status
     return str(ObjectId(status))
 
