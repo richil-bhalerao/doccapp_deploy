@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html style="" class="" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>DOCC Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+    rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+  </head>
+  
+  <body class="">
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="navbar navbar-inverse navbar-fixed-top">
+            <style>
+              .body{padding-top:40px}
+            </style>
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-left navbar-nav">
+                  <li class="inactive"> <a href="#">About</a>
+
+                  </li>
+                  <li class="inactive"> <a href="#">Contact Us</a>
+
+                  </li>
+                </ul><a type="button" id="signin" class="btn btn-default navbar-btn navbar-right"
+                href="#">Login</a>
+                <script>
+                  $('#signin').on('click',function(){
+                      bootbox.dialog({
+                            message: "<form id='SignIn' method='POST' action='http://127.0.0.1:8000/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
+                           
+                            title: "Sign In",
+                            buttons: {
+                              main: {
+                                    label: "Submit",
+                                    className: "btn-primary",
+                                    callback: function() {
+                                      $('#SignIn').submit();
+                                    }
+                              }
+                            }
+                      });
+                  });
+                </script>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+      
+      <div class="well well-sm">
+        <h1 class="text-primary">
+          <center>Register to DOCC
+            <br>
+          </center>
+        </h1>
+      </div>
+      <div class="col col-md-4">
+        <div class="list-group"></div>
+      </div>
+      <div class="" <="" div="" <br="">
+        <br>
+        <script>
+          $('#logout').on('click',function(){
+
+                      window.location.href = 'http://127.0.0.1:8000/logout/'  
+                    });
+                  });
+        </script>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-1"></div>
+         
+        <div class="col col-md-4">
+        <div class="well well-lg">
+        <legend class="the-legend"> <span class="glyphicon glyphicon-user"> </span> &nbsp; User Details </legend>
+          <form class="" role="form" action="http://127.0.0.1:8000/register/" method="post">{% csrf_token %}
+          	
+          	<div class="form-group">
+          		<label>Username</label><br>
+          		<input class="form-control" type='text' name='username' required></input>
+          	</div>
+            <br>
+            <div class="form-group">
+          		<label>First Name</label><br>
+          		<input class="form-control" type='text' name='firstname' required></input>
+          	</div>
+          	<br>
+            <div class="form-group">
+          		<label>Last Name</label><br>
+          		<input class="form-control" type='text' name='lastname' required></input>
+          	</div>
+          	<br>
+            <div class="form-group">
+          		<label>Email</label><br>
+          		<input class="form-control" type='text' name='email' required></input>
+          		
+          	</div>
+          	<br>
+          	<div class="form-group">
+          		<label>Create Password</label><br>
+          		<input class="form-control" type='password' name='password' required></input>
+          	</div>
+          	<br>
+          	<div>
+              <label>Interests</label>
+              <br>
+              <select multiple="multiple" name="interest[]" size=3" class="form-control" required>
+                <option value="Database Models">Database Models</option>
+                <option value="Database Optimization">Database Optimization</option>
+                <option value="Query Optimization">Query Optimization</option>
+                <option value="Query Language">Query Language</option>
+                <option value="Replication">Replication</option>
+                <option value="Database Building">Database Building</option>
+                <option value="o7">Database Maintenance</option>
+                <option value="o8">Database Tuning</option>
+                <option value="o9">Backup and Restore</option>
+                <option value="o10">No-SQL concepts</option>
+              </select>
+            </div>  
+             <br>
+            
+            </div>
+        </div>
+        <div class="col col-md-2">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+   
+        </div>
+        <div class="col col-md-4">
+        <div class="well well-lg">
+        <legend class="the-legend"> <span class="glyphicon glyphicon-pencil"> </span> &nbsp; Profile Details </legend>
+        	<div class="form-group">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          		<input type="radio" name="userType" value="Student" required>&nbsp;Student&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="userType" value="Professor" required>&nbsp;Professor
+          	</div>
+        	<br>
+        	<div class="form-group">
+              <label>Company/School</label>
+              <input class="form-control" type="text" name="organization" required>
+            </div>
+           <br>
+        	<div class="form-group">
+              <label>Education</label> 
+              <select id="edu" name="education" class="form-control" required> 
+                <option value="Mid School">Mid School</option>
+                <option value="High School">High School</option>
+                <option value="Undergraduate">Undergraduate</option>
+                <option value="Graduate">Graduate</option>
+              </select>
+          
+            </div>
+            <br>
+            <div class="form-group">
+              <label>Proficiency</label> 
+              <select id="pro" name="current_proficiency" class="form-control" required> 
+                <option value="amature">Amature</option>
+                <option value="rookie">Rookie</option>
+                <option value="expert">Expert</option>
+              </select>
+          
+            </div>
+            <br>
+            
+            <div class="form-group">
+              <label>Interest Level</label> 
+              <select id="pro" name="interest_level" class="form-control" required> 
+                <option value="low">low</option>
+                <option value="moderate">moderate</option>
+                <option value="high">high</option>
+              </select>
+          
+            </div>
+            <br>
+            <div class="form-group">
+              <label>Current Status</label> 
+              <select id="pro" name="current_status" class="form-control" required> 
+                <option value="student">Student</option>
+                <option value="professional">Professional</option>
+              </select>
+          
+            </div>
+            	<br>
+          	<div class="form-group">
+              <label>Programming Languages</label> 
+              <select id="pro" multiple="multiple" size="3" name="programming_languages" class="form-control" required> 
+                <option value="php">PHP</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="ruby">Ruby</option>
+              </select>
+          
+            </div>     
+          
+        </div>
+        </div>
+        <div class="col col-md-2"></div>
+      </div>
+      <div class="row">
+              <center> <button type="submit" class="btn btn-primary">Save</button> 
+            <a class="btn btn-default">cancel</a> <center>
+      </div>
+       </form>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </body>
+
+</html>
