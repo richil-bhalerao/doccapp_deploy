@@ -86,9 +86,9 @@ class RecoEngine(object):
         except:
             traceback.print_exc()
             
-    def getViewAllContent(self):
+    def getViewAllContent(self, sub_category):
         
         try:
-            return self.db['content'].find()
+            return self.db['content'].find({'sub_category': sub_category})
         except:
             traceback.print_exc()

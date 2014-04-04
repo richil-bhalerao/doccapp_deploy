@@ -6,6 +6,9 @@ from django.http import *
 import urllib2, urllib
 from urllib2 import urlopen
 from httplib import HTTP
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
 
 
 
@@ -93,6 +96,7 @@ def login_view(request):
         return render_to_response('loginfailed.html', context_instance=RequestContext(request))
     else:
         request.session['user'] = jsonData
+        request.session['subcat'] = "1.1"
         request.session['isValid'] = True
         print 'session --> ', request.session['user']
         return HttpResponseRedirect("/dashboard")
@@ -128,6 +132,7 @@ def logout(request):
     try:
         print 'Views: Logout'
         del request.session['user']
+        del request.session['subcat']
         request.session['isValid']=False
     except KeyError:
         pass
@@ -139,13 +144,23 @@ def courseContentSelection(request):
 #     print status.json()
     print 'inside We Suggest'
     user = request.session['user']
-    payload = {"username":user['username']}
+    
+    subcat = request.session['subcat']
+    if(subcat==None):
+        subcat="1.1"
+    print "Sub cat: " + subcat
+    payload = {"username":user['username'], "sub_category":subcat}
     url = "http://127.0.0.1:8080/wesuggest/" #+ user['username']
     #data = urlopen(url).read()
     data=requests.get(url, data=json.dumps(payload))
+    
     print data.json();
-    # do whatever you want
-    return render_to_response('courseContentSelection.html', {"data":data.json()}, context_instance=RequestContext(request))
+    payload = {"username":user['username']}
+    content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
+    print "Content"
+    print content.json()
+   
+    return render_to_response('courseContentSelection.html', {"data":data.json(), "content":content.json()}, context_instance=RequestContext(request))
 
 
 def edit_Profile(request):
@@ -184,24 +199,32 @@ def save_Profile(request):
 ########################################################################################
 
 ##############################Recommendation##################################
+def subCatClicked(request):
+    print 'inside sub cat clicked'
+    subcat = request.GET.get('subcat');
+   
+    request.session['subcat'] = subcat;
+    print request.session['subcat'];
+    return HttpResponse()
+    
 
 def mostViewed(request):
     print 'inside most Viewed'
     url = "http://127.0.0.1:8080/mostviewedcontent"
     #data = urlopen(url).read()
-    payload = {'sub_category':"sub1"}
+    payload = {'sub_category':request.session['subcat']}
     headers=''
     headers = {'content-type': 'application/json'}
     data=requests.put(url, data=json.dumps(payload), headers=headers)
     print data;
     # do whatever you want
-    return HttpResponse(data, mimetype="application/json")
+    return HttpResponse(data, content_type="application/json")
 
 def mostRated(request):
     print 'inside most Rated'
     url = "http://127.0.0.1:8080/mostratedcontent"
     #data = urlopen(url).read()
-    payload = {'sub_category':"sub1"}
+    payload = {'sub_category':request.session['subcat']}
     headers=''
     headers = {'content-type': 'application/json'}
     data=requests.put(url, data=json.dumps(payload), headers=headers)
@@ -211,9 +234,11 @@ def mostRated(request):
 def viewAll(request):
     print 'inside view All'
     url = "http://127.0.0.1:8080/viewAll"
-    data = urlopen(url).read()
-    print data
-    # do whatever you want
+    payload = {'sub_category':request.session['subcat']}
+    headers=''
+    headers = {'content-type': 'application/json'}
+    data=requests.put(url, data=json.dumps(payload), headers=headers)
+    print data;
     return HttpResponse(data, mimetype="application/json")
 
 def addToCart(request):
@@ -238,7 +263,18 @@ def upload(request):
             contentName = request.POST['name']
             subCategory = request.POST['sub_category']
             description = request.POST['description']
+            file = request.FILES['fileUpload']
+            print 'file is posted from html'
+            fileContent = file.read()
+            print 'file read'
+            path = default_storage.save(file.name, ContentFile(fileContent))
+            print 'file is saved'
+            print path 
+            print default_storage.size(path)
+            #print default_storage.open(path).read()
+            
             user = request.session['user']
+            print file.name
             username = user['username']
             payload = {'Name':contentName, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":""}
             print payload
@@ -247,6 +283,10 @@ def upload(request):
             return HttpResponseRedirect("/professorDashboard")
     return render_to_response('uploadContent.html', context_instance=RequestContext(request))
 
+def courseDisplay(request):
+    print 'in course'
+    
+    return render_to_response('course.html', context_instance=RequestContext(request))
 
 
 

@@ -35,3 +35,4 @@ docc/pymongo/son_manipulator.pyc
 docc/pymongo/ssl_match_hostname.pyc
 docc/pymongo/thread_util.pyc
 docc/pymongo/uri_parser.pyc
+uploads/*

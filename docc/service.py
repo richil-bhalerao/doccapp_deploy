@@ -24,11 +24,13 @@ from json import JSONEncoder
 from pymongo import *
 from data.storage import Storage
 from recoengine import RecoEngine
+import gridfs
 
 storageobj = None
 sessionobj = None
 status = None
 recoObj = None
+
 
 
 class MongoEncoder(JSONEncoder):
@@ -61,6 +63,7 @@ def setup():
    recoObj = RecoEngine()
    connection = Connection('localhost', 27017)
    sessionobj = Session(connection.doccdb) 
+   
 
 # User registration
 @route('/register', method='POST')
@@ -158,7 +161,7 @@ def getMostViewed():
     print 'you are in getMostViewed service'
     entity = request.body.read()
     data = json.loads(entity)
-    #print 'DATA - > ' + data['sub_category']
+    print 'DATA - > ' + data['sub_category']
     try:
         cursor = recoObj.getMostViewedContent(data['sub_category'])
         entity = [d for d in cursor]
@@ -194,15 +197,18 @@ def getMostRated():
 def getWeSuggest():
     print 'You are in get we suggest service'
     username = request.body.read()
+    
     print username
     user = json.loads(username)
     print user['username']
+    print user['sub_category']
     try:
         cursor = recoObj.getWeSuggest(user['username'])
         entity = [d for d in cursor]
         
         list1 = []
         list2 = []
+        data = []
         
         
         for e in entity:
@@ -215,7 +221,13 @@ def getWeSuggest():
         #jsonData["Similarity"].append(list1)
         #jsonData["CourseId"].append(list2)
         values = [d for d in contents]
-        print values            
+        print values
+        for v in values: 
+            print 'v values: '
+            print v['sub_category']
+            if (v['sub_category'] == user['sub_category']):
+                data.append(v)
+        print data           
 
     except:
         traceback.print_exc()
@@ -227,19 +239,20 @@ def getWeSuggest():
   #  print  MongoEncoder().encode(entity)
     
 
-    return MongoEncoder().encode(values)
+    return MongoEncoder().encode(data)
 
 
 
 
 #------------------------------------ @ Roopak - Adding the content to user's cart -----------------------------------#
 
-@route('/viewAll', method='GET')
+@route('/viewAll', method='PUT')
 def getViewAll():
     print 'you are in getViewAll service'
-    
+    entity = request.body.read()
+    data = json.loads(entity)
     try:
-        cursor = recoObj.getViewAllContent()
+        cursor = recoObj.getViewAllContent(data['sub_category'])
         entity = [d for d in cursor]
     except:
         traceback.print_exc()

@@ -2,7 +2,9 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.conf import settings
 admin.autodiscover()
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -22,6 +24,7 @@ urlpatterns = patterns('',
     (r'^course/$','mysite.users.views.addcourse'),
      (r'^register/$','mysite.users.views.createUser'),
      (r'^courseContentSelection/$','mysite.users.views.courseContentSelection'),
+     (r'^courseContentSelection/subCatClicked$','mysite.users.views.subCatClicked'),
      (r'^addToCart/$','mysite.users.views.addToCart'),
     (r'^dashboard/$','mysite.users.views.dashboard'), 
     (r'^professorDashboard/$','mysite.users.views.professorDashboard'), 
@@ -30,4 +33,7 @@ urlpatterns = patterns('',
      (r'^viewAll/$','mysite.users.views.viewAll'),  
      (r'^upload/$','mysite.users.views.upload'),
      (r'^nav/$','mysite.users.views.nav'), 
+      (r'^courseDisplay/$','mysite.users.views.courseDisplay'), 
+       (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT}),
 )

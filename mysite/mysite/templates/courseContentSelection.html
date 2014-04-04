@@ -24,6 +24,18 @@
           $("#dashboard").addClass('active');
           });
         </script>
+        
+       <script>
+          $(document).ready(function(){
+			$("#cat a").click(function(){
+			var id = $(this).attr('id');
+			alert(id+" selected");
+            $.ajax({type:'GET', url:"subCatClicked?subcat="+id}).done(function(){
+            location.reload();
+            });			
+			});
+			});
+	   </script>
     <div id="navigation">
     </div>
     
@@ -45,122 +57,161 @@
     </div>
   	
 	 <div  class="row">  
-	 <div class="col-md-3">
+	 <div class="col-md-4">
 	    <!-- Start Accordian Menu================================================== -->
     
-    	<div class="panel panel-primary">
+    	<div id = "bucket" class="panel panel-primary">
 		  <div class="panel-heading">
 		    <h3 class="panel-title text-center" style="font-size: 18px;"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Course Bucket</a></h3>
 		  </div>
+		 
+		   
+		   
 		  <div id="accordion" >
         <h3 style="background: #eee;color: #000;"><b> 1. Introduction </b></h3>
         <div> 
-          <!--<p ><a href="#">
-            <span class="label label-primary" style="height:23px; width:190px;color:#fff">1.1 Intro to RDBMS </span>
-          </a></p>-->
-          <div class="list-group" style="margin:0;">
-          <a href="#" class="list-group-item active">
-    Cras justo odio
-  </a>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
+          
+          <div id="cat" class="list-group" style="margin:0;">
+
+          <a href="#" id = "1.1" class="list-group-item active">1.1 </a>
+         {% for data in content %}
+          {% ifequal data.sub_category "1.1" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		 
+  		  
+  		    
+            <br>
+            
+           
           </div>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 1.2 Intro to NOSQL </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> 
-            Content 3</li>
-            <li class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span>
-              Content 4</li>
-          </ul>
+          
+          <div id = "cat" class="list-group" style="margin:0;">
+          <a href="#" id="1.2" class="list-group-item active">1.2 </a>
+ 			 {% for data in content %}
+          {% ifequal data.sub_category "1.2" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
         </div>
         <h3 style="background: #eee;color: #000;"><b>2. Database types</b></h3>
-        <div>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 2.1 Standalone </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 2.2 In Memory </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 2.3 On Cloud </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
+         <div> 
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "2.1" class="list-group-item active">2.1 </a>
+  			 {% for data in content %}
+          {% ifequal data.sub_category "2.1" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "2.2" class="list-group-item active">2.2 </a>
+ 			 {% for data in content %}
+          {% ifequal data.sub_category "2.2" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
         </div>
+        
         <h3 style="background: #eee;color: #000;"><b>3. Database design</b></h3>
-        <div>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 3.1 Database models </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 3.2 External and internal views </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
+         <div> 
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "3.1" class="list-group-item active">3.1 </a>
+  			 {% for data in content %}
+          {% ifequal data.sub_category "3.1" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
+          <div  id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "3.2" class="list-group-item active">3.2 </a>
+ 			 {% for data in content %}
+          {% ifequal data.sub_category "3.2" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
         </div>
         <h3 style="background: #eee;color: #000;"><b>4. Performance</b></h3>
-        <div>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 4.1 Database storage </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 4.2 Database security </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 4.3 Transactions and concurrency </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
+         <div> 
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#"  id = "4.1" class="list-group-item active">4.1 </a>
+  			 {% for data in content %}
+          {% ifequal data.sub_category "4.1" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "4.2" class="list-group-item active">4.2 </a>
+ 			 {% for data in content %}
+          {% ifequal data.sub_category "4.2" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
         </div>
         <h3 style="background: #eee;color: #000;"><b>5. Maintenance</b></h3>
-        <div>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 5.1 Migration </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 5.2 Database tuning </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
-          <p><a href="#">
-            <span class="badge" style="background: hsl(201, 100%, 40%);color: #fff;"> 5.3 Backup and restore </span>
-          </a></p>
-          <ul class="list-group">
-            <li class="list-group-item"></li> 
-          </ul>
+         <div> 
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "5.1" class="list-group-item active">5.1 </a>
+  				 {% for data in content %}
+          {% ifequal data.sub_category "5.1" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
+          <div id="cat" class="list-group" style="margin:0;">
+          <a href="#" id = "5.2" class="list-group-item active">5.2 </a>
+ 			  {% for data in content %}
+          {% ifequal data.sub_category "5.2" %}
+  				<a href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></a>
+  		 {% endifequal %}
+  		 {% endfor %}
+  		        <a href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+            <br>
+          </div>
+          
         </div>
       </div>
 		</div>
-<!--End Accordian menu-->	     
+<!--End Accordian menu-->	
+    
 	</div>
       
-      <div class="col col-md-9">
+      <div class="col col-md-8">
         <ul class="nav nav-tabs" id="myTab">
 		   <li  class="active" id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
 		  <li id="tb_mostviewed"><a href="#mostviewed" data-toggle="tab">Most Viewed</a></li>
