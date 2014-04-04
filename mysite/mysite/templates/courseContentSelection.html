@@ -8,121 +8,156 @@
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
-
+ 
  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 
-<script>
-$(function() {
-	$( "#accordion" ).accordion();
-});
-</script>
-
 </head>
 
 <body class="">
-  <div class="navbar navbar-inverse navbar-static-top">
-    <style>
-      .body{padding-top:70px}
-    </style>
-   <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-left navbar-nav">
-                
-                  <li class="inactive"> <a href="#">About</a>
-
-                  </li>
-                  <li class="inactive"> <a href="#">Contact Us</a>
-
-                  </li>
-                </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
-                href="##">Login</a>-->
-
-                <ul class="nav navbar-right navbar-nav">
-                <li class="inactive"> <a href="http://127.0.0.1:8000/dashboard">Dashboard</a></li>
-                  <li class="inactive"> <a href="#">Course</a></li>
-                   <li class="active"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
-               
-                  <li class="inactive"> <a href="#">Help</a></li>
-                  <li class="inactive"> 
-                    <div class="btn-group btn-lg navbar-right">
-                      <button type="button" class="btn btn-primary">My Profile</button>
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Edit Profile</a></li>
-                        <li><a href="#">Course settings</a></li>
-                        <li class="divider"></li>
-                        <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
-                      </ul>
-                  </div>
-                  </li>
-                </ul>
-              
-
-              
-                
-              </div>
-
-      </div>
-  </div>
-  
-  <div class="container">
-  	<div class="row">
-  	<div class="well well-sm">
-        <h1 class="text-primary"><center>Select your content!</center></h1>
+    <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
+    <script>
+        $(function() {
+          $("#navigation").load("http://127.0.0.1:8000/nav");
+          $("#dashboard").addClass('active');
+          });
+        </script>
+    <div id="navigation">
     </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!-- Copy till here for navigation bar-->
+    
+    
+    <div class="container">
+  	<div class="row">
+  		<div class="col-md-12">
+		  	<div class="well well-sm">
+		        <h1 class="text-primary"><center>Select your content</center></h1>
+		    </div>
+		</div>    
     </div>
   	
 	 <div  class="row">  
 	 <div class="col-md-3">
-	    <div class="Well"> 
-	    <ul class="nav nav-tabs nav-stacked">
-  			<li class="active"><a>CAT1</a></li>
-		    <li><a href="#">sub2</a></li>
-  			<li><a href="#">sub3</a></li>
-  			<li><a href="#">sub4</a></li>
-  		</ul>	    
-		</div>	 
-		<div class="well"> 
-	    <ul class="nav nav-tabs nav-stacked">
-  			<li class="active">CAT5</li>
-  			<li><a href="#">sub6</a></li>
-  			<li><a href="#">sub7</a></li>
-  			<li><a href="#">sub8</a></li>
-  			<li><a href="#">sub9</a></li>
-  		</ul>	    
+	    <!-- Start Accordian Menu================================================== -->
+    
+    	<div class="panel panel-primary">
+		  <div class="panel-heading">
+		    <h3 class="panel-title text-center" style="font-size: 18px;"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Course Bucket</a></h3>
+		  </div>
+		  <div id="accordion" >
+        <h3 style="background: #eee;color: #000;"><b> 1. Introduction </b></h3>
+        <div> 
+          <!--<p ><a href="#">
+            <span class="label label-primary" style="height:23px; width:190px;color:#fff">1.1 Intro to RDBMS </span>
+          </a></p>-->
+          <div class="list-group" style="margin:0;">
+          <a href="#" class="list-group-item active">
+    Cras justo odio
+  </a>
+  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+  <a href="#" class="list-group-item">Morbi leo risus</a>
+  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+  <a href="#" class="list-group-item">Vestibulum at eros</a>
+          </div>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 1.2 Intro to NOSQL </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> 
+            Content 3</li>
+            <li class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span>
+              Content 4</li>
+          </ul>
+        </div>
+        <h3 style="background: #eee;color: #000;"><b>2. Database types</b></h3>
+        <div>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 2.1 Standalone </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 2.2 In Memory </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 2.3 On Cloud </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+        </div>
+        <h3 style="background: #eee;color: #000;"><b>3. Database design</b></h3>
+        <div>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 3.1 Database models </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 3.2 External and internal views </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+        </div>
+        <h3 style="background: #eee;color: #000;"><b>4. Performance</b></h3>
+        <div>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 4.1 Database storage </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 4.2 Database security </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 4.3 Transactions and concurrency </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+        </div>
+        <h3 style="background: #eee;color: #000;"><b>5. Maintenance</b></h3>
+        <div>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 5.1 Migration </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background:#428bca; color: #fff; height:23px; width:190px; font-size:14px;"> 5.2 Database tuning </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+          <p><a href="#">
+            <span class="badge" style="background: hsl(201, 100%, 40%);color: #fff;"> 5.3 Backup and restore </span>
+          </a></p>
+          <ul class="list-group">
+            <li class="list-group-item"></li> 
+          </ul>
+        </div>
+      </div>
 		</div>
-  		<div class="well"> 
-	    <ul class="nav nav-tabs nav-stacked">
-  			<li><a href="#">sub10</a></li>
-			<li><a href="#">sub11</a></li>
-			<li><a href="#">sub12</a></li>
-			<li><a href="#">sub13</a></li>
-			<li><a href="#">sub14</a></li>
-		</ul>	    
-		</div>
-		<div class="well"> 
-	    <ul class="nav nav-tabs nav-stacked">
-			<li><a href="#">sub15</a></li>
-			<li><a href="#">sub16</a></li>
-			<li><a href="#">sub17</a></li>
-			<li><a href="#">sub18</a></li>
-			<li><a href="#">sub19</a></li>
-		</ul>
-	    </div>	     
+<!--End Accordian menu-->	     
 	</div>
       
       <div class="col col-md-9">
@@ -290,6 +325,13 @@ $(function() {
  <!--  Start Ajax calls -->
 	<script>
 	(function() {
+
+    
+    $(function() {
+      $( "#accordion" ).accordion();
+    });
+
+
 		$('#tb_mostviewed').on('click', function(e){
 			
 			$.getJSON('/mostViewed/', function( data ) {
@@ -394,6 +436,17 @@ $(function() {
 	})();
 	
 	 
- 
+ 	//Start accordian
+ 	$(document).on('click.collapse.data-api', '.accordion-toggle', function(event) {
+    var $this = $(this),
+        parent = $this.data('parent'),
+        $parent = parent && $(parent);
+
+    if ($parent) {
+        $parent.find('[data-toggle=collapse][data-parent=' + parent + ']').not($this).addClass('collapsed');
+    }
+});
+ 	
+ 	//End Accordian
 	</script>
 </body>
