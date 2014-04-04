@@ -6,6 +6,7 @@ from django.http import *
 import urllib2, urllib
 from urllib2 import urlopen
 from httplib import HTTP
+
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
@@ -32,10 +33,22 @@ def createUser(request):
       username = request.POST['username']
       email = request.POST['email']
       password = request.POST['password']
-      fname = request.POST['fname']
-      lname = request.POST['lname']
+      fname = request.POST['firstname']
+      lname = request.POST['lastname']
+      education = request.POST['education']
+      interests= []
+      interests = request.POST.getlist('interest[]')
+      print interests
+      organization = request.POST['organization']
+      userType = request.POST['userType']
+      print 'USER TYPE -----> ' + userType
+      
       encryptedpassword = base64.b64encode(password)
-      payload = {"username":username, 'password':encryptedpassword,"email":email,"fname":fname,"lname":lname, "ContentId":[]}
+      if userType == 'Professor':
+          payload = {"usertype": userType, "dbpayload": {"username":username, 'password':encryptedpassword, "email":email, "firstname":fname, "lastname":lname, "ContentId":[], "ContentCompleted":[], "organization":organization, "reco_attributes":{"highest_degree": education, "current_proficiency": request.POST['current_proficiency'], "current_status": request.POST['current_status'], "programming_languages": request.POST['programming_languages'], "interest_level": request.POST['interest_level'], "interests":interests}} }
+      else:
+          payload = {"usertype": userType, "dbpayload": {"username":username, 'password':encryptedpassword, "email":email, "firstname":fname, "lastname":lname, "ContentId":[], "ContentCompleted":[], "organization":organization, "reco_attributes":{"highest_degree": education, "current_proficiency": request.POST['current_proficiency'], "current_status": request.POST['current_status'], "programming_languages": request.POST['programming_languages'], "interest_level": request.POST['interest_level'], "interests":interests}} }
+     
       print payload
       status=requests.post(url='http://127.0.0.1:8080/register',data=json.dumps(payload), headers=headers)
       print status.status_code
@@ -75,6 +88,10 @@ def professorDashboard(request):
     else:
         print 'Session invalid'
         return HttpResponseRedirect("http://www.google.com")    
+
+def signup(request):
+    return render_to_response('signup.html', context_instance=RequestContext(request))
+ 
 
 #For sign in 
 def login_view(request):
@@ -273,9 +290,16 @@ def upload(request):
             print default_storage.size(path)
             #print default_storage.open(path).read()
             
+
             user = request.session['user']
             print file.name
             username = user['username']
+            print file
+            form = UploadFileForm(request.POST, request.FILES)
+            if form.is_valid():
+                print 'in form valid'
+                handle_uploaded_file(request.FILES['file'])
+            
             payload = {'Name':contentName, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":""}
             print payload
             status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
@@ -288,8 +312,11 @@ def courseDisplay(request):
     
     return render_to_response('course.html', context_instance=RequestContext(request))
 
-
-
+def handle_uploaded_file(f):
+    with open('/home/name.txt', 'wb+') as destination:
+        for chunk in f.chunks():
+            print chunk
+            destination.write(chunk)
 
 
 
