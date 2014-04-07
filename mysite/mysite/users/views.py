@@ -72,7 +72,7 @@ def dashboard(request):
         payload = {"username":user['username']}
         content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
         print "Content"
-        print content.json()
+        #print content.json()
 #         for i in content:
 #             print i
         return render_to_response('dashboard.html', {'user':request.session['user'], 'content': content.json()}, context_instance=RequestContext(request))
@@ -163,6 +163,7 @@ def courseContentSelection(request):
     user = request.session['user']
     
     subcat = request.session['subcat']
+    subcatjson = {"subcat":subcat}
     if(subcat==None):
         subcat="1.1"
     print "Sub cat: " + subcat
@@ -176,8 +177,9 @@ def courseContentSelection(request):
     content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
     print "Content"
     print content.json()
+    
    
-    return render_to_response('courseContentSelection.html', {"data":data.json(), "content":content.json()}, context_instance=RequestContext(request))
+    return render_to_response('courseContentSelection.html', {"data":data.json(), "content":content.json(), "subcat":subcatjson}, context_instance=RequestContext(request))
 
 
 def edit_Profile(request):
@@ -187,7 +189,7 @@ def edit_Profile(request):
     payload = username = ''
     headers=''
     headers = {'content-type': 'application/json'}
-    print 'username on wall' , user['fname']
+    print 'username on wall' , user['firstname']
     username = user['username']
     payload = {'username':username}
     status=requests.put(url='http://127.0.0.1:8080/getProfile', data=json.dumps(payload), headers=headers)
@@ -288,19 +290,25 @@ def upload(request):
             print 'file is saved'
             print path 
             print default_storage.size(path)
+            
+            if path.find('pdf')>=0:
+                print 'pdf uploaded'
+                permalink = 'https://lh5.googleusercontent.com/-0ccxnhKgDkI/U0H2ASDlXyI/AAAAAAAABPw/f3TnC_FBgv0/s256-no/pdf-bbrfoundation.org_.png'
+            elif path.find('mp4')>=0:
+                print 'video uploaded'
+                permalink = 'https://lh3.googleusercontent.com/-KRxBQzU8i2w/U0H19HjfN_I/AAAAAAAABPY/-wRt_DnBh0Q/s512-no/HiRes.jpg'
+            else:
+                print 'general file uploaded'
+                permalink = 'http://www4.uwsp.edu/education/lwilson/newstuff/graphics/MCj03825740000[1].jpg'
             #print default_storage.open(path).read()
             
 
             user = request.session['user']
-            print file.name
+          
             username = user['username']
-            print file
-            form = UploadFileForm(request.POST, request.FILES)
-            if form.is_valid():
-                print 'in form valid'
-                handle_uploaded_file(request.FILES['file'])
+          
             
-            payload = {'Name':contentName, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":""}
+            payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":"", "permalink": permalink}
             print payload
             status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
             print status.status_code
@@ -309,14 +317,13 @@ def upload(request):
 
 def courseDisplay(request):
     print 'in course'
-    
-    return render_to_response('course.html', context_instance=RequestContext(request))
-
-def handle_uploaded_file(f):
-    with open('/home/name.txt', 'wb+') as destination:
-        for chunk in f.chunks():
-            print chunk
-            destination.write(chunk)
+    url = "http://127.0.0.1:8080/getCurrentContent"
+    payload = {'sub_category':request.session['subcat']}
+    headers=''
+    headers = {'content-type': 'application/json'}
+    data=requests.put(url, data=json.dumps(payload), headers=headers)
+    print data.json();
+    return render_to_response('course.html', {'data':data.json()}, context_instance=RequestContext(request))
 
 
 

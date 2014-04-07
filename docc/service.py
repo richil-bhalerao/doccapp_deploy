@@ -206,6 +206,7 @@ def getWeSuggest():
     try:
         cursor = recoObj.getWeSuggest(user['username'])
         entity = [d for d in cursor]
+        print "Recommendation Output: "
         
         list1 = []
         list2 = []
@@ -213,21 +214,41 @@ def getWeSuggest():
         
         
         for e in entity:
+            print e[0], ":", e[1]
             list1.append(e[0])
             list2.append(e[1])
-            
-        list2.append("Fisher")
-        #print list2
-        contents = storageobj.getInArray('content', 'Name', list2)
+        
+        print "List1: "
+        print list1
+       
+        list3 = []
+        print "List2: "
+        for l in list2:
+            for innerItem in l:
+                list3.append(innerItem)
+                
+        contents = storageobj.getInArray('content', '_id', list3)
         #jsonData["Similarity"].append(list1)
         #jsonData["CourseId"].append(list2)
-        values = [d for d in contents]
-        print values
-        for v in values: 
+        print 'Content-->'
+       
+        
+       
+        #values = [d for d in contents]
+        
+        #print 'values-->'
+        #print values
+        
+        print "Recommended Content:"
+        
+        for v in contents: 
             print 'v values: '
+            print v
             print v['sub_category']
-            if (v['sub_category'] == user['sub_category']):
+            if v['sub_category'] == user['sub_category']:
+                print 'in if'
                 data.append(v)
+        
         print data           
 
     except:
@@ -303,6 +324,15 @@ def get_user_Content():
     print contents
     return MongoEncoder().encode(contents)
 
+
+@route('/getCurrentContent', method='PUT')
+def get_current_content():
+    print 'You are in get current content'
+    entity = request.body.read()
+    subcat = json.loads(entity)
+    content = storageobj.get('content', 'sub_category', subcat['sub_category'])
+    print 'content ---> ', content
+    return MongoEncoder().encode(content)
 #----------------------------------------------------------------------End --------------------------------------------------#
 
    

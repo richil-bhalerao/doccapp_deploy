@@ -20,16 +20,17 @@
                                 </head>
     
     <body class="">
-        <p> Your content is diplayed below: </p>
+        <p> Your content is diplayed below: {{data.fileName}} </p>
         
         
-        <iFrame height="800" width="800" src="http://127.0.0.1:8000/media/BaySensorsQuiz.pdf"> </iFrame>
-        <img height="800" width="800" src="http://127.0.0.1:8000/media/pic.jpg">
+        <iFrame height="800" width="800" src="http://127.0.0.1:8000/media/{{data.fileName}}"> </iFrame>
+       <!-- <img height="800" width="800" src="http://127.0.0.1:8000/media/pic.jpg">
         <video width="320" height="240" controls>
             <source src="http://127.0.0.1:8000/media/a.mp4" type="video/mp4">
                 <source src="movie.ogg" type="video/ogg">
                     Your browser does not support the video tag.
         </video>
+        -->
     </body>
     
 </html>
