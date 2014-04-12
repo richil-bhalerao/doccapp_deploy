@@ -324,6 +324,18 @@ def get_user_Content():
     print contents
     return MongoEncoder().encode(contents)
 
+@route('/getProfessorContent', method='GET')
+def get_professor_Content():
+    print 'You are in get user content'
+    username = ''
+    entity = request.body.read()
+    username = json.loads(entity)
+    content = storageobj.getAllFiltered('content', 'prof_username', username['username'])
+    print content
+    contents = [c for c in content]
+    print contents
+    return MongoEncoder().encode(contents)
+
 
 @route('/getCurrentContent', method='PUT')
 def get_current_content():

@@ -78,11 +78,7 @@
     <br>
     <br>
     <div class="container">
-      <h3>
-        <small class="text-primary"><b>Welcome {{user.fname}}!</b>
-
-        </small>
-      </h3>
+      
       <div class="well well-sm">
         <h2 class="text-primary">
           <center>Upload Content To DOCC
@@ -106,13 +102,14 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col col-md-1"></div>
+        <div class="col col-md-3"></div>
         <div class="col col-md-4">
           	<div class="container">
     <div class="row">
 		
 		<form role="form" enctype="multipart/form-data" class="col-md-5 go-right" method='POST' action="http://127.0.0.1:8000/upload/">
 		{% csrf_token %}
+
 		<h3 class="text-primary">Details About Content</h3>
         <div class="form-group">
 			<input id="name" name="name" type="text" class="form-control" required>
@@ -135,7 +132,7 @@
 			</button>
 							
 		</div>	
-		
+
 		</form>
 		
    </div>

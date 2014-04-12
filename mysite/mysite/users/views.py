@@ -83,8 +83,13 @@ def dashboard(request):
 # Render dashboard page
 def professorDashboard(request):
     if request.session.get('isValid',True):
+        user = request.session['user']
+        print "User"
         print request.session['user']
-        return render_to_response('professorDashboard.html', {'user':request.session['user']}, context_instance=RequestContext(request))
+        payload = {"username":user['username']}
+        content = requests.get("http://127.0.0.1:8080/getProfessorContent", data = json.dumps(payload))
+        print content
+        return render_to_response('professorDashboard.html', {'user':request.session['user'], 'content': content.json()}, context_instance=RequestContext(request))
     else:
         print 'Session invalid'
         return HttpResponseRedirect("http://www.google.com")    
@@ -306,8 +311,7 @@ def upload(request):
             user = request.session['user']
           
             username = user['username']
-          
-            
+                        
             payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":"", "permalink": permalink}
             print payload
             status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
@@ -325,7 +329,14 @@ def courseDisplay(request):
     print data.json();
     return render_to_response('course.html', {'data':data.json()}, context_instance=RequestContext(request))
 
-
+def uploadQuiz(request):
+     user = request.session['user']
+     print "User"
+     print request.session['user']
+     payload = {"username":user['username']}
+     content = requests.get("http://127.0.0.1:8080/getProfessorContent", data = json.dumps(payload))
+     print content
+     return render_to_response('uploadQuiz.html', {'content':content.json()}, context_instance=RequestContext(request))
 
 
 

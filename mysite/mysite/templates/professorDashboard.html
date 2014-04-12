@@ -105,8 +105,8 @@
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Events" href="#events">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                        <a data-toggle="tooltip" data-placement="top" title="Upload Quiz" href="http://127.0.0.1:8000/uploadQuiz">
+                            <span class="glyphicon glyphicon-tag"></span>
                         </a>
                     </li>
                     <li>
@@ -157,10 +157,57 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
-                            
+                
+                             {% for content in content%}
+            	
+           				 <ul id="timeline" class="timeline">
+                
+                <li class="timeline">
+                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{content.Name}}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Professor: {{content.prof_username}}</p><br>
+                            <p>Description: {{content.Description}} </p><br>
+                            <p>Type: {{content.Type}}</p><br>
+                            <p>Rating: {{content.Rating}}</p><br>
+                        </div>
+                    </div>
+                </li>
+                <script>
+                    
+                    $('#timeline li').each(function(e,i){
+                                           if(e%2!=0)
+                                           {
+                                           $(i).addClass('timeline-inverted');
+                                           }
+                                           })
+                    </script>
+            <!--
+                <li class="timeline-inverted">
+                    <div class="timeline-badge"><i class="glyphicon glyphicon-credit-card"></i></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{content.Name}}</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Professor: {{content.prof_username}}</p><br>
+                            <p>Description: {{content.Description}} </p><br>
+                            <p>Type: {{content.Type}}</p><br>
+                            <p>Rating: {{Content.Rating}}</p><br>
+                        </div>
+                    </div>
+                </li>
+          -->
+                           </ul>
+            {%endfor%}
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
