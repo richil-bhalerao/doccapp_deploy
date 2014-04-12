@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     (r'^mostRated/$','mysite.users.views.mostRated'),
      (r'^viewAll/$','mysite.users.views.viewAll'),  
      (r'^upload/$','mysite.users.views.upload'),
+     (r'^uploadQuiz/$','mysite.users.views.uploadQuiz'),
      (r'^nav/$','mysite.users.views.nav'), 
       (r'^courseDisplay/$','mysite.users.views.courseDisplay'), 
        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {

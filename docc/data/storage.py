@@ -35,10 +35,19 @@ class Storage(object):
     def get(self, collection, fieldname, value):
         print 'In Storage.get method'
         try:
-            return self.db[collection].find_one({fieldname:value}, {'_id':0})
+            return self.db[collection].find_one({fieldname:value})
         except:
             traceback.print_exc() 
             return "Error: Data cannot be retrieved"
+    
+    def getAllFiltered(self, collection, fieldname, value):
+        print 'In Storage.get method'
+        try:
+            return self.db[collection].find({fieldname:value})
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"
+        
         
     def getInArray(self, collection, fieldname, values):
         print 'In Storage.getInArray method'
