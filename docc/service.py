@@ -49,7 +49,7 @@ class MongoEncoder(JSONEncoder):
 @route('/')
 def root():
     cookie = request.get_cookie("session")
-    print 'cookie: ', cookie
+    
     username = sessionobj.get_username(cookie)
     if username is None:
         return 'User not logged in'
@@ -57,7 +57,6 @@ def root():
         return 'Hi and Welcome: ', username
 
 def setup():
-   print '\n**** service initialization ****\n'
    global storageobj, sessionobj, recoObj
    storageobj = Storage()
    recoObj = RecoEngine()
@@ -77,7 +76,7 @@ def create_user():
     else:
         status = storageobj.add('user', user['dbpayload'])
     
-    print status
+    
     return str(ObjectId(status))
 
 # User sign In 
@@ -345,6 +344,21 @@ def get_current_content():
     content = storageobj.get('content', 'sub_category', subcat['sub_category'])
     print 'content ---> ', content
     return MongoEncoder().encode(content)
+
+@route('/uploadQuiz', method='POST')
+def uploadQuiz():
+    print "In Upload Quiz"
+    entity = request.body.read()
+    payload = json.loads(entity)
+    
+    for q in payload['payload']['Questions']:
+        print 'result:', q
+        finalPayload = {"Questions": q} 
+        status = storageobj.updateArray('content', 'Name', payload['Name'], finalPayload)
+        
+        
+    return str(ObjectId(status))
+
 #----------------------------------------------------------------------End --------------------------------------------------#
 
    

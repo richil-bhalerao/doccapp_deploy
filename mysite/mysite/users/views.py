@@ -274,8 +274,31 @@ def addToCart(request):
     status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
     return HttpResponseRedirect("/courseContentSelection")
 
-
-
+def uploadQuestions(request):
+    print 'request', request.POST
+    headers=''
+    headers = {'content-type': 'application/json'}
+    totalQuestions = int(request.POST['numberOfQuestions'])
+    print totalQuestions;
+    finalPayload = []
+    final = '';
+    for eachQtn in range(0,totalQuestions):
+        print 'inside for loop'
+        question = request.POST['Question'+str(eachQtn+1)]
+        optionA = request.POST['optionA'+str(eachQtn+1)]
+        optionB = request.POST['optionB'+str(eachQtn+1)]
+        optionC = request.POST['optionC'+str(eachQtn+1)]
+        optionD = request.POST['optionD'+str(eachQtn+1)]
+        answer = request.POST['answer'+str(eachQtn+1)]
+        payload = {"Question":question, "Options":{"OptionA":optionA, "OptionB":optionB, "OptionC":optionC, "OptionD":optionD}, "Answer":answer}
+        finalPayload.append(payload)
+    
+    contentName = request.POST['content_Name']
+    final = {"Name":contentName, "payload":{"Questions": finalPayload}}
+    
+    status = requests.post(url='http://127.0.0.1:8080/uploadQuiz',data=json.dumps(final), headers=headers)    
+    print status.status_code
+    return HttpResponseRedirect("/professorDashboard")
 
 def upload(request):
     print request.session['user']
@@ -312,7 +335,7 @@ def upload(request):
           
             username = user['username']
                         
-            payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":"", "permalink": permalink}
+            payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":"", "permalink": permalink, "Questions":[]}
             print payload
             status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
             print status.status_code
@@ -336,7 +359,7 @@ def uploadQuiz(request):
      payload = {"username":user['username']}
      content = requests.get("http://127.0.0.1:8080/getProfessorContent", data = json.dumps(payload))
      print content
-     return render_to_response('uploadQuiz.html', {'content':content.json()}, context_instance=RequestContext(request))
+     return render_to_response('uploadQuiz.html', {'content':content.json(), 'user':user}, context_instance=RequestContext(request))
 
 
 

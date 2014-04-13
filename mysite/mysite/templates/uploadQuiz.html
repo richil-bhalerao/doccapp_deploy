@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html style="" class="" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>DOCC Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+    rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
+        rel="stylesheet" type="text/css">
+      
+        
+  </head>
+  
+	<body class="">
+      <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
+    	<script>
+        	  $(function() {
+            	$("#navigation").load("http://127.0.0.1:8000/nav");
+            	$("#dashboard").addClass('active');
+              }); 
+    	</script>
+   		<div id="navigation">
+   		</div>
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+<!-- Copy till here for navigation bar-->
+	
+		<div class="container">
+      		<div class="row">
+      			<div class="col col-md-10">
+          				<div class="container">
+    						<div class="row">
+								<form role="form" enctype="multipart/form-data" class="col-md-10 go-right" method='POST' action="http://127.0.0.1:8000/uploadQuestions/">
+									{% csrf_token %}
+									<div class="panel">
+									<div class="container">
+      								<div class="row" style="padding:20px;">
+									<h3 class="text-primary"><left><b>&nbsp;&nbsp;Quiz Details</b></left></h3>
+									<br>
+									<br>
+									
+									<div class="col col-md-4">
+										<div class="well well-sm">
+        								<div class="form-group">
+										 	<label for="content_Name">Content Name</label>
+										 	<select id="content_Name" name="content_Name" class="form-control" required> 
+										 	{%for content in content%}
+								                <option value="{{content.Name}}">{{content.Name}}</option>
+								              {% endfor %}
+								             </select>
+										</div>
+										</div>
+									</div>
+									<div class="col col-md-1"></div>
+									<div class="col col-md-4">
+										<div class="well well-sm">
+										<br><center>
+										<div class="form-group">
+											<label>Professor Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+											<label>{{user.firstname}} {{user.lastname}}</label>
+										</div></center><br>
+										</div>
+									</div>
+									</div>
+									
+									<div id="a" class="col col-md-9">
+									<!-- start of 2nd well-->
+									<div  id="1" value="abc" class="well well-sm">
+										<div class="row" style="padding-left:30px; padding-top:20px;">
+											<div class="col col-md-11">
+												<div style="height:27px;width:100px;line-height:24px;background-color:rgb(66, 139, 202); border:1px;border-radius:25px;"> 
+													<label id="questionNumber" style="color:white; padding-left:10px;">Question 1</label>
+												</div><br>
+												<div id="question" class="form-group">
+													
+													<textarea id="Question1" name="Question1" rows="2" placeholder="Question 1" cols = "50" class="form-control" required></textarea>
+												
+												</div>
+										
+											</div>
+										</div>
+										<!-- start of options row-->
+										<div class="row" style="padding-left:30px; padding-top:10px;">
+											<div class="col col-md-5">
+												<div class="form-group">
+													<label for="optionA1">Option A</label>
+													<textarea id="optionA1" rows="1" cols = "50" name="optionA1" class="form-control" value="" required></textarea>
+												</div>
+												<br>
+												<div class="form-group">
+													<label for="optionB1">Option B</label>
+													<textarea id="optionB1" rows="1" cols = "50" name="optionB1" class="form-control" required></textarea>
+												</div>
+												<br>
+												<div class="form-group">
+													<label for="answer1">Answer</label>
+													<select id="answer1" name="answer1" class="form-control" required> 
+														 <option value="optionA">Option A</option>
+														 <option value="optionB">Option B</option>
+														 <option value="optionC">Option C</option>
+														 <option value="optionD">Option D</option>
+													</select>
+												</div>
+											</div>
+											<div class="col col-md-1">
+											</div>
+											<div class="col col-md-5">
+												<div class="form-group">
+													<label for="optionC1">Option C</label>
+													<textarea id="optionC1" rows="1" cols = "50" name="optionC1" class="form-control" required></textarea>
+												</div>
+												<br>
+												<div class="form-group">
+													<label for="optionD1">Option D</label>
+													<textarea id="optionD1" rows="1" cols = "50" name="optionD1" class="form-control" required></textarea>
+												</div>
+											</div>
+										</div>
+										<!-- end of options row-->
+										
+									<br>
+									</div>
+									<!-- end of 2nd Well-->
+									<div>
+									<button type="button" id="btn" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+									<input type="text" name="numberOfQuestions" id="numberOfQuestions" value="1"/>
+									<button type="submit" id="submitBtn" class="btn btn-success" style="float: right;">Submit</button>
+									<br><br>
+									</div>
+									
+									
+									
+									</div>
+									</div>	
+									</div>
+								</form>
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+<!-- Script start -->
+<script>
+var id=2
+$('#btn').click(function(){
+								    
+     $("<div />", { "class":"well well-sm", id:"well"+id })
+     .append($("<div>", { "class":"row"}).css({"padding-top":"20px"})
+     	.append($("<div>", { "class":"col-md-11"})
+     		.append($("<br>"))
+     		.append($("<div />", { id:"Qtn"}).css({"height":"27px", "width":"100px", "line-height":"24px", "background-color":"rgb(66, 139, 202)", "border":"1px", "border-radius":"25px"})
+     			.append($("<label/>").text("Question "+id).css({"color":"white", "padding-left":"10px"}))
+     			)
+     		.append($("<br />"))
+     		.append($("<div />", { "class":"form-group", id:"question"+id })
+     			.append($("<textarea />", {  "class":"form-control",placeholder:"Question "+id, id:"Question"+id, rows:"2", cols:"50", name:"Question"+id}))
+     			)
+     		)
+     	)
+     .append($("<div>", {"class":"row"})
+     	.append($("<div>", {"class":"col col-md-5"})
+     		.append($("<div>", { "class":"form-group"})
+     			.append($("<label/>").text("Option A"))
+     			.append($("<textarea />", { id:"optionA"+id, name:"optionA"+id, rows:"1", cols:"50", "class":"form-control"}))
+     			)
+     		.append($("<br>"))
+     		.append($("<div>", { "class":"form-group"})
+     			.append($("<label/>").text("Option B"))
+     			.append($("<textarea />", { id:"optionB"+id, name:"optionB"+id, rows:"1", cols:"50", "class":"form-control"}))
+     			)
+     		.append($("<br>"))
+     		.append($("<div>", { "class":"form-group"})
+     			.append($("<label/>").text("Answer"))
+     			.append($("<select />", { id:"answer"+id, name:"answer"+id, "class":"form-control"})
+     				.append($("<option />", { value:"optionA"}).text("Option A"))
+     				.append($("<option />", { value:"optionB"}).text("Option B"))
+     				.append($("<option />", { value:"optionC"}).text("Option C"))
+     				.append($("<option />", { value:"optionD"}).text("Option D"))
+     				)
+     			)
+     		)
+     	.append($("<div>", {"class":"col col-md-1"}))
+     	.append($("<div>", {"class":"col col-md-5"})
+     		.append($("<div>", { "class":"form-group"})
+     			.append($("<label/>").text("Option C"))
+     			.append($("<textarea />", { id:"optionC"+id, name:"optionC"+id, rows:"1", cols:"50", "class":"form-control"}))
+     			)
+     		.append($("<br>"))
+     		.append($("<div>", { "class":"form-group"})
+     			.append($("<label/>").text("Option D"))
+     			.append($("<textarea />", { id:"optionD"+id, name:"optionD"+id, rows:"1", cols:"50", "class":"form-control"}))
+     			)
+     		)
+     	).css({"padding-left":"30px", "padding-top":"10px"})
+     .appendTo("#a");
+    document.getElementById('numberOfQuestions').value = id;
+    
+    id++;
+    
+    $('#btn').appendTo($('#a'));
+	$('#submitBtn').appendTo($('#a'));
+}
+);
+</script>
+<!-- Script End -->
+
+	</body>
+</html>
