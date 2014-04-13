@@ -1,4 +1,5 @@
 mysite/mysite/settings.py
+mysite/userdb
 docc/bottle.pyc
 docc/course.pyc
 docc/data/__init__.pyc
