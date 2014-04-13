@@ -44,10 +44,11 @@ def createUser(request):
       print 'USER TYPE -----> ' + userType
       
       encryptedpassword = base64.b64encode(password)
+      contentCompletedJson = {"ContentId":"", "QuizTaken":0, "ChallengeTaken":0, "ContentComepletedPercentage":0, "ChallengeQuestions":[] }
       if userType == 'Professor':
-          payload = {"usertype": userType, "dbpayload": {"username":username, 'password':encryptedpassword, "email":email, "firstname":fname, "lastname":lname, "ContentId":[], "ContentCompleted":[], "organization":organization, "reco_attributes":{"highest_degree": education, "current_proficiency": request.POST['current_proficiency'], "current_status": request.POST['current_status'], "programming_languages": request.POST['programming_languages'], "interest_level": request.POST['interest_level'], "interests":interests}} }
+          payload = {"usertype": userType, "dbpayload": {"username":username, 'password':encryptedpassword, "email":email, "firstname":fname, "lastname":lname, "ContentId":[], "StarsAchieved":0, "currentContent":"", "organization":organization, "reco_attributes":{"highest_degree": education, "current_proficiency": request.POST['current_proficiency'], "current_status": request.POST['current_status'], "programming_languages": request.POST['programming_languages'], "interest_level": request.POST['interest_level'], "interests":interests}} }
       else:
-          payload = {"usertype": userType, "dbpayload": {"username":username, 'password':encryptedpassword, "email":email, "firstname":fname, "lastname":lname, "ContentId":[], "ContentCompleted":[], "organization":organization, "reco_attributes":{"highest_degree": education, "current_proficiency": request.POST['current_proficiency'], "current_status": request.POST['current_status'], "programming_languages": request.POST['programming_languages'], "interest_level": request.POST['interest_level'], "interests":interests}} }
+          payload = {"usertype": userType, "dbpayload": {"username":username, 'password':encryptedpassword, "email":email, "firstname":fname, "lastname":lname, "ContentId":[], "ContentCompleted":[contentCompletedJson], "CourseCompletedPercentage":0, "StarsAchieved":0, "organization":organization, "reco_attributes":{"highest_degree": education, "current_proficiency": request.POST['current_proficiency'], "current_status": request.POST['current_status'], "programming_languages": request.POST['programming_languages'], "interest_level": request.POST['interest_level'], "interests":interests}} }
      
       print payload
       status=requests.post(url='http://127.0.0.1:8080/register',data=json.dumps(payload), headers=headers)
@@ -59,8 +60,7 @@ def createUser(request):
           # TO DO: Change this to handle exceptions 
          return HttpResponseRedirect('http://google.com')
          print status
-   return render_to_response('Home.html', {'user': payload},
-                             context_instance=RequestContext(request))
+   return render_to_response('Home.html', {'user': payload},context_instance=RequestContext(request))
 
 # Render dashboard page
 def dashboard(request):
@@ -75,7 +75,9 @@ def dashboard(request):
         #print content.json()
 #         for i in content:
 #             print i
-        return render_to_response('dashboard.html', {'user':request.session['user'], 'content': content.json()}, context_instance=RequestContext(request))
+        NoOfContentsInCart= len(content.json())
+        user.update({'NoOfContentsInCart':NoOfContentsInCart})
+        return render_to_response('dashboard.html', {'user':user, 'content': content.json()}, context_instance=RequestContext(request))
     else:
         print 'Session invalid'
         return HttpResponseRedirect("http://www.google.com")
@@ -167,21 +169,24 @@ def courseContentSelection(request):
     print 'inside We Suggest'
     user = request.session['user']
     
-    subcat = request.session['subcat']
-    subcatjson = {"subcat":subcat}
+    subcat = request.GET.get('subCat')
     if(subcat==None):
         subcat="1.1"
+    subcatjson = {"subcat":subcat}
+    print subcatjson
     print "Sub cat: " + subcat
     payload = {"username":user['username'], "sub_category":subcat}
     url = "http://127.0.0.1:8080/wesuggest/" #+ user['username']
     #data = urlopen(url).read()
     data=requests.get(url, data=json.dumps(payload))
-    
+    print "we suggest data"
     print data.json();
     payload = {"username":user['username']}
     content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
     print "Content"
     print content.json()
+    
+    
     
    
     return render_to_response('courseContentSelection.html', {"data":data.json(), "content":content.json(), "subcat":subcatjson}, context_instance=RequestContext(request))
@@ -312,7 +317,7 @@ def upload(request):
           
             username = user['username']
                         
-            payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":"", "permalink": permalink}
+            payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "Rating": 0, "Type":"", "permalink": permalink, "count":0}
             print payload
             status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
             print status.status_code
@@ -322,7 +327,9 @@ def upload(request):
 def courseDisplay(request):
     print 'in course'
     url = "http://127.0.0.1:8080/getCurrentContent"
-    payload = {'sub_category':request.session['subcat']}
+    contentId = request.GET.get('contentId')
+    print contentId
+    payload = {'contentId':contentId}
     headers=''
     headers = {'content-type': 'application/json'}
     data=requests.put(url, data=json.dumps(payload), headers=headers)

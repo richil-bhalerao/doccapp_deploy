@@ -115,11 +115,11 @@
                                         <i class="glyphicon glyphicon-user"></i>
                                     </div>
                                     <div class="text">
-                                        <var>3</var>
-                                        <label class="text-muted">Course </label>
+                                        <var>{{user.NoOfContentsInCart}}</var>
+                                        <label class="text-muted">Course Progress </label>
                                     </div>
                                     <div class="options">
-                                        <a href="javascript:;" class="btn btn-primary "><i class="glyphicon glyphicon-plus"></i> Continue (45%)</a>
+                                        <a href="javascript:;" class="btn btn-primary "><i class="glyphicon glyphicon-plus"></i> Continue ({{user.CourseCompletedPercentage}}&nbsp;%)</a>
                                     </div>
                                 </div>
                             </div>
@@ -129,11 +129,11 @@
                                         <i class="glyphicon glyphicon-star"></i>
                                     </div>
                                     <div class="text">
-                                        <var>614</var>
+                                        <var>{{user.StarsAchieved}}</var>
                                         <label class="text-muted">Stars</label>
                                     </div>
                                     <div class="options">
-                                        <a href="javascript:;" class="btn btn-default "><i class="glyphicon glyphicon-search"></i> View scores</a>
+                                        <a href="javascript:;" class="btn btn-default "><i class="glyphicon glyphicon-search"></i> Score Report</a>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                                         <i class="glyphicon glyphicon-tags"></i>
                                     </div>
                                     <div class="text">
-                                        <var>73</var>
+                                        <var>{{user.NoOfContentsInCart}}</var>
                                         <label class="text-muted">Content</label>
                                     </div>
                                     <div class="options">
@@ -182,13 +182,330 @@
                     </div>
                     <div class="span3">
                     <div class="progress progress-striped active">
-                    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                        <span class="sr-only">45% Complete</span> <b>45% </b>
+                    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{user.CourseCompletedPercentage}}%">
+                        <span class="sr-only">{{user.CourseCompletedPercentage}}% Complete</span> <b>{{user.CourseCompletedPercentage}}% </b>
                     </div>
                 </div>
             </div>
             </div>
-           
+            
+            <ul id="timeline" class="timeline">
+                
+                <!-- Start of 1 timeline badge -->
+                <li class="timeline">
+                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel" style="border:2px solid #5bc0de;">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">1. Introduction</h4></a>
+                        </div>
+                    <div class="timeline-panel">
+                        <div class="panel panel-default" >
+                            <div class="panel-heading">1.1 Introduction to RDBMS</div>
+                            <div class="panel-body">
+                                {% load docc_tag %}
+                                {% for content in content%}
+                                {% ifequal content.sub_category "1.1"%}
+                                    <div class="list-group">
+                                    
+                                    <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                    </a>
+                                  
+                                    </div>
+                        
+                                {%endifequal%}
+                                {%endfor%}
+                                <button type="button" class="btn btn-info btn-sm">
+                                    <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                </button>
+                              
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">1.2 Introduction to NoSQL</div>
+                            <div class="panel-body">
+                                {% load docc_tag %}
+                                {% for content in content%}
+                                {% ifequal content.sub_category "1.2"%}
+                                <div class="list-group">
+                                    
+                                    <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                    </a>
+                                    
+                                </div>
+                                {%endifequal%}
+                                {%endfor%}
+                               
+                               <button type="button" class="btn btn-info btn-sm">
+                                   <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                               </button>
+                               
+                                
+                                
+                            </div>
+                            </div>
+                        </div>
+                        
+                       
+                    </div>
+                </li>
+                
+                <!-- End of 1 timeline badge-->
+                
+                
+                <!-- Start  of 2 timeline badge -->
+                <li class="timeline-inverted">
+                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">2. Database Types</h4></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">2.1 Standalone</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "2.1"%}
+                                    <div class="list-group">
+                                        
+                                        <button type="button" class="btn btn-info btn-sm">
+                                            <a href="http://127.0.0.1:8000/courseContentSelection/?subCat={{content.sub_category}}" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        </button>
+                                        
+                                    </div>
+                                    
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-default">
+                                <div class="panel-heading">2.2 In Memory </div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "2.2"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </li>
+                
+                <!-- End of 2 timeline badge-->
+                
+                <!-- Start of 3 timeline badge -->
+                <li class="timeline">
+                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">3. Database Design</h4></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">3.1 Database Modules</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "3.1"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-default">
+                                <div class="panel-heading">3.2 External and Internal Views</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "3.2"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </li>
+                
+                <!-- End of 3 timeline badge-->
+                
+                <!-- Start of 4 timeline badge -->
+                <li class="timeline-inverted">
+                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">4. Performance</h4></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">4.1 Database Storage</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "4.1"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-default">
+                                <div class="panel-heading">4.2 Database Security</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "4.2"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </li>
+                
+                <!-- End of 4 timeline badge-->
+                
+                <!-- Start of 5 timeline badge -->
+                <li class="timeline">
+                    <div id="badge" class="timeline-badge info "><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">5. Maintenace</h4></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">5.1 Migration</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "5.1"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-default">
+                                <div class="panel-heading">5.2 Database Tuning</div>
+                                <div class="panel-body">
+                                    {% load docc_tag %}
+                                    {% for content in content%}
+                                    {% ifequal content.sub_category "5.2"%}
+                                    <div class="list-group">
+                                        
+                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
+                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                        </a>
+                                        
+                                    </div>
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    
+                                    <button type="button" class="btn btn-info btn-sm">
+                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    </button>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </li>
+                
+                <!-- End of 5 timeline badge-->
+                
+           <!--{% load docc_tag %}
             {% for content in content%}
             
             <ul id="timeline" class="timeline">
@@ -197,7 +514,7 @@
                     <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">{{content.Name}}</h4>
+                            <a href="http://127.0.0.1:8000/courseDisplay/contentId={{content | mongo_id}}"><h4 class="timeline-title">{{content.Name}}</h4></a>
                             <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago</small></p>
                         </div>
                         <div class="timeline-body">
@@ -217,7 +534,7 @@
                                            }
                                            })
                     </script>
-            <!--
+            
                 <li class="timeline-inverted">
                     <div class="timeline-badge"><i class="glyphicon glyphicon-credit-card"></i></div>
                     <div class="timeline-panel">
@@ -232,9 +549,9 @@
                         </div>
                     </div>
                 </li>
-          -->
+       
                            </ul>
-            {%endfor%}
+            {%endfor%}-->
         </div>
     </div>
     </div>

@@ -29,7 +29,7 @@
           $(document).ready(function(){
 			$("#cat a").click(function(){
 			var id = $(this).attr('id');
-			alert(id+" selected");
+			
             $.ajax({type:'GET', url:"subCatClicked?subcat="+id}).done(function(){
             location.reload();
             });			
@@ -79,7 +79,7 @@
   				<p  class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "1.1" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "1.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
   		 
   		  
   		    
@@ -95,7 +95,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "1.2" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "1.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -110,7 +110,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "2.1" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "2.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -121,7 +121,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "2.2" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "2.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -137,7 +137,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "3.1" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "3.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -148,7 +148,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "3.2" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "3.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -163,7 +163,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "4.1" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "4.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -174,7 +174,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "4.2" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "4.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -189,7 +189,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "5.1" href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "5.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -200,7 +200,7 @@
   				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "5.2"  href="#" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "5.2"  href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -245,11 +245,13 @@
 		  		
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <img src={{i.permalink}}>
+                        <img src="{{i.permalink}}" height="80" width="80" alt="cannot be displayed"></img>
                             <div class="caption">
                                 <center>
                                     <h3>{{i.Name}}</h3>
-                                    <h4>professor: {{i.prof_username}}</h4>
+                                    <h4><span class="glyphicon glyphicon-user"><a> {{i.prof_username}} </a></h4>
+                                    <p><span class="glyphicon glyphicon-star"> Rating: {{i.Rating}}</p>
+                                    <p><span class="glyphicon glyphicon-eye-open"> Views: {{i.Count}}</p>
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#{{i | mongo_id}}">View</button>
                                 </center>
                             </div>
@@ -313,7 +315,9 @@
             <div class="caption">
                 <center>
                 <h3>{content_name}</h3>
-                <h4>professor: {professor_name}</h4>
+                <h4><span class="glyphicon glyphicon-user"></span> <a>{professor_name} </a></h4>
+                <div id="Rating" class="divrating"> <p><span class="glyphicon glyphicon-star"> Rating: {Rating}</p> </div>
+                <div id="Count" class="divcount"> <p><span class="glyphicon glyphicon-eye-open"> Views: {Count}</p> </div>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#{id}">View</button>
                 </center>
             </div>
@@ -396,21 +400,26 @@
 					frag += template.replace( /{content_name}/ig, line.Name)
 					        		.replace( /{professor_name}/ig, line.prof_username)
                                     .replace( /{Description}/ig, line.Description)
-                                    .replace( /{Rating}/ig, line.Rating)
                                     .replace( /{Type}/ig, line.Type)
                                     .replace( /{sub_category}/ig, line.sub_category)
                                     .replace( /{id}/ig, line._id)
 					        		.replace( /{index}/ig, index)
 					        		.replace( /{permalink}/ig, line.permalink)
+                                    .replace( /{Count}/ig, line.count)
 					
-				});	
+				
+                });
+                      
 				
 				$('#mostviewed').html(frag);
-					
+                $('.divrating').hide();
 				
 			});
-			
+           
+                             
+			  
 		});
+     
 		
      $('#tb_viewall').on('click', function(e){
                             
@@ -430,6 +439,7 @@
                                              .replace( /{sub_category}/ig, line.sub_category)
                                              .replace( /{id}/ig, line._id)
                                              .replace( /{index}/ig, index)
+                                             .replace( /{Count}/ig, line.count)
                                              .replace( /{permalink}/ig, line.permalink)
                                              });	
                                       
@@ -454,36 +464,23 @@
 					frag += template.replace( /{content_name}/ig, line.Name)
 					        		.replace( /{professor_name}/ig, line.prof_username)
 					        		.replace( /{index}/ig, index)
-									.replace( /{permalink}/ig, line.permalink)	
+									.replace( /{permalink}/ig, line.permalink)
+                                    .replace( /{Rating}/ig, line.Rating)
+                                    .replace( /{id}/ig, line._id)
+                                    .replace( /{Description}/ig, line.Description)
+                                    .replace( /{Count}/ig, line.count)
+                                    .replace( /{sub_category}/ig, line.sub_category)
+                                    .replace( /{Type}/ig, line.Type)
 					
 				});
 				
 				$('#mostrated').html(frag);
+                $('.divcount').hide();
 			});
 			
 		});
 		
-		$('#tb_wesuggest').on('click', function(e){
-			
-			$.getJSON('/courseContentSelection/', function( data ) {
-				
-				frag='';
-				$.each( data, function( index, line ) {
-					if (index==5)
-						return false;
-					var template = $.trim( $('#recordTemplate').html());
-					
-					frag += template.replace( /{content_name}/ig, line.Name)
-					        		.replace( /{professor_name}/ig, line.prof_username)
-					        		.replace( /{index}/ig, index)
-									.replace( /{permalink}/ig, line.permalink)
-					
-				});
-				console.log(frag);
-				$('#wesuggest').html(frag);
-			});
-			
-		});
+		
 		
 	})();
 	

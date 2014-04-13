@@ -341,8 +341,9 @@ def get_professor_Content():
 def get_current_content():
     print 'You are in get current content'
     entity = request.body.read()
-    subcat = json.loads(entity)
-    content = storageobj.get('content', 'sub_category', subcat['sub_category'])
+    contentId = json.loads(entity)['contentId']
+    print contentId
+    content = storageobj.get('content', '_id', ObjectId(contentId) )
     print 'content ---> ', content
     return MongoEncoder().encode(content)
 #----------------------------------------------------------------------End --------------------------------------------------#
