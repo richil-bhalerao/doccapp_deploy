@@ -12,6 +12,9 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+    
+    {% load staticfiles%}
+
   </head>
   
   <body class="">
@@ -19,9 +22,7 @@
       <div class="row">
         <div class="col col-md-6">
           <div class="navbar navbar-inverse navbar-fixed-top">
-            <style>
-              .body{padding-top:70px}
-            </style>
+           
             <div class="container">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -33,10 +34,13 @@
               </div>
               <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-left navbar-nav">
-                  <li class="active"> <a href="#">About</a>
+                    <li class="inactive"> <a href="/index">Home</a>
+                        
+                    </li>
+                  <li class="inactive"> <a href="#">About</a>
 
                   </li>
-                  <li class="active"> <a href="#">Contact Us</a>
+                  <li class="inactive"> <a href="#">Contact Us</a>
 
                   </li>
                 </ul>
@@ -90,7 +94,7 @@
   <script>
     $('#LoginAgain').on('click',function(){
         bootbox.dialog({
-              message: "<form id='SignIn' method='GET' action='http://127.0.0.1:8000/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
+              message: "<form id='SignIn' method='POST' action='/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
              
               title: "Sign In",
               buttons: {

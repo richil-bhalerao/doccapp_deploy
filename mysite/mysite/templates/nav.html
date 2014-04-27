@@ -26,16 +26,15 @@
               <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-left navbar-nav">
                 
-                  <li id="aboutUs"> <a href="http://127.0.0.1:8000/aboutUs">About</a></li>
-                  <li id="contactUs"> <a href="http://127.0.0.1:8000/contactUs">Contact Us</a></li>
+                  <li id="aboutUs"> <a href="#">About</a></li>
+                  <li id="contactUs"> <a href="#">Contact Us</a></li>
                 </ul> 
 
                 <ul class="nav navbar-right navbar-nav">
-                <li id="dashboard"> <a href="http://127.0.0.1:8000/dashboard">Dashboard</a></li>
-                  <li id="course" > <a href="http://127.0.0.1:8000/courseDisplay">Course</a></li>
-                   <li id="courseContentSelection"> <a href="http://127.0.0.1:8000/courseContentSelection">Course Content Selection</a></li>
+                <li id="dashboard"> <a href="/dashboard">Dashboard</a></li>
+                  <li id="course" > <a href="/courseDisplay?contentId={{user.currentContent}}">Course</a></li>
+                   <li id="courseContentSelection"> <a href="/courseContentSelection">Course Content Selection</a></li>
                  
-                  <li id="help"> <a href="http://127.0.0.1:8000/help">Help</a></li>
                   <li>
                   	<div class="btn-group btn-lg navbar-right">
                   
@@ -44,10 +43,10 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://127.0.0.1:8000/editProfile">Edit Profile</a></li>
-                    <li><a href="#">Course settings</a></li>
+                    <li><a href="/editProfile">Edit Profile</a></li>
+                    
                     <li class="divider"></li>
-                    <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
+                    <li><a id="logout" href="/logout/">Log Out</a></li>
                   </ul>
                 </div>
                   </li>

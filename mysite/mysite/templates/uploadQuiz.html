@@ -12,18 +12,18 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
-    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
-        rel="stylesheet" type="text/css">
-      
+    
+        {% load staticfiles%}
+        <link href="{%static "dashboard.css"%}" rel="stylesheet" type="text/css">
         
   </head>
   
-	<body class="">
+	<body class="" style="background-color: rgb(137, 139, 137);">
       <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
     	<script>
         	  $(function() {
-            	$("#navigation").load("http://127.0.0.1:8000/nav");
-            	$("#dashboard").addClass('active');
+            	$("#navigation").load("/profnav");
+            	$("#UploadQuiz").addClass('active');
               }); 
     	</script>
    		<div id="navigation">
@@ -43,11 +43,11 @@
 		<div class="container">
       		<div class="row">
       			<div class="col col-md-10">
-          				<div class="container">
+          				<div class="container" >
     						<div class="row">
-								<form role="form" enctype="multipart/form-data" class="col-md-10 go-right" method='POST' action="http://127.0.0.1:8000/uploadQuestions/">
+								<form role="form" enctype="multipart/form-data" class="col-md-10 go-right" method='POST' action="/uploadQuestions/">
 									{% csrf_token %}
-									<div class="panel">
+									<div class="panel" style="background-color: #FFFFFF; box-shadow: -1px 1px 12px #000000; ">
 									<div class="container">
       								<div class="row" style="padding:20px;">
 									<h3 class="text-primary"><left><b>&nbsp;&nbsp;Quiz Details</b></left></h3>
@@ -136,9 +136,10 @@
 									<br>
 									</div>
 									<!-- end of 2nd Well-->
-									<div>
+									<div class="btngrp">
 									<button type="button" id="btn" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-									<input type="text" name="numberOfQuestions" id="numberOfQuestions" value="1"/>
+									<button type="button" id="btnMinus" class="btn btn-success" style=""><span class="glyphicon glyphicon-minus"></span></button>
+									<input type="hidden" name="numberOfQuestions" id="numberOfQuestions" value="1"/>
 									<button type="submit" id="submitBtn" class="btn btn-success" style="float: right;">Submit</button>
 									<br><br>
 									</div>
@@ -166,6 +167,13 @@
 <!-- Script start -->
 <script>
 var id=2
+$('#btnMinus').click(function(){
+		id--;
+		$('#well' + id).remove()
+		
+		document.getElementById('numberOfQuestions').value = id;
+	}
+	);
 $('#btn').click(function(){
 								    
      $("<div />", { "class":"well well-sm", id:"well"+id })
@@ -220,9 +228,8 @@ $('#btn').click(function(){
     document.getElementById('numberOfQuestions').value = id;
     
     id++;
-    
-    $('#btn').appendTo($('#a'));
-	$('#submitBtn').appendTo($('#a'));
+
+	$('.btngrp').appendTo('#a')
 }
 );
 </script>

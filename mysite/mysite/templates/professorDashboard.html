@@ -12,218 +12,217 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
-    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
+   
         rel="stylesheet" type="text/css">
+        
+        {% load staticfiles%}
+        <link href="{%static "dashboard.css"%}" rel="stylesheet" type="text/css">
   </head>
   
-  <body class="">
-    <div class="container">
-      <div class="row">
-        <div class="col col-md-6">
-          <div class="navbar navbar-inverse navbar-fixed-top">
-            <style>
-              .body{padding-top:70px}
-            </style>
-            <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-left navbar-nav">
-                
-                  <li class="inactive"> <a href="#">About</a>
-
-                  </li>
-                  <li class="inactive"> <a href="#">Contact Us</a>
-
-                  </li>
-                </ul> <!--<a type="button" id="signin" class="btn btn-lg btn-primary navbar-btn navbar-right"
-                href="##">Login</a>-->
-
-                <ul class="nav navbar-right navbar-nav">
-                <li class="active"> <a href="#">Dashboard</a></li>
-                   <li class="inactive"> <a href="http://127.0.0.1:8000/upload">Upload Content</a></li>
-                 
-                  <li class="inactive"> <a href="#">Help</a></li>
-                  <li>
-                  	<div class="btn-group btn-lg navbar-right">
-                  <button type="button" class="btn btn">My Profile</button>
-                  <button type="button" class="btn btn dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://127.0.0.1:8000/editProfile">Edit Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a id="logout" href="http://127.0.0.1:8000/logout/">Log Out</a></li>
-                  </ul>
-                </div>
-                  </li>
-                </ul>
-
-                
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <body class="" style="background-color: rgb(137, 139, 137);">
+    <script>
+            $(function() {
+              $("#navigation").load("/profnav");
+              $("#dashboard").addClass('active');
+              }); 
+    </script>
+    <div id="navigation">
     </div>
 
-<br>
-<br>
-<br>
-<br>
-
-
-<div class = "container">
-    <div class="row">
-        <div class="span3">
-        <div class="col-sm-4 col-md-3 user-details">
-            <div class="user-image">
-                <img src="http://profile.ak.fbcdn.net/hprofile-ak-ash2/1116609_623079471_199585914_q.jpg" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle">
-            </div>
-            <div class="user-info-block">
-                <div class="user-heading">
-                    <h4>{{user.fname}} {{user.lname}}</h4>
-                    <span class="help-block">{{user.email}}</span>
-                </div>
-                <ul class="navigation">
-                    <li class="active">
-                        <a data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Account Information" href="#information">
-                            <span class="glyphicon glyphicon-user"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a  data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Settings" href="#settings">
-                            <span class="glyphicon glyphicon-cog"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a data-toggle="tooltip" data-placement="top" title="Upload Quiz" href="http://127.0.0.1:8000/uploadQuiz">
-                            <span class="glyphicon glyphicon-tag"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a data-toggle="tooltip" data-placement="top" title="Upload Contents" href="http://127.0.0.1:8000/upload">
-                            <span class="glyphicon glyphicon-upload"></span>
-						</a>
-                    </li>
-                </ul>
-                <script>
-				      $('a').tooltip({
-				     'delay': { show: 1, hide: 0  }
-				});
-                </script>
-                <div class="user-body">
-                    <div class="tab-content">
-                        <div id="information" class="tab-pane active">
-                        	<h4>Account Information</h4>
-                            <ul class="list-group">
-							  <li class="list-group-item">Name: {{user.firstname}} {{user.lastname}} </li>
-							  <li class="list-group-item"> School: {{user.organization}}</li>
-							  
-							</ul>
-                        </div>
-                        <br>
-                        <br>
-                        <div id="settings" class="tab-pane">
-                            <h4>Settings</h4>
-                            <a> Update your settings</a>
-                        </div>
-                    
-                        <div id="events" class="tab-pane">
-                            <h4>Events</h4>
-                            <ul class="list-group">
-							  <li class="list-group-item">1. <a> Online Study Group - Mon, 03/23/2014</a> </li>
-							 </ul>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="span9">
-            <div class="col-md-9">
-                <div class="well">
-                    <h2 class="text-primary"><center> Dashboard</center></h2>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="row">
-                
-                             {% for content in content%}
-            	
-           				 <ul id="timeline" class="timeline">
-                
-                <li class="timeline">
-                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">{{content.Name}}</h4>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago</small></p>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Professor: {{content.prof_username}}</p><br>
-                            <p>Description: {{content.Description}} </p><br>
-                            <p>Type: {{content.Type}}</p><br>
-                            <p>Rating: {{content.Rating}}</p><br>
-                        </div>
-                    </div>
-                </li>
-                <script>
-                    
-                    $('#timeline li').each(function(e,i){
-                                           if(e%2!=0)
-                                           {
-                                           $(i).addClass('timeline-inverted');
-                                           }
-                                           })
-                    </script>
-            <!--
-                <li class="timeline-inverted">
-                    <div class="timeline-badge"><i class="glyphicon glyphicon-credit-card"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">{{content.Name}}</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Professor: {{content.prof_username}}</p><br>
-                            <p>Description: {{content.Description}} </p><br>
-                            <p>Type: {{content.Type}}</p><br>
-                            <p>Rating: {{Content.Rating}}</p><br>
-                        </div>
-                    </div>
-                </li>
-          -->
-                           </ul>
-            {%endfor%}
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+    <br>
+    <br>
+    <br>
+    <br>
     <br>
     
-    </div>
 
-    <br>
 
-                <script>
-                  $('#logout').on('click',function(){
+    <div class = "container">
+        <div class="row">
+            <div class="span3">
+            <div class="col-sm-4 col-md-3 user-details">
+                <div class="user-image" style="top:-20px;">
+                    <img src="http://en.opensuse.org/images/0/0b/Icon-user.png" height="80" width="80" class="img-circle">
+                </div>
+                <div class="user-info-block" style="box-shadow: -1px 1px 12px #000000; top:20px; border-radius:5px;">
+                    <div class="user-heading">
+                        <h4>{{user.fname}} {{user.lname}}</h4>
+                        <span class="help-block">{{user.email}}</span>
+                    </div>
+                    <ul class="navigation">
+                        <li class="active">
+                            <a data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Account Information" href="#information">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a  data-toggle="tab" data-toggle="tooltip" data-placement="top" title="Settings" href="#settings">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tooltip" data-placement="top" title="Upload Quiz" href="/uploadQuiz">
+                                <span class="glyphicon glyphicon-tag"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tooltip" data-placement="top" title="Upload Contents" href="/upload">
+                                <span class="glyphicon glyphicon-upload"></span>
+    						</a>
+                        </li>
+                    </ul>
+                    <script>
+    				      $('a').tooltip({
+    				     'delay': { show: 1, hide: 0  }
+    				});
+                    </script>
+                    <div class="user-body">
+                        <div class="tab-content">
+                            <div id="information" class="tab-pane active">
+                            	<h4>Account Information</h4>
+                                <ul class="list-group">
+    							  <li class="list-group-item">Name: {{user.firstname}} {{user.lastname}} </li>
+    							  <li class="list-group-item"> School: {{user.organization}}</li>
+    							  
+    							</ul>
+                            </div>
+                            <br>
+                            <br>
+                            <div id="settings" class="tab-pane">
+                                <h4>Settings</h4>
+                                <a> Update your settings</a>
+                            </div>
+                        
+                            <div id="events" class="tab-pane">
+                                <h4>Events</h4>
+                                <ul class="list-group">
+    							  <li class="list-group-item">1. <a> Online Study Group - Mon, 03/23/2014</a> </li>
+    							 </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+       
+            <div class="span9">
+                <div class="col-md-9">
+                    <div class="well" style="background-color: #FFFFFF; box-shadow: -1px 1px 12px #000000; ">
+                        <h2 class="text-primary"><center> Dashboard</center></h2>
+                    </div>
+                
+                    <div class="panel panel-default" style="box-shadow: -1px 1px 12px #000000;">
+                        <div class="panel-body">
+                            <div class="row">
+                    
+                                 {% for content in content%}
+                	
+               				 <ul id="timeline" class="timeline">
+                    
+                    <li class="timeline" style="padding-left:10px; padding-right:10px;">
+                        <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">{{content.Name}}</h4>
+                            </div>
+                            <br>
+                            	<div class="col-md-12">
+                            	<div class="panel panel-default">
+                            			<div class="panel-heading" style="background-color: rgba(158, 33, 33, 0.32);"> Description </div>
+                            			<div class="panel-body">
+                            				{{content.Description}}
+                            			</div>
+                            		</div>
+                            	</div>
+								<div class="col-md-6">
+                            		<div class="panel panel-default">
+                            			<div class="panel-heading" style="background-color: rgba(158, 33, 33, 0.32);"> # of Ratings </div>
+                            			<div class="panel-body">
+                            				{{content.RatingCount}}
+                            			</div>
+                            		</div>
+                            		<br>
+                            		<div class="panel panel-default">
+                            			<div class="panel-heading" style="background-color: rgba(158, 33, 33, 0.32);"> Views </div>
+                            			<div class="panel-body">
+                            				{{content.count}}
+                            			</div>
+                            		</div>
+                            	</div>
+                            	<div class="col-md-1"></div>
+                            	<div class="col-md-6">
+                            		<div class="panel panel-default">
+                            			<div class="panel-heading" style="background-color: rgba(158, 33, 33, 0.32);"> Sub Category </div>
+                            			<div class="panel-body">
+                            				{{content.sub_category}}
+                            			</div>
+                            		</div>
+                            		<br>
+                            		<div class="panel panel-default">
+                            			<div class="panel-heading" style="background-color: rgba(158, 33, 33, 0.32);"> Ratings </div>
+                            			<div class="panel-body">
+                            				{{content.AverageRating}}
+                            			</div>
+                            		</div>
+                            	</div>
+                           <!-- 
+                            <div class="timeline-body">
+                                <p>Professor: {{content.prof_username}}</p><br>
+                                <p>Description: {{content.Description}} </p><br>
+                                <p>Type: {{content.Type}}</p><br>
+                                <p>Rating: {{content.Rating}}</p><br>
+                            </div>
+                            -->
+                        </div>
+                    </li>
+                    <script>
+                        
+                        $('#timeline li').each(function(e,i){
+                                               if(e%2!=0)
+                                               {
+                                               $(i).addClass('timeline-inverted');
+                                               }
+                                               })
+                        </script>
+                <!--
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge"><i class="glyphicon glyphicon-credit-card"></i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">{{content.Name}}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Professor: {{content.prof_username}}</p><br>
+                                <p>Description: {{content.Description}} </p><br>
+                                <p>Type: {{content.Type}}</p><br>
+                                <p>Rating: {{Content.Rating}}</p><br>
+                            </div>
+                        </div>
+                    </li>
+              -->
+                               </ul>
+                {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <br>
+        
+        </div>
 
-                      window.location.href = 'http://127.0.0.1:8000/logout/'  
-                    });
-                  });
-                </script>
+        <br>
+
+                    <script>
+                      $('#logout').on('click',function(){
+
+                          window.location.href = '/logout/'  
+                        });
+                      });
+                    </script>
 
   </body>
 

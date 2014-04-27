@@ -12,6 +12,8 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+    {% load staticfiles%}
+   
   </head>
   
   <body class="">
@@ -33,6 +35,10 @@
               </div>
               <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-left navbar-nav">
+                    <li class="active"> <a href="/index">Home</a>
+                        
+                    </li>
+
                   <li class="inactive"> <a href="#">About</a>
 
                   </li>
@@ -45,9 +51,9 @@
                 <script>
                   $('#signin').on('click',function(){
                       bootbox.dialog({
-                            message: "<form id='SignIn' method='POST' action='http://127.0.0.1:8000/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
+                            message: "<form id='SignIn' method='POST' action='/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
                            
-                            title: "Sign In",
+                            title: "Student Sign In",
                             buttons: {
                               main: {
                                     label: "Submit",
@@ -69,7 +75,8 @@
     <br>
     <br>
     <br>
-
+    <br>
+    <br>
     <div class="container">
       <div class="jumbotron text-left">
         <hr>
@@ -84,7 +91,7 @@
                   <br>
                   <br>
       
-                  <p> <a id="signUp" style="-moz-user-select: text;" class="btn btn-lg btn-primary" contenteditable="false" href="http://127.0.0.1:8000/signup/">
+                  <p> <a id="signUp" style="-moz-user-select: text;" class="btn btn-lg btn-primary" contenteditable="false" href="/signup/">
 
                 Register Now
               </a>
@@ -99,9 +106,9 @@
                   <script>
                       $('#professorSignIn').on('click',function(){
                                                bootbox.dialog({
-                                                              message: "<form id='profSignIn' method='POST' action='http://127.0.0.1:8000/professorSignIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
+                                                              message: "<form id='profSignIn' method='POST' action='/professorSignIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
                                                               
-                                                              title: "Sign In",
+                                                              title: "Professor Sign In",
                                                               buttons: {
                                                               main: {
                                                               label: "Submit",
@@ -117,94 +124,14 @@
                 </div>
               </td>
               <td align="right">
-             <!--   <img src="https://lh3.googleusercontent.com/-aa1S6oaL-l0/UwFVkL8nneI/AAAAAAAAAqg/ZQSaaVF3k40/w362-h394-no/docc.png"
-                class="img-responsive img-rounded">-->
+             
               </td>
             </tr>
           </tbody>
         </table>
-        <!--<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="item active">
-              <img src="http://lorempixel.com/1920/600/nightlife/5">
-              <div class="carousel-caption">
-                <h2>Distributed - Collaborative - Gamification
-                  <br>
-                </h2>
-                <p><b>Start Learning Now<br></b>
-
-                </p>
-              </div>
-            </div>
-          </div> <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
- <a class="right carousel-control" href="#carousel-example-generic"
-          data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-
-        </div>-->
- <!--       <script>
-          $('#signUp').on('click',function(){
-              		bootbox.dialog({
-            				message: "<form id='register' method='POST' action='http://127.0.0.1:8000/register/' class='form-horizontal' role='form'>{% csrf_token %}<div class='form-group'><div class='col-sm-8'><input type='text' class='form-control' name='username' placeholder='Username'></div></div><div class='form-group'><div class='col-sm-8'><input type='password' class='form-control' name='password' placeholder='Password'></div></div><div class='form-group'><div class='col-sm-8'><input type='text' class='form-control' name='fname' placeholder='First Name'></div></div><div class='form-group'><div class='col-sm-8'><input type='text' class='form-control' name='lname' placeholder='Last Name'></div></div><div class='form-group'><div class='col-sm-8'><input type='text' class='form-control' name='email' placeholder='Email Address'></div></div></div></div></form>",
-            				title: "Sign Up",
-            				buttons: {
-              				 success: {
-          					label: "Sign Up!",
-          					className: "btn-success",
-          					callback: function(result) {
-          					if(result)
-          					alert("Sign Up complete. Now you can Sign In!");
-          					$('#register').submit();
-          					}
-          					},
-          					danger: {
-          					label: "Cancel!",
-          					className: "btn-danger",
-          					callback: function() {
-          					Example.show("uh oh, look out!");
-          					}
-          					}
-            				}
-          			}).addClass();
-          		});
-        </script>  -->
+        
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <h2>What is DOCC?
-            <br>
-          </h2>
-          <p>Explore all the courses that you want to learn. We have fantastic database course
-            content that can make you go SQL in a few days. Flexible course content, learn
-            at your own speed, collaborate with others and get going with your course work.
-            <br>
-          </p> <a class="btn btn-primary" href="#">View details</a>
-
-        </div>
-        <div class="col-md-4">
-          <h2>How it works?
-            <br>
-          </h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-            commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-            Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p> <a class="btn btn-primary"
-          href="#">View details</a>
-
-        </div>
-        <div class="col-md-4">
-          <h2>Why should you register?
-            <br>
-          </h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-            commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-            Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p> <a class="btn btn-primary"
-          href="#">View details</a>
-
-        </div>
-      </div>
+     
       <div class="row">
         <div class="col col-md-12">
           <hr class="visible-lg">

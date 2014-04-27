@@ -12,19 +12,29 @@
                 
                 
                 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-                     <link rel="stylesheet" href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/coursepage.css">
                     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
                     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
                     <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
                     
+                    {% load staticfiles%}
+                    <link href="{%static "coursepage.css"%}" rel="stylesheet" type="text/css">
+                       
     </head>
     
-    <body class="">
-        
+    <body class="" >
+       
         <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
         <script>
             $(function() {
-              $("#navigation").load("http://127.0.0.1:8000/nav");
+              
+              $("#100hide1").hide();
+              $("#100hide2").hide();
+              $("#100hide4").hide();
+              $("#100game").show(function()
+                                 {
+                                 $('body').css({"background-color": "rgb(137, 139, 137);"})
+                                 });
+              $("#navigation").load("/nav");
               $("#dashboard").addClass('active');
               });
             </script>
@@ -39,174 +49,108 @@
                                                                                                           });			
                                                 });
                               });
+            function validate(){
+    			var noOfQuestions = document.getElementById('noOfQuestions').value;
+    			if ($("input[type=radio]:checked").length != noOfQuestions) {
+        		    alert('Please answer all the questions and then click submit');
+        		    return false;
+        		}
+        		return true;
+        	}
             </script>
         <div id="navigation">
         </div>
         
         <br>
         <br>
-        <br>
-        <br>
         
         <!-- Copy till here for navigation bar-->
         
         <div class="container">
-            <div class = "row">
+            <div class = "row" id="{{data.CategoryPercentage}}hide0">
                 <div class="col-md-3">
         
                     <!-- Start of the list -->
         
-        <div class="panel-group" id="accordion">
+        <div id="{{data.CategoryPercentage}}hide1" class="panel-group" id="accordion">
+        {% load docc_tag %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                        </span>Content</a>
+                        </span> Content</a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <ul class="list-group">
-                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span>Name : &nbsp; {{data.Name}}</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span> Name : &nbsp; {{data.Name}} </li>
                         
-                        <li class="list-group-item"><span class="glyphicon glyphicon-hand-right text-primary"></span>Sub Category : &nbsp; {{data.sub_category}}</li>
+                        <input type="hidden" name="contentId" id="contentId" value="{{data | mongo_id}}"/>
                         
-                        <li class="list-group-item"><span class="glyphicon glyphicon-user text-primary"></span>Professor : &nbsp; {{data.prof_username}}</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-hand-right text-primary"></span> Sub Category : &nbsp; {{data.sub_category}}</li>
                         
-                        <li class="list-group-item"><span class="glyphicon glyphicon-star text-primary"></span>Rating : &nbsp; <span class="badge">{{data.Rating}}</span></li></li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-user text-primary"></span> Professor : &nbsp; {{data.prof_username}}</li>
+                        
+                        <li class="list-group-item"><span class="glyphicon glyphicon-star text-primary"></span> Rating :  &nbsp;
+                            {%ifequal data.AverageRating 1 %}
+                            
+                            <span class="glyphicon glyphicon-star">
+                            <span style="float:right;" class="badge">1</span>
+                            {%endifequal%}
+                            
+                            {%ifequal data.AverageRating 2 %}
+                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+                               <span style="float:right;" class="badge">2</span>
+                                {%endifequal%}
+                            
+                            {%ifequal data.AverageRating 3 %}
+                            
+                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+                                <span style="float:right;" class="badge">3</span>
+                                {%endifequal%}
+                            
+                            {%ifequal data.AverageRating 4 %}
+                            
+                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+                                <span style="float:right;" class="badge">4</span>
+                                {%endifequal%}
+                            
+                            {%ifequal data.AverageRating 5 %}
+                            
+                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+                            <span style="float:right;" class="badge">5</span>
+                                {%endifequal%}
+                            
+                            {%ifequal data.AverageRating 0 %}
+                            
+                          <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span>
+                                <span style="float:right;" class="badge">0</span>
+                                {%endifequal%}
+                                
+                        </li></li>
                         
                         
                         
                     </ul>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
-                        </span>Reports</a>
-                    </h4>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            Cras justo odio
-                        </a>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                Cras justo odio
-                            </a>
-                            <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                            <a href="#" class="list-group-item">Morbi leo risus</a>
-                            <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                            <a href="#" class="list-group-item">Vestibulum at eros</a>
-                        </div>
-                        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                        <a href="#" class="list-group-item">Morbi leo risus</a>
-                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                        <a href="#" class="list-group-item">Vestibulum at eros</a>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-stats">
-                        </span>My stats</a>
-                    </h4>
-                </div>
-                <div id="collapseFive" class="panel-collapse collapse">
-                    <br>
-                    <div class=""row>
-                    <div class="col-xs-12 col-md-8 text-center">
-                        <div class="well well-sm">
-                        <h1 class="rating-num">
-                            4.0</h1>
-                        
-                        <div class="rating">
-                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
-                            </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
-                            </span><span class="glyphicon glyphicon-star-empty"></span>
-                        </div>
-                        <div>
-                            <span class="glyphicon glyphicon-user"></span>1,050,008 total
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                  
-                  <br>
-                  
-                  <div class="well well-lg">
-                  <div class="row rating-desc">
-                      <div class="col-xs-3 col-md-3 text-right">
-                          <span class="glyphicon glyphicon-star"></span>5
-                      </div>
-                      <div class="col-xs-8 col-md-9">
-                          <div class="progress progress-striped">
-                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                  aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                  <span class="sr-only">80%</span>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- end 5 -->
-                      <div class="col-xs-3 col-md-3 text-right">
-                          <span class="glyphicon glyphicon-star"></span>4
-                      </div>
-                      <div class="col-xs-8 col-md-9">
-                          <div class="progress">
-                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                  aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                  <span class="sr-only">60%</span>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- end 4 -->
-                      <div class="col-xs-3 col-md-3 text-right">
-                          <span class="glyphicon glyphicon-star"></span>3
-                      </div>
-                      <div class="col-xs-8 col-md-9">
-                          <div class="progress">
-                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                  aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                  <span class="sr-only">40%</span>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- end 3 -->
-                      <div class="col-xs-3 col-md-3 text-right">
-                          <span class="glyphicon glyphicon-star"></span>2
-                      </div>
-                      <div class="col-xs-8 col-md-9">
-                          <div class="progress">
-                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                  aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                  <span class="sr-only">20%</span>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- end 2 -->
-                      <div class="col-xs-3 col-md-3 text-right">
-                          <span class="glyphicon glyphicon-star"></span>1
-                      </div>
-                      <div class="col-xs-8 col-md-9">
-                          <div class="progress">
-                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-                                  aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                  <span class="sr-only">15%</span>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- end 1 -->
-                  </div>
-                  <!-- end row-->
-                   </div>
-                   
-                   
-                </div>
-            </div>
+         
+         
         </div>
+        <div id="{{data.CategoryPercentage}}hide4"class="well">
+       
+           
+           
+                <h2>Content Rating<h2> <small>This is important to us, as we suggest data on your feedback </small></h2>
+           <center>
+            <div class="row lead">
+                <div id="stars" class="starrr"></div>
+                You gave a rating of <span id="count">0</span> star(s)
+            </div>
+            </center>
+            
         
+        </div>
               
                    
         
@@ -214,33 +158,157 @@
         
                </div>
                 
-                
                 <!-- Start of tabs -->
-        
-               <div class="col-md-9">
+                <div id="{{data.CategoryPercentage}}game" style="display:none;">
+                    
+                    
+                    <div class="jumbotron">
+                        
+                        
+                        <center><h3>Coders feud</h3></center>
+                        
+                        <div id="container" style="height:500px;">
+                            <div class="panel panel default" style= "background-color:  rgb(197, 199, 199);">
+                              <form>
+                                  {%csrf_token%}
+                                  
+                                  {%ifequal data.Challenge 0%}
+                              <!-- -->
+                              <div class="panel-heading"><h3>Challenge another user</h3></div>
+                               <div class="panel-body" style="overflow: auto;  white-space:nowrap;">
+                            {% for i in AllUsers%}
+                            {%ifnotequal i.username user.username%}
+                                <div class="contentGap">
+                                </div>
+                                <div class="contents" id="one" >
+                                <div id="{{i.username}}" class="thumbnail" style="box-shadow: inset 1px 1px 10px black; border: black;">
+                                    <img src="http://png-4.findicons.com/files/icons/2443/bunch_of_cool_bluish_icons/512/user.png" style="height: 50px; width: 60px; ">
+                                        <div class="caption">
+                                            <center>
+                                            <h3>{{i.username}}</h3>
+                                            <p>{{i.firstname}} &nbsp; {{i.lastname}}</p>
+                                            
+                                            <p>Stars: {{i.StarsAchieved|floatformat:"0"}}</p>
+                                            {%load docc_tag%}
+                                            <input type="radio" name="userValue" value="{{i.username}}">
+                                                </center>
+                                        </div>
+                                </div>
+                                </div>
+                                {%endifnotequal%}
+                            {%endfor%}
+                            
+                                <div class="contentGap">
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                               
+                                <!-- -->
+                                {%endifequal%}
+                                
+                                {%ifequal data.Challenge 1%}
+                                 <div class="panel-heading">You have been challenged</div>
+                                  <div class="panel-body">
+                                      <p> User info who challenged in</p>
+                                      </div>
+                                {%endifequal%}
+                            </form>
+                        </div>
+                        <script>
+                           
+                            
+                            $("input:radio[name=userValue]").click(function(){
+                                                                   var value = $(this).val();
+                                                                   $(".thumbnail").css({"box-shadow": "inset 1px 3px 10px black" ,"border":"black"});
+                                $("#"+value).css({"border": "1px green", "box-shadow": "red -1px 1px 30px"})
+                               // alert(val);
+                               //var _href = $("#abc").attr("href");
+							   $("#abc").attr("href", '/playFeud/?opponentUsername='+value);
+                            
+                                                                   });
+                                                                  
+                                                                   
+                                                                   
+                            </script>
+                        <style>
+                            #container {
+                                
+                                overflow: auto;
+                                height: 300px;
+                                white-space:nowrap;
+                            }
+                        
+                        .contents {
+                            width: 200px;
+                            height: 230px;
+                            display:inline-block;
+                        }
+                        .contentGap {
+                            width: 20px;
+                            height: 230px;
+                            display:inline-block;
+                        }
+                        
+                        }
+                            </style>
+                       
+                       <div class = "row">
+                          
+                        <p><center><a id="abc" class="btn btn-primary btn-lg" href="/game">Play coders feud</a></center></p>
+                        
+                        
+                        
+                        </div>
+                       
+                       
+                        </div>
+                    </div>
+                   
+                </div>
+                
+               <div id="{{data.CategoryPercentage}}hide2" class="col-md-9">
+                  
                    <ul class="nav nav-tabs" id="myTab">
                        <li  class="active" id="tb_YourCourse"><a href="#yourcourse" data-toggle="tab">Your course</a></li>
-                       <li id="tb_quiz"><a href="#quiz" data-toggle="tab">Quiz</a></li>
-                       <li id="tb_challenges"><a href="#challenges" data-toggle="tab">Challenges</a></li>
-                       <li id="subcat" style="float: right;"><div class="alert alert-success" style="height:20px;line-height: 4px;padding: 10;"><span>Sub Category Selected: {{data.sub_category}}</span></div></li>
+                       <li class="{{data.percentage}}q" id="tb_quiz"><a id="aquiz" href="#quiz" data-toggle="tab">Quiz  <span class="badge">new</span></a></li>
+                       <li class="{{data.percentage}}p" id="tb_poll"><a href="#poll" data-toggle="tab">Poll  <span class="badge">new</span></a></li>
+                       <li class="{{data.percentage}}c" id="tb_challenges"><a href="#challenges" data-toggle="tab">Challenges  <span class="badge">new</span></a></li>
+                       <li id="takeQuiz"> <a href="#" id="takequiz" class="btn btn-primary" role="button">Take Quiz</a></li>
+                       <li id="takePoll"> <a href="#" id="takepoll" class="btn btn-primary" role="button">Take Poll</a></li>
+                       
                    </ul>
+                <script>
+                    $("#takepoll").hide();
+                    
+                    $("#takepoll").click(function(){
+                                         $(this).hide();
+                                         });
+                    $("#takeQuiz").click(function(){
+                                        $(this).hide();
+                                         });
+                    
+                    </script>
+                   
                    <br/>
                    <div class="tab-content">
                        
                        
                        <div class="tab-pane active" id="yourcourse">
-                           <p> Your content is diplayed below: {{data.fileName}} </p>
                            
                            
-                           <iFrame height="700" width="800" src="http://127.0.0.1:8000/media/{{data.fileName}}"> </iFrame>
-                           <!-- <img height="800" width="800" src="http://127.0.0.1:8000/media/pic.jpg">
+                           <iFrame height="700" width="800" src="/media/{{data.fileName}}"> </iFrame>
+                           <!-- <img height="800" width="800" src="/media/pic.jpg">
                             <video width="320" height="240" controls>
-                            <source src="http://127.0.0.1:8000/media/a.mp4" type="video/mp4">
+                            <source src="/media/a.mp4" type="video/mp4">
                             <source src="movie.ogg" type="video/ogg">
                             Your browser does not support the video tag.
                             </video>
                             -->
-
+							<br>
+                            <br>
+                            
+                            
                            
                        </div>
                        
@@ -248,8 +316,100 @@
                            <p>Quiz tab</p>
                        </div>
                        
+                       <div class="tab-pane" id="poll">
+                           
+                           <div class="jumbotron" style="background-color:#484848;">
+                               <h3 style="color:#fff">It's polling time, now!</h3>
+                               <div class="panel panel-default">
+                                   <div class="panel-heading">
+                                       <h4><span class="glyphicon glyphicon-hand-right"></span>  &nbsp;{{poll.Question}} {{poll.sub_category}}</h4>
+                               </div>
+                                   <div class="panel-body">
+                                       <div class="col col-md-2"></div>
+                                       
+                                       {%load docc_tag%}
+                               <form name ="pollForm" onsubmit="return validateForm()"method="post" action="/submitPoll/?pollQuestionId={{poll | mongo_id}}">
+                                   {%csrf_token%}
+                                   <div class="col col-md-8">
+                                   
+                                       
+                                   {%for i in poll.answers%}
+                                   {%ifequal i.optionId "a"%}
+                                   <ul class="list-group">
+                                       <li class="list-group-item">
+                                           <input name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b>
+                                       </li>
+                                  
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    
+                                   
+                                   
+                                       {%for i in poll.answers%}
+                                       {%ifequal i.optionId "b"%}
+                                       <li class="list-group-item"><input name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b><br></li>
+                                           {%endifequal%}
+                                           {%endfor%}
+                                       
+                                       {%for i in poll.answers%}
+                                       {%ifequal i.optionId "c"%}
+                                       <li class="list-group-item"><input  name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b><br></li>
+                                          {%endifequal%}
+                                           {%endfor%}
+                                    
+                                    {%for i in poll.answers%}
+                                    {%ifequal i.optionId "d"%}
+                                    <li class="list-group-item"><input  name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b><br></li>
+                                       {%endifequal%}
+                                        {%endfor%}
+                                
+                                {%for i in poll.answers%}
+                                {%ifequal i.optionId "e"%}
+                               <li class="list-group-item"> <input name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b><br></li>
+                                    {%endifequal%}
+                                    {%endfor%}
+                                    
+                                    {%for i in poll.answers%}
+                                    {%ifequal i.optionId "f"%}
+                                    <li class="list-group-item"><input name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b><br></li>
+                                        {%endifequal%}
+                                        {%endfor%}
+                                        
+                                        {%for i in poll.answers%}
+                                        {%ifequal i.optionId "g"%}
+                                      <li class="list-group-item">  <input  name="answer" type="radio" value="{{i.optionId}}">&nbsp;<b>{{i.optionValue}}</b><br></li>
+                                           {%endifequal%}
+                                            {%endfor%}
+                                    <div >
+                                        </ul>
+                                   <center>
+                                    <button type="submit" id = "submitPoll" class="btn btn-primary">Submit Poll</button>
+                                    </center>
+                                    </div>
+                                   </div>
+                                </form>
+                               <script>
+                                   function validateForm()
+                                   {
+                                       var x = $('input[name="answer"]:checked').val();
+                                       if (x==null||x=="")
+                                       {
+                                           alert("Select an option");
+                                           return false;
+                                       }
+                                   }
+                                   </script>
+                               
+                              
+                               </div>
+                               </div>
+                           </div>
+                          
+                       </div>
+                       
+                       
                        <div class="tab-pane" id="challenges">
-                           <p> Challenges tab</p>
+                          
                        </div>
                        
                    </div>
@@ -263,6 +423,351 @@
        
        </div>
     </div>
+        <script>
+            //alert("hi");
+            $(".20p").hide();
+            $(".20c").hide();
+          //  $(".60q").hide();
+            $(".60c").hide();
+           // $(".100q").hide();
+            $(".100p").hide();
+            $(".100c").hide();
+            </script>
+            
+            <!--  Richil Script Start-->
+    <script id="qtnTemplate" type="tuts/template">
+<div class="well well-sm" style="background-color:#484848;">
+    <h5 id="qtn{index}" style="color:#fff;"><b>{index}. {question}</b></h5>
+	<input type="hidden" name="ans{index}" id="ans{index}" value="{answer}"/>
+	<ul class="list-group">
+		<li class="list-group-item" id="lioptionA{index}">
+			<input type="radio" name="q{index}" value="optionA" id="optionA"><label for="q1a">&nbsp; {option1}</label>
+		</li>
+		<li class="list-group-item" id="lioptionB{index}">
+			<input type="radio" name="q{index}" value="optionB" id="optionB"><label for="q1b">&nbsp; {option2}</label>
+		</li>
+		<li class="list-group-item" id="lioptionC{index}">
+			<input type="radio" name="q{index}" value="optionC" id="optionC"><label for="q1c">&nbsp; {option3}</label>
+		</li>
+		<li class="list-group-item" id="lioptionD{index}">
+			<input type="radio" name="q{index}" value="optionD" id="optionD"><label for="q1d">&nbsp; {option4}</label>
+		</li>
+	</ul>
+</div>
+	</script>
+    
+    
+    <script type="text/javascript">
+    $(function(){
+      $('#tb_poll' ).hide();
+      $('#tb_quiz' ).hide();
+    	$('#takequiz').on('click', function(){
+    		console.log('take quiz button clicked');
+    		
+    		$('#tb_YourCourse').removeClass('active');
+    		$('#tb_quiz' ).addClass( 'active' );
+    		
+    		$('#yourcourse').hide();
+    		$('#challenges').hide();
+    		$('#poll').hide();
+    		$('#tb_poll' ).hide();
+                          $('#tb_quiz' ).show();
+    		$('#quiz').show();
+    		getQuizData();
+    		
+    			
+    	});
+    	
+    	$('#tb_YourCourse').on('click', function(){
+    		console.log('your course tab clicked');
+    		$('#quiz').hide();
+    		$('#challenges').hide();
+    		$('#poll').hide();
+    		
+    		$('#yourcourse').show();
+    		
+    	});
+    	
+    	$('#tb_challenges').on('click', function(){
+    		console.log('challenges tab clicked');
+    		$('#quiz').hide();
+    		$('#yourcourse').hide();
+    		$('#poll').hide();
+    		$('#challenges').show();
+    		
+    	});
+    	
+    	$('#tb_quiz').on('click', function(){
+    		console.log('quiz tab clicked');
+    		$('#yourcourse').hide();
+    		$('#challenges').hide();
+    		$('#poll').hide();
+    		
+    		$('#quiz').show();
+    		getQuizData();
+    		
+    	});
+    	
+    	$('#tb_poll').on('click', function(){
+    		console.log('poll tab clicked');
+    		$('#yourcourse').hide();
+    		$('#challenges').hide();
+    		$('#quiz').hide();
+    		
+    		$('#poll').show();
+    	});
+    	
+    	function getQuizData() {
+    		
+    		console.log('Showing quiz for ');
+    		contentId = $('#contentId').val();
+    		templateHTML = '<form class="form-inline" name="quizform">';
+    		templateHTML = templateHTML + "\n{% csrf_token %}\n";
+    		
+    		url = '/getQuiz/'+contentId;
+    		$.getJSON(url, function( data ) {
+    			console.log('hi');
+    			
+				frag='';
+				count=0;
+				$.each( data, function( index, line ) {
+					console.log(line.OptionA);
+					var template = $.trim( $('#qtnTemplate').html());
+					
+					frag += template.replace( /{index}/ig, index+1)
+					        		.replace( /{question}/ig, line.Question)
+                                    .replace( /{option1}/ig, line.Options.OptionA)
+                                    .replace( /{option2}/ig, line.Options.OptionB)
+                                    .replace( /{option3}/ig, line.Options.OptionC)
+                                    .replace( /{option4}/ig, line.Options.OptionD)
+									.replace( /{answer}/ig, line.Answer)
+                                    
+					frag = frag + '<br>';
+					count = index+1;
+                });
+                      
+				if (frag == '')
+					templateHTML = '<h1>No Quiz found</h1>';
+				else{
+					templateHTML = templateHTML + frag;
+					templateHTML = templateHTML + 
+						'<input type="hidden" name="noOfQuestions" id="noOfQuestions" value="' + count + '"/>'
+					templateHTML = templateHTML + '<center><a class="btn btn-primary" id="submitQuiz" href="#" role="button">Submit Quiz</a></center>';
+				}
+				
+	    		templateHTML = templateHTML + '</form>';
+	    		console.log(templateHTML);
+	    		$('#quiz').html(templateHTML);
+				
+			});
+    	}
+    	
+    	$('body').on('click', '#submitQuiz', function( e ) {
+    		console.log('Submit button clicked');
+                     $("#takepoll").show();
+    		if (validate()){ //Check if all questions were answered
+    			noOfQuestions = $('#noOfQuestions').val();
+    			count = 0;
+    			
+    			for ( var i = 1; i <= noOfQuestions; i++ ) {
+    				studentAns = $('input[name=q'+i+']:checked').val();
+    				actualAns = $('#ans'+i).val();
+    				console.log(studentAns + ' | ' + actualAns);
+    				
+    				if(studentAns.toLowerCase()==actualAns.toLowerCase()){
+    					count++;
+    					$('#qtn'+i).append('<h1><span class="glyphicon glyphicon-ok"></span></h1>');
+    				}
+    				else{
+    					$('#li'+studentAns+i).css( "background-color", "#f2dede");
+    					$('#qtn'+i).append('<h1><span class="glyphicon glyphicon-remove"></span></h1>');
+    				}
+    				$('#li'+actualAns+i).css( "background-color", "#dff0d8");	
+    			}
+    			
+    			$('#submitQuiz').hide();
+    			$('#quiz').prepend('<div class="alert alert-info"><h1>Quiz Completed! </h1><h3> Your score was: ' + 
+    					count + ' out of ' + noOfQuestions + ' </h3></div>');
+    			
+    			
+    			//Post score to database
+    			jsondata = {}
+    			contentId = $('#contentId').val();
+				jsondata['contentId'] = contentId;
+				jsondata['quiz_percentage'] = (count/noOfQuestions*100);
+				
+				$.ajax({ 
+					url: "/submitQuizGrade/", 
+					type: "POST", 
+					data: jsondata, 
+					dataType: "json", 
+					success: function(data){
+						//your code here
+					},
+					error: function (e) {
+			            console.log("Failed to process request correctly, please try again");
+			        }
+				});	
+    			
+    		}
+    			  
+    	});
+    	
+    	$('body').on('click', '#takepoll', function( e ) {
+    		$('#tb_quiz').removeClass('active');
+    		$('#tb_poll' ).addClass( 'active' );
+    		
+    		$('#yourcourse').hide();
+    		$('#challenges').hide();
+    		$('#quiz').hide();
+    		$('#tb_quiz').hide();
+            $('#tb_poll' ).show();
+    		$('#poll').show();
+    	});
+    	
+    })();
+    // rating script
+    
+    
+    </script>
+    <!--  Richil Script End-->
+    <script type="text/javascript">
+        // Starrr plugin (https://github.com/dobtco/starrr)
+        var __slice = [].slice;
+        
+        (function($, window) {
+         var Starrr;
+         
+         Starrr = (function() {
+                   Starrr.prototype.defaults = {
+                   rating: void 0,
+                   numStars: 5,
+                   change: function(e, value) {}
+                   };
+                   
+                   function Starrr($el, options) {
+                   var i, _, _ref,
+                   _this = this;
+                   
+                   this.options = $.extend({}, this.defaults, options);
+                   this.$el = $el;
+                   _ref = this.defaults;
+                   for (i in _ref) {
+                   _ = _ref[i];
+                   if (this.$el.data(i) != null) {
+                   this.options[i] = this.$el.data(i);
+                   }
+                   }
+                   this.createStars();
+                   this.syncRating();
+                   this.$el.on('mouseover.starrr', 'span', function(e) {
+                               return _this.syncRating(_this.$el.find('span').index(e.currentTarget) + 1);
+                               });
+                   this.$el.on('mouseout.starrr', function() {
+                               return _this.syncRating();
+                               });
+                   this.$el.on('click.starrr', 'span', function(e) {
+                               return _this.setRating(_this.$el.find('span').index(e.currentTarget) + 1);
+                               });
+                   this.$el.on('starrr:change', this.options.change);
+                   }
+                   
+                   Starrr.prototype.createStars = function() {
+                   var _i, _ref, _results;
+                   
+                   _results = [];
+                   for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
+                   _results.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"));
+                   }
+                   return _results;
+                   };
+                   
+                   Starrr.prototype.setRating = function(rating) {
+                   if (this.options.rating === rating) {
+                   rating = void 0;
+                   }
+                   this.options.rating = rating;
+                   this.syncRating();
+                   return this.$el.trigger('starrr:change', rating);
+                   };
+                   
+                   Starrr.prototype.syncRating = function(rating) {
+                   var i, _i, _j, _ref;
+                   
+                   rating || (rating = this.options.rating);
+                   if (rating) {
+                   for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+                   this.$el.find('span').eq(i).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+                   }
+                   }
+                   if (rating && rating < 5) {
+                   for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
+                   this.$el.find('span').eq(i).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                   }
+                   }
+                   if (!rating) {
+                   return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                   }
+                   };
+                   
+                   return Starrr;
+                   
+                   })();
+         return $.fn.extend({
+                            starrr: function() {
+                            var args, option;
+                            
+                            option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+                            return this.each(function() {
+                                             var data;
+                                             
+                                             data = $(this).data('star-rating');
+                                             if (!data) {
+                                             $(this).data('star-rating', (data = new Starrr($(this), option)));
+                                             }
+                                             if (typeof option === 'string') {
+                                             return data[option].apply(data, args);
+                                             }
+                                             });
+                            }
+                            });
+         })(window.jQuery, window);
+         
+         $(function() {
+           return $(".starrr").starrr();
+           });
+           
+           $( document ).ready(function() {
+                               
+                               $('#stars').on('starrr:change', function(e, value){
+                                              $('#count').html(value);
+                                              Rating = $("#count").text();
+                                             // alert(Rating);
+                                              contentId = $("#contentId").val();
+                                             // alert(contentId);
+                                              jsondata = {"Rating":Rating, "contentId":contentId};
+                                              console.log(jsondata);
+                                              $.ajax({
+                                                     url: "/updateRating/",
+                                                     type: "POST",
+                                                     data: jsondata,
+                                                     dataType: "json",
+                                                     success: function(data){
+                                                     //your code here
+                                                     
+                                                     },
+                                                     error: function (e) {
+                                                     console.log("Failed to process request correctly, please try again");
+                                                     }
+                                                     });
+                                              });
+                               
+                               $('#stars-existing').on('starrr:change', function(e, value){
+                                                       $('#count-existing').html(value);
+                                                       });
+                               });
+        </script>
+    
     </body>
     
 </html>

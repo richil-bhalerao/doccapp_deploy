@@ -14,13 +14,17 @@
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 
+{% load staticfiles%}
+
 </head>
 
 <body class="">
+ {% load docc_tag %}
+
     <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
     <script>
         $(function() {
-          $("#navigation").load("http://127.0.0.1:8000/nav");
+          $("#navigation").load("/nav");
           $("#dashboard").addClass('active');
           });
         </script>
@@ -50,7 +54,7 @@
     <div class="container">
   	<div class="row">
   		<div class="col-md-12">
-		  	<div class="well well-sm">
+		  	<div class="well well-sm" style="border:1px solid; border-color:#428bca">
 		        <h1 class="text-primary"><center>Select your content</center></h1>
 		    </div>
 		</div>    
@@ -76,10 +80,12 @@
           <p class="list-group-item active" style="background-color:#428bca; color:#fff;">1.1 Intro to RDBMS </p>
          {% for data in content %}
           {% ifequal data.sub_category "1.1" %}
-  				<p  class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p  class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "1.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "1.1" href="/courseContentSelection/?subCat=1.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
   		 
   		  
   		    
@@ -92,10 +98,12 @@
           <p class="list-group-item active" style="background-color:#428bca; color:#fff;">1.2 Intro to No-SQL</p>
  			 {% for data in content %}
           {% ifequal data.sub_category "1.2" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "1.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "1.2" href="/courseContentSelection/?subCat=1.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -107,10 +115,12 @@
          <p class="list-group-item active" style="background-color:#428bca; color:#fff;">2.1 Standalone</p>
   			 {% for data in content %}
           {% ifequal data.sub_category "2.1" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "2.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "2.1" href="/courseContentSelection/?subCat=2.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -118,10 +128,13 @@
          <p class="list-group-item active" style="background-color:#428bca; color:#fff;">2.2 In Memory</p>
  			 {% for data in content %}
           {% ifequal data.sub_category "2.2" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  					</p>
+  		 		
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "2.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "2.2" href="/courseContentSelection/?subCat=2.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -134,10 +147,12 @@
           <p class="list-group-item active" style="background-color:#428bca; color:#fff;">3.1 Database models</p>
   			 {% for data in content %}
           {% ifequal data.sub_category "3.1" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "3.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "3.1" href="/courseContentSelection/?subCat=3.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -145,10 +160,12 @@
           <p class="list-group-item active" style="background-color:#428bca; color:#fff;">3.2 External and internal views</p>
  			 {% for data in content %}
           {% ifequal data.sub_category "3.2" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "3.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "3.2" href="/courseContentSelection/?subCat=3.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -160,10 +177,12 @@
           <p class="list-group-item active" style="background-color:#428bca; color:#fff;">4.1 Database storage</p>
   			 {% for data in content %}
           {% ifequal data.sub_category "4.1" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "4.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "4.1" href="/courseContentSelection/?subCat=4.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -171,10 +190,12 @@
           <p class="list-group-item active" style="background-color:#428bca; color:#fff;">4.2 Database security</p>
  			 {% for data in content %}
           {% ifequal data.sub_category "4.2" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "4.2" href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "4.2" href="/courseContentSelection/?subCat=4.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -186,10 +207,12 @@
          <p class="list-group-item active" style="background-color:#428bca; color:#fff;">5.1 Migration</p>
   				 {% for data in content %}
           {% ifequal data.sub_category "5.1" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "5.1" href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "5.1" href="/courseContentSelection/?subCat=5.1" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -197,10 +220,12 @@
          <p class="list-group-item active" style="background-color:#428bca; color:#fff;">5.2 Database tuning</p>
  			  {% for data in content %}
           {% ifequal data.sub_category "5.2" %}
-  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li></p>
+  				<p href="#" class="list-group-item"> <span class="glyphicon glyphicon-hand-right"></span> &nbsp; {{ data.Name }}</li>
+  				<a  href="/removeContentFromCart?cartcontentId={{data | mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;float:right"> </span></a>
+  				</p>
   		 {% endifequal %}
   		 {% endfor %}
-  		        <a id = "5.2"  href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
+  		        <a id = "5.2"  href="/courseContentSelection/?subCat=5.2" class="list-group-item"> <span class="glyphicon glyphicon-plus"></span> &nbsp; Add more content</li></a>
             <br>
           </div>
           
@@ -211,7 +236,7 @@
     
 	</div>
       
-      <div class="col col-md-8">
+      <div class="col col-md-8" >
         <ul class="nav nav-tabs" id="myTab">
 		   <li  class="active" id="tb_wesuggest"><a href="#wesuggest" data-toggle="tab">We Suggest</a></li>
 		  <li id="tb_mostviewed"><a href="#mostviewed" data-toggle="tab">Most Viewed</a></li>
@@ -220,7 +245,7 @@
 			<li id="subcat" style="float: right;"><div class="alert alert-success" style="height:20px;line-height: 4px;padding: 10;"><span>Sub Category Selected: {{subcat.subcat}}</span></div></li>
 		</ul>
         <br/>
-        <div class="tab-content">
+        <div class="tab-content" >
         
 
 		  	<div class="tab-pane" id="viewall"> 
@@ -237,7 +262,7 @@
 			</div>
 		  	
 
-		  	<div class="tab-pane active" id="wesuggest">
+		  	<div class="tab-pane active" id="wesuggest" >
 		  		{% load docc_tag %}
 		  		{% for i in data %}
 		  		
@@ -252,10 +277,11 @@
                                     <h4><span class="glyphicon glyphicon-user"><a> {{i.prof_username}} </a></h4>
                                     <p><span class="glyphicon glyphicon-star"> Rating: {{i.Rating}}</p>
                                     <p><span class="glyphicon glyphicon-eye-open"> Views: {{i.Count}}</p>
+                                        {%load docc_tag%}
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#{{i | mongo_id}}">View</button>
                                 </center>
                             </div>
-                            </div>
+                    </div>
                 </div>
                 
                 
@@ -264,19 +290,47 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel"> <center> {{i.Name}} </center></h4>
+                                <h4 class="modal-title" id="myModalLabel"> <center> Content Information</center></h4>
                                 
                             </div>
                             <div class="modal-body">
-                                <h4> Course Name: {{i.Name}} </h4>
-                                <h4> professor: {{i.prof_username}} </h4> <a> View Profile</a>
-                                <p>  Course Description: {{i.Description}}<p>
-                                <p>  Type: {{i.Type}} </p>
-                                <p> Id: {{i | mongo_id}}</p>
-                                <p>  Sub Category: {{i.sub_category}}</p>
-                                
-                                
+                                <div class="jumbotron">
+                                    <div class="row">
+                                        <div class="col col-md-8" >
+                                            <h2>{{i.Name}}</h2>
+                                        </div>
+                                        <div class="col col-md-4">
+                                            <img src="{permalink}" alt="image" height='100' width='120'>
+                                                </div>
+                                    </div>
+                                    
+                                    <p>
+                                    <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="panel panel-default">
+                                            <!-- Default panel contents -->
+                                            <div class="panel-heading">Quick Look</div>
+                                            <div class="panel-body">
+                                                <h4>Description:</h4> {{i.Description}} </p>
+                                            </div>
+                                    <ul class="list-group" style:"">
+                                        
+                                        <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-list-alt"></span> &nbsp;Sub Category: {{i.sub_category}}</li>
+                                        <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-user"></span>&nbsp;Professor: {{i.prof_username}}</li>
+                                        
+                                        <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-star"></span>&nbsp;Rating: {{i.Rating}}</li>
+                                        <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;View Count: {{i.Count}} </li>
+                                    </ul>
+                                    </div>
+                                    <div class="col col-md-4">
+                                    </div>
+                                    </div>
+                                    <p>
+                                    </div>
+                                     </p>
+                                </div>
                             </div>
+                            
                             <script>
                                 function added_to_cart()
                                 {
@@ -284,8 +338,8 @@
                                 }
                             </script>
                             <div class="modal-footer">
-                                <form id="addToCart" method="GET" action="http://127.0.0.1:8000/addToCart/">
-                                    <button type="submit" class="btn btn-primary" name="courseId" id="courseId" value="{{i | mongo_id}}" >Add to your cart - {{i | mongo_id}} </button>
+                                <form id="addToCart" method="GET" action="/addToCart/">
+                                    <button type="submit" class="btn btn-primary" name="courseId" id="courseId" value="{{i | mongo_id}}" >Add to your cart</button>
                                 </form>
                             </div>
                         </div>
@@ -330,23 +384,53 @@
     <div class="modal-content">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel"> <center> {content_name} </center></h4>
+    <h4 class="modal-title" id="myModalLabel"> <center> Content Information </center></h4>
    
     </div>
+    
     <div class="modal-body">
-    <h4> Course Name: {content_name} </h4>
-    <h4> professor: {professor_name} </h4> <a> View Profile</a>
-    <p>  Course Description: {Description}<p>
-    <p>  Type: {Type} </p>
-    <p> Id: {id}</p>
-    <p>  Sub Category: {sub_category}</p>
+    <div class="jumbotron">
+    <div class="row">
+        <div class="col col-md-8">
+            <h2>{content_name}</h2>
+        </div>
+        <div class="col col-md-4">
+            <img src="{permalink}" alt="image" height='100' width='120'>
+        </div>
+    </div>
     
+    <p>
+    <div class="row">
+    <div class="col col-md-12">
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Quick Look</div>
+    <div class="panel-body">
+    <h4>Description:</h4> {Description} </p>
+    </div>
+    <ul class="list-group" style:"">
     
-	</div>
+    <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-list-alt"></span> &nbsp;Sub Category: {sub_category}</li>
+    <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-user"></span>&nbsp;Professor: {professor_name}</li>
+    
+    <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-star"></span>&nbsp;Rating: {Rating}</li>
+    <li class="list-group-item list-group-item"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;View Count: {Count} </li>
+    </ul>
+    </div>
+    
+    </div>
+    <div class="col col-md-4">
+    </div>
+    </div>
+    <p>
+    
+    </p>
+    </div>
+    </div>
     
     <div class="modal-footer">
-    <form id="addToCart" method="GET" action="http://127.0.0.1:8000/addToCart/">
-    <button type="submit" class="btn btn-primary" name="courseId" id="courseId" value="{id}">Add to your cart - {id} </button>
+    <form id="addToCart" method="GET" action="/addToCart/">
+    <button type="submit" class="btn btn-primary" name="courseId" id="courseId" value="{id}">Add to your cart </button>
     </form>
     </div>
     </div>
@@ -406,6 +490,7 @@
 					        		.replace( /{index}/ig, index)
 					        		.replace( /{permalink}/ig, line.permalink)
                                     .replace( /{Count}/ig, line.count)
+                                    .replace( /{Rating}/ig, line.Rating)
 					
 				
                 });
@@ -471,6 +556,7 @@
                                     .replace( /{Count}/ig, line.count)
                                     .replace( /{sub_category}/ig, line.sub_category)
                                     .replace( /{Type}/ig, line.Type)
+                       .replace( /{Count}/ig, line.count)
 					
 				});
 				

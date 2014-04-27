@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/roopakpatil/git/doccapp/mysite/userdb',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/bhalerao/workspace/doccapp/mysite/userdb',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -69,11 +69,12 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/home/cloudera/workspace/doccapp/mysite/mysite/users/',
+    #'/Users/roopakpatil/git/doccapp/mysite/mysite/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #os.path.join(os.path.dirname(__file__),'/mydoccapp/mysite/mysite/templates/static/').replace('\\','/'),
+    os.path.join(os.path.dirname(__file__),'static'),
 )
 
 # List of finder classes that know how to find static files in

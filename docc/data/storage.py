@@ -4,7 +4,9 @@ Storage interface
 
 import time
 import traceback
+import pymongo
 from pymongo import Connection
+from random import randint
 
 class Storage(object):
     
@@ -40,6 +42,34 @@ class Storage(object):
             traceback.print_exc() 
             return "Error: Data cannot be retrieved"
     
+    def getCount(self, collection):
+        print 'In Storage.get method'
+        try:
+            return self.db[collection].find().count()
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"
+    
+    def getRankedUsers(self, collection):
+        print 'In Storage.getranked users method'
+        try:
+            return self.db[collection].find().sort('StarsAchieved', pymongo.DESCENDING)
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"
+        
+    def getRandomRecord(self, collection, fieldname, value):
+        print 'In Storage.getRandomRecord'
+        count = 0
+        try:
+            count = self.db[collection].find({fieldname:value}).count()
+            print count
+            return self.db[collection].find({fieldname:value}).limit(-1).skip(randint(1, count-1)).next()
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"
+    
+    
     def getAllFiltered(self, collection, fieldname, value):
         print 'In Storage.get method'
         try:
@@ -48,6 +78,13 @@ class Storage(object):
             traceback.print_exc() 
             return "Error: Data cannot be retrieved"
         
+    def getAllUsers(self, collection, data):
+        print 'In Storage.getAllUsers method'
+        try:
+            return self.db[collection].find(data)
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"    
         
     def getInArray(self, collection, fieldname, values):
         print 'In Storage.getInArray method'
@@ -58,7 +95,25 @@ class Storage(object):
             traceback.print_exc() 
             return "Error: Data cannot be retrieved"
     
+    def getArrayElementsMatched(self, collection, fieldname, value, arrayElem, data):
+         print 'In Storage.getArrayElementsMatched method'
+         try:
+             return self.db[collection].find({fieldname:value}, {arrayElem:{'$elemMatch': data}})
+        # Add a sort as per sub category in the above line
+         except:
+             traceback.print_exc() 
+             return "Error: Data cannot be retrieved"
+    
+    def getAllArrayElements(self, collection, fieldname, value, projection):
+        print 'In Storage.getAllArrayElements method'
+        try:
+            return self.db[collection].find({fieldname: value}, {projection:1})
+        # Add a sort as per sub category in the above line
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be retrieved"
         
+               
     def update(self, collection, fieldname, value, data):
         print 'In Storage.update method'
         try:
@@ -66,7 +121,16 @@ class Storage(object):
         except:
             traceback.print_exc() 
             return "Error: Data cannot be updated"  
-        
+    
+    # Only used to update challenge.. Don't use this as a generic query method
+    def updateChallenge(self, collection, username, usernameValue, category, questionId, booleanPlayedStatus, score, booleanResult, opponentUsername):
+        print 'In Storage.update challenge method'
+        try:
+            self.db[collection].update({username:usernameValue, 'challenge.category':category},{'$set': {'challenge.$.opponentUsername':opponentUsername, 'challenge.$.poll_id': questionId, 'challenge.$.status': booleanPlayedStatus, 'challenge.$.score': score, 'challenge.$.won' : booleanResult}})
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be updated" 
+    
     def updateArray(self, collection, fieldname, value, data):
         print 'In Storage.update Array method'
         print data
@@ -75,8 +139,46 @@ class Storage(object):
            print status
         except:
             traceback.print_exc() 
+            return "Error: Data cannot be updated"
+        
+    def updateAndIncrement(self, collection, fieldname, value, data):
+        print 'In Storage.update Array method'
+        print data
+        try:
+           status = self.db[collection].update({fieldname:value},{'$inc': data})
+           print status
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be updated"
+        
+    def updateArrayOneField(self, collection, searchCriteriaJson, data):
+        print 'In Storage.update Array method'
+        print data
+        try:
+           status = self.db[collection].update(searchCriteriaJson,{'$set': data})
+           print status
+        except:
+            traceback.print_exc() 
             return "Error: Data cannot be updated"   
     
+    def removeFromArray(self, username, contentId):
+        print 'In Storage.removeFromArray method'
+        try:
+            self.db['user'].update({"username":username}, {'$pull':{"ContentId":contentId}})
+        except:
+            traceback.print_exc() 
+            return "Content cannot be removed"
+            
+    def removeFromArrayOfJSON(self, collection, usernamevalue, arrayname, fieldname, fieldvalue):
+    	print 'In Storage.remove from Array method'
+        
+        try:
+           status = self.db[collection].update({"username":usernamevalue},{'$pull':{arrayname:{fieldname:fieldvalue}}})
+           print status
+        except:
+            traceback.print_exc() 
+            return "Error: Data cannot be removed"   
+    	
     def getAll(self, collection):
         print 'In Storage.getAll method'
         try:
@@ -88,7 +190,7 @@ class Storage(object):
         
     
     ############################### End##############################################
-    
+
     
     ############################ Extra functions #####################################
     
@@ -101,8 +203,6 @@ class Storage(object):
         except:
             traceback.print_exc() 
             return "Error: Data cannot be deleted"
-    
-    
     
     def enrollCourse(self, email, courseid):
         print 'In Storage.enrollCourse method'

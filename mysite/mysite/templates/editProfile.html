@@ -12,13 +12,15 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+    {% load staticfiles%}
+   
   </head>
   
   <body class="">
       <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
     <script>
           $(function() {
-            $("#navigation").load("http://127.0.0.1:8000/nav");
+            $("#navigation").load("/nav");
             $("#dashboard").addClass('active');
             }); 
     </script>
@@ -52,7 +54,7 @@
         <script>
           $('#logout').on('click',function(){
 
-                      window.location.href = 'http://127.0.0.1:8000/logout/'  
+                      window.location.href = '/logout/'  
                     });
                   });
         </script>
@@ -62,7 +64,7 @@
       <div class="row">
         <div class="col col-md-1"></div>
         <div class="col col-md-4">
-          <form class="" role="form" action="http://127.0.0.1:8000/welcome/" method="post">{% csrf_token %}
+          <form class="" role="form" action="/welcome/" method="post">{% csrf_token %}
           
             <div class="form-group">
               <label>Education</label> 

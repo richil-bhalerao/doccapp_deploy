@@ -7,23 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
-    rel="stylesheet" type="text/css">
+        
+        
+        <!-- CDNs -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
-    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/dashboard.css"
-        rel="stylesheet" type="text/css">
-      
+    
+    <link href="https://rawgithub.com/roopakpatil123/doccapp/master/mysite/mysite/templates/progressbar.css" rel="stylesheet" type="text/css">
+
+
+
+{% load staticfiles%}
+<link href="{%static "dashboard.css"%}" rel="stylesheet" type="text/css">
+
+
+
+<!-- Static files
+
+    <link href="{%static "bootstrap-3.1.1-dist/css/bootstrap.min.css"%}" rel="stylesheet" type="text/css">
         
-       
+        <script src="{%static "bootstrap-3.1.1-dist/js/bootstrap.min.js"%}" type="text/javascript"></script>
+        <script src="{%static "bootstrap-3.1.1-dist/js/bootstrap.js"%}" type="text/javascript"></script>
+        <script src="{%static "jquery-2.1.0.js"%}" type="text/javascript"></script>
+        <script src="{%static "bootbox.min.js"%}" type="text/javascript"></script>
+         -->
   </head>
   
-  <body class="">
+  <body class="" style="background-color:rgb(137, 139, 137);" >
+    
+      
       <!-- Navigation bar code: copy paste the script and the navigation div and the br-->
     <script>
           $(function() {
-            $("#navigation").load("http://127.0.0.1:8000/nav");
+            $("#navigation").load("/nav");
             $("#dashboard").addClass('active');
             }); 
     </script>
@@ -42,10 +60,12 @@
     <div class="row">
         <div class="span3">
         <div class="col-sm-4 col-md-3 user-details">
+  		<br>
             <div class="user-image">
-                <img src="http://profile.ak.fbcdn.net/hprofile-ak-ash2/1116609_623079471_199585914_q.jpg" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle">
+                <img src="http://en.opensuse.org/images/0/0b/Icon-user.png" height=150 width=140 alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle" >
             </div>
-            <div class="user-info-block">
+            
+            <div class="user-info-block" style="box-shadow: -1px 1px 12px #000000; top:135px; border-radius:5px;">
                 <div class="user-heading">
                     <h4>{{user.firstname}} {{user.lastname}}</h4>
                     <span class="help-block">{{user.email}}</span>
@@ -61,11 +81,7 @@
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
                     </li>
-                    <li>
-                        <a data-toggle="tab" href="#events">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </a>
-                    </li>
+                   
                 </ul>
                 <div class="user-body">
                     <div class="tab-content">
@@ -76,12 +92,14 @@
 							  <li class="list-group-item"> School: {{user.organization}}</li>
 							  
 							</ul>
+							<br>
+            	
                         </div>
                         <br>
                         <br>
                         <div id="settings" class="tab-pane">
                             <h4>Settings</h4>
-                            <a> Update your settings</a>
+                            <a href="/editProfile"> Update your settings</a>
                         </div>
                     
                         <div id="events" class="tab-pane">
@@ -96,6 +114,8 @@
                     </div>
                 </div>
             </div>
+            
+            
         </div>
         </div>
         <div class="span2">
@@ -103,10 +123,29 @@
         </div>
         <div class="span9">
             <div class="col-md-9">
-                <div class="well">
-                    <h2 class="text-primary"><center> Dashboard</center></h2>
+                <div class="well" style="background-color: #FFFFFF; box-shadow: -1px 1px 12px #000000; " >
+                    <h2 class="text-primary">
+                    <center> Dashboard
+                    </center></h2>
+                    <!--
+                        {%load docc_tag%}
+                    </center></h2>
+                    <p>
+                    Content Completed Info<br>
+                    total user completed: {{user.contentCompleted}}<br>
+                    {%for i in user.contentCompleted%}
+                    in in: {{i}}<br>
+                        sub cat: {{i.sub_category}}<br>
+                        contentid: {{i.ContentId}}<br>
+                        content compeleted percentage: {{i.ContentCompletedPercentage}}<br>
+                    <br>
+                    <br>
+                    
+                    {%endfor%}
+                     -->
+                    </p>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="box-shadow: -1px 1px 12px #000000;">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-3">
@@ -114,12 +153,12 @@
                                     <div class="icon">
                                         <i class="glyphicon glyphicon-user"></i>
                                     </div>
-                                    <div class="text">
-                                        <var>{{user.NoOfContentsInCart}}</var>
-                                        <label class="text-muted">Course Progress </label>
+                                    <div class="text" id="{{subCatPercentage.CourseCompletedPercentage}}progress">
+                                        <var >{{subCatPercentage.CourseCompletedPercentage}}%</var>
+                                        <label id= "{{subCatPercentage.CourseCompletedPercentage}}progress" class="text-muted">Course Progress </label>
                                     </div>
                                     <div class="options">
-                                        <a href="javascript:;" class="btn btn-primary "><i class="glyphicon glyphicon-plus"></i> Continue ({{user.CourseCompletedPercentage}}&nbsp;%)</a>
+                                        <a id="{{subCatPercentage.CourseCompletedPercentage}}progress" href="/courseDisplay/?contentId={{user.currentContent}}" class="btn btn-default "><i class="glyphicon glyphicon-plus"></i> Continue ({{subCatPercentage.CourseCompletedPercentage}}%)</a>
                                     </div>
                                 </div>
                             </div>
@@ -129,25 +168,83 @@
                                         <i class="glyphicon glyphicon-star"></i>
                                     </div>
                                     <div class="text">
-                                        <var>{{user.StarsAchieved}}</var>
+                                        <var>{{user.StarsAchieved|floatformat:"0"}}</var>
                                         <label class="text-muted">Stars</label>
                                     </div>
                                     <div class="options">
-                                        <a href="javascript:;" class="btn btn-default "><i class="glyphicon glyphicon-search"></i> Score Report</a>
+                                        <a class="btn btn-default " data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-search"></i> Ranking List</a>
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Ranking List</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                           <div class="row">
+                                           <div class="col col-md-1"></div>
+                                           <div class="col col-md-9">
+                                               <ul class="list-group">
+                                                   <li class="list-group-item list-group-item">
+                                                       <div class="row">
+                                                           
+                                                           <div class="col col-md-1">
+                                                                <center> Rank</center>
+                                                           </div>
+                                                           <div class="col col-md-9">
+                                                               <center> User</center>
+                                                           </div>
+                                                           <div class="col col-md-1">
+                                                                <center> Stars</center>
+                                                           </div>
+                                                       </div>
+                                                   </li>
+                                            {%for i in rankedUsers%}
+                                            
+                                            
+                                            <li class="list-group-item list-group-item-warning">
+                                                <div class="row">
+                                                    
+                                                <div class="col col-md-1">
+                                                    <span class="badge">{{i.Rank}}</span>
+                                                </div>
+                                                <div class="col col-md-9">
+                                                    <center> {{i.username}}</center>
+                                                </div>
+                                                <div class="col col-md-1">
+                                                    <span class="badge">{{i.StarsAchieved}}</span>
+                                                </div>
+                                                </div>
+                                            </li>
+                                            
+                                            
+                                            {%endfor%}
+                                            </ul>
+                                            </div>
+                                           
+                                           </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $()
+                                </script>
                             <div class="col-sm-3">
                                 <div class="hero-widget well well-sm">
                                     <div class="icon">
                                         <i class="glyphicon glyphicon-tags"></i>
                                     </div>
                                     <div class="text">
-                                        <var>{{user.NoOfContentsInCart}}</var>
+                                        <var>{{user.TotalCount}}</var>
                                         <label class="text-muted">Content</label>
                                     </div>
                                     <div class="options">
-                                        <a href="javascript:;" class="btn btn-default "><i class="glyphicon glyphicon-search"></i> View Content</a>
+                                        <a href="/courseContentSelection" class="btn btn-default "><i class="glyphicon glyphicon-search"></i> View Content</a>
                                     </div>
                                 </div>
                             </div>
@@ -157,15 +254,27 @@
                                         <i class="glyphicon glyphicon-cog"></i>
                                     </div>
                                     <div class="text">
-                                        <var>75%</var>
+                                        <var>100%</var>
                                         <label class="text-muted">profile </label>
                                     </div>
                                     <div class="options">
-                                        <a href="javascript:;" class="btn btn-default"><i class="glyphicon glyphicon-wrench"></i> Edit profile</a>
+                                        <a href="/editProfile" class="btn btn-default"><i class="glyphicon glyphicon-wrench"></i> Edit profile</a>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                <div class="rohit" style="background-color: #f5f5f5; border: 1px solid #E4E2E2; border-radius: 5px; padding-left:20px; padding-right:20px;">
+                    <h4 class="text-primary" style="padding-left:10px; color:#575757">
+                    <left> Your Progress
+                    </left></h4>
+                    <div class="progress progress-striped active" style="padding-bottom:0px; border: 10px black; background-color:#DDDCDC">
+  						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{subCatPercentage.CourseCompletedPercentage}}" aria-valuemin="0" aria-valuemax="100" style="width:{{subCatPercentage.CourseCompletedPercentage}}%;">
+   							{{subCatPercentage.CourseCompletedPercentage}}%
+  						</div>
+					</div>
+					<br>
+					</div>
                     </div>
                 </div>
             </div>
@@ -173,50 +282,88 @@
     </div>
     <br>
     <div class="row">
-    <div class="panel">
+    <div class="panel" style="box-shadow: -1px 1px 12px #000000;">
         <div class="container">
-            <div class="page-header">
-
-                    <div class="span6">
-                        <h2>Your Coursework</h2>
-                    </div>
-                    <div class="span3">
-                    <div class="progress progress-striped active">
-                    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{user.CourseCompletedPercentage}}%">
-                        <span class="sr-only">{{user.CourseCompletedPercentage}}% Complete</span> <b>{{user.CourseCompletedPercentage}}% </b>
-                    </div>
-                </div>
+            <div class="page-header" style="background-color:White;">
             </div>
-            </div>
-            
+            <script>
+                $(document).ready(function(){
+                                  //alert('hi');
+                                  $('[id="100a"]').addClass("list-group-item list-group-item-success");
+                                  $('[id="100badge"]').removeClass()
+                                  $('[id="100badge"]').addClass("timeline-badge success");
+                                  $('[id="100r"]').hide()
+                                  $('[id="100i"]').removeClass()
+                                  $('[id="100i"]').addClass("glyphicon glyphicon-check");
+                                  $('[id="100c"]').css({"border":"1px green", "box-shadow":"-1px 1px 12px green"});
+                                  $('[id="100span"]').css({"background-color":"#009933"});
+                                  // green
+                                  $('[id="80progress"]').css({"color":"#009933"});$('[id="81progress"]').css({"color":"#009933"});$('[id="82progress"]').css({"color":"#009933"});$('[id="83progress"]').css({"color":"#009933"});$('[id="84progress"]').css({"color":"#009933"});$('[id="85progress"]').css({"color":"#009933"});$('[id="86progress"]').css({"color":"#009933"});$('[id="87progress"]').css({"color":"#009933"});$('[id="88progress"]').css({"color":"#009933"});$('[id="89progress"]').css({"color":"#009933"});
+                                  $('[id="90progress"]').css({"color":"#009933"});$('[id="91progress"]').css({"color":"#009933"});$('[id="92progress"]').css({"color":"#009933"});$('[id="93progress"]').css({"color":"#009933"});$('[id="94progress"]').css({"color":"#009933"});$('[id="95progress"]').css({"color":"#009933"});$('[id="96progress"]').css({"color":"#009933"});$('[id="97progress"]').css({"color":"#009933"});$('[id="98progress"]').css({"color":"#009933"});$('[id="99progress"]').css({"color":"#009933"});$('[id="100progress"]').css({"color":"#009933"});
+                                 
+                                  //yellow
+                                  $('[id="30progress"]').css({"color":"#8a6d3b"});$('[id="31progress"]').css({"color":"#8a6d3b"});$('[id="32progress"]').css({"color":"#8a6d3b"});$('[id="33progress"]').css({"color":"#8a6d3b"});$('[id="34progress"]').css({"color":"#8a6d3b"});$('[id="35progress"]').css({"color":"#8a6d3b"});$('[id="36progress"]').css({"color":"#8a6d3b"});$('[id="37progress"]').css({"color":"#8a6d3b"});$('[id="38progress"]').css({"color":"#8a6d3b"});$('[id="39progress"]').css({"color":"#8a6d3b"});
+                                  $('[id="40progress"]').css({"color":"#8a6d3b"});$('[id="41progress"]').css({"color":"#8a6d3b"});$('[id="42progress"]').css({"color":"#8a6d3b"});$('[id="43progress"]').css({"color":"#8a6d3b"});$('[id="44progress"]').css({"color":"#8a6d3b"});$('[id="45progress"]').css({"color":"#8a6d3b"});$('[id="46progress"]').css({"color":"#8a6d3b"});$('[id="47progress"]').css({"color":"#8a6d3b"});$('[id="48progress"]').css({"color":"#8a6d3b"});$('[id="49progress"]').css({"color":"#8a6d3b"});
+                                  $('[id="50progress"]').css({"color":"#8a6d3b"});$('[id="51progress"]').css({"color":"#8a6d3b"});$('[id="52progress"]').css({"color":"#8a6d3b"});$('[id="53progress"]').css({"color":"#8a6d3b"});$('[id="54progress"]').css({"color":"#8a6d3b"});$('[id="55progress"]').css({"color":"#8a6d3b"});$('[id="56progress"]').css({"color":"#8a6d3b"});$('[id="57progress"]').css({"color":"#8a6d3b"});$('[id="58progress"]').css({"color":"#8a6d3b"});$('[id="59progress"]').css({"color":"#8a6d3b"});
+                                 
+                                  
+                                  //red
+                                  $('[id="0progress"]').css({"color":"#a94442"});$('[id="1progress"]').css({"color":"#a94442"});$('[id="2progress"]').css({"color":"#a94442"});$('[id="3progress"]').css({"color":"#a94442"});$('[id="4progress"]').css({"color":"#a94442"});$('[id="5progress"]').css({"color":"#a94442"});$('[id="6progress"]').css({"color":"#a94442"});$('[id=7progress"]').css({"color":"#a94442"});$('[id="8progress"]').css({"color":"#a94442"});$('[id="9progress"]').css({"color":"#a94442"});$('[id="10progress"]').css({"color":"#a94442"});
+                                  $('[id="11progress"]').css({"color":"#a94442"});$('[id="12progress"]').css({"color":"#a94442"});$('[id="13progress"]').css({"color":"#a94442"});$('[id="14progress"]').css({"color":"#a94442"});$('[id="15progress"]').css({"color":"#a94442"});$('[id="16progress"]').css({"color":"#a94442"});$('[id="17progress"]').css({"color":"#a94442"});$('[id="18progress"]').css({"color":"#a94442"});$('[id="19progress"]').css({"color":"#a94442"});$('[id="20progress"]').css({"color":"#a94442"});
+                                  $('[id="21progress"]').css({"color":"#a94442"});$('[id="22progress"]').css({"color":"#a94442"});$('[id="23progress"]').css({"color":"#a94442"});$('[id="24progress"]').css({"color":"#a94442"});$('[id="25progress"]').css({"color":"#a94442"});$('[id="26progress"]').css({"color":"#a94442"});$('[id="27progress"]').css({"color":"#a94442"});$('[id="28progress"]').css({"color":"#a94442"});$('[id="29progress"]').css({"color":"#a94442"});
+                                  
+                                  
+                                  
+                                  //blue
+                                  $('[id="60progress"]').css({"color":"#428bca"});$('[id="61progress"]').css({"color":"#428bca"});$('[id="62progress"]').css({"color":"#428bca"});$('[id="63progress"]').css({"color":"#428bca"});$('[id="64progress"]').css({"color":"#428bca"});$('[id="65progress"]').css({"color":"#428bca"});$('[id="66progress"]').css({"color":"#428bca"});$('[id="67progress"]').css({"color":"#428bca"});$('[id="68progress"]').css({"color":"#428bca"});$('[id="69progress"]').css({"color":"#428bca"});
+                                  $('[id="70progress"]').css({"color":"#428bca"});$('[id="71progress"]').css({"color":"#428bca"});$('[id="72progress"]').css({"color":"#428bca"});$('[id="73progress"]').css({"color":"#428bca"});$('[id="74progress"]').css({"color":"#428bca"});$('[id="75progress"]').css({"color":"#428bca"});$('[id="76progress"]').css({"color":"#428bca"});$('[id="77progress"]').css({"color":"#428bca"});$('[id="78progress"]').css({"color":"#428bca"});$('[id="79progress"]').css({"color":"#428bca"});
+                                  
+                                  
+                                  })
+                </script>
+        
             <ul id="timeline" class="timeline">
                 
                 <!-- Start of 1 timeline badge -->
                 <li class="timeline">
-                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel" style="border:2px solid #5bc0de;">
+                    <div id="{{subCatPercentage.CategoryOnePercentage}}badge" class="timeline-badge info "><i id="{{subCatPercentage.CategoryOnePercentage}}i" class="glyphicon glyphicon-edit"></i></div>
+                    <div id= "{{subCatPercentage.CategoryOnePercentage}}c" class="timeline-panel" style="border:1px #5bc0de; box-shadow: -1px 1px 12px #5bc0de;">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">1. Introduction</h4></a>
+                            <h4 class="timeline-title">1. Introduction<span id="{{subCatPercentage.CategoryOnePercentage}}span" class="badge" style=" float:right;">{{subCatPercentage.CategoryOnePercentage}}%</span></h4> </a>
                         </div>
                     <div class="timeline-panel">
                         <div class="panel panel-default" >
-                            <div class="panel-heading">1.1 Introduction to RDBMS</div>
+                            <div class="panel-heading">1.1 Introduction to RDBMS </div>
                             <div class="panel-body">
                                 {% load docc_tag %}
+                                
                                 {% for content in content%}
                                 {% ifequal content.sub_category "1.1"%}
-                                    <div class="list-group">
-                                    
-                                    <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
+                                        
                                     </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
                                   
-                                    </div>
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                         
                                 {%endifequal%}
                                 {%endfor%}
                                 <button type="button" class="btn btn-info btn-sm">
-                                    <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                    <a href="/courseContentSelection/?subCat=1.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                 </button>
                               
                             </div>
@@ -228,18 +375,31 @@
                                 {% load docc_tag %}
                                 {% for content in content%}
                                 {% ifequal content.sub_category "1.2"%}
-                                <div class="list-group">
-                                    
-                                    <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
+                                  <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
+                                        
                                     </a>
-                                    
                                 </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/courseContentSelection/?subCat=1.2"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                 {%endifequal%}
                                 {%endfor%}
                                
                                <button type="button" class="btn btn-info btn-sm">
-                                   <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=1.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                   <a href="/courseContentSelection/?subCat=1.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                </button>
                                
                                 
@@ -257,10 +417,10 @@
                 
                 <!-- Start  of 2 timeline badge -->
                 <li class="timeline-inverted">
-                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                    <div id="{{subCatPercentage.CategoryTwoPercentage}}badge" class="timeline-badge info"><i id="{{subCatPercentage.CategoryTwoPercentage}}i" class="glyphicon glyphicon-edit"></i></div>
+                    <div id= "{{subCatPercentage.CategoryTwoPercentage}}c"class="timeline-panel"style="border:2px solid #5bc0de; box-shadow: -1px 1px 12px #5bc0de;">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">2. Database Types</h4></a>
+                            <h4 class="timeline-title">2. Database Types<span id="{{subCatPercentage.CategoryTwoPercentage}}span" class="badge" style="float:right;">{{subCatPercentage.CategoryTwoPercentage}}%</span></h4></a>
                         </div>
                         <div class="timeline-panel">
                             <div class="panel panel-default">
@@ -269,18 +429,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "2.1"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <button type="button" class="btn btn-info btn-sm">
-                                            <a href="http://127.0.0.1:8000/courseContentSelection/?subCat={{content.sub_category}}" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
-                                        </button>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     
                                     {%endifequal%}
                                     {%endfor%}
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=2.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                 </div>
                             </div>
@@ -291,18 +464,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "2.2"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     {%endifequal%}
                                     {%endfor%}
                                     
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=2.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=2.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                     
@@ -318,10 +504,10 @@
                 
                 <!-- Start of 3 timeline badge -->
                 <li class="timeline">
-                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                    <div id="{{subCatPercentage.CategoryThreePercentage}}badge" class="timeline-badge info"><i id="{{subCatPercentage.CategoryThreePercentage}}i" class="glyphicon glyphicon-edit"></i></div>
+                    <div id= "{{subCatPercentage.CategoryThreePercentage}}c"class="timeline-panel"style="border:2px solid #5bc0de; box-shadow: -1px 1px 12px #5bc0de;">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">3. Database Design</h4></a>
+                            <h4 class="timeline-title">3. Database Design<span id="{{subCatPercentage.CategoryThreePercentage}}span" class="badge" style="float:right;">{{subCatPercentage.CategoryThreePercentage}}%</span></h4></a>
                         </div>
                         <div class="timeline-panel">
                             <div class="panel panel-default">
@@ -330,18 +516,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "3.1"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     
                                     {%endifequal%}
                                     {%endfor%}
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=3.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                 </div>
@@ -353,18 +552,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "3.2"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     {%endifequal%}
                                     {%endfor%}
                                     
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=3.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=3.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                     
@@ -381,10 +593,10 @@
                 
                 <!-- Start of 4 timeline badge -->
                 <li class="timeline-inverted">
-                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                    <div id="{{subCatPercentage.CategoryFourPercentage}}badge" class="timeline-badge info"><i id="{{subCatPercentage.CategoryFourPercentage}}i" class="glyphicon glyphicon-edit"></i></div>
+                    <div id= "{{subCatPercentage.CategoryFourPercentage}}c"class="timeline-panel"style="border:2px solid #5bc0de; box-shadow: -1px 1px 12px #5bc0de;">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">4. Performance</h4></a>
+                            <h4 class="timeline-title">4. Performance<span id="{{subCatPercentage.CategoryFourPercentage}}span"class="badge" style="float:right;">{{subCatPercentage.CategoryFourPercentage}}%</span></h4></a>
                         </div>
                         <div class="timeline-panel">
                             <div class="panel panel-default">
@@ -393,18 +605,30 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "4.1"%}
-                                    <div class="list-group">
+                                     <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
-                                    
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     {%endifequal%}
                                     {%endfor%}
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=4.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                 </div>
@@ -416,18 +640,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "4.2"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     {%endifequal%}
                                     {%endfor%}
                                     
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=4.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=4.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                     
@@ -444,10 +681,10 @@
                 
                 <!-- Start of 5 timeline badge -->
                 <li class="timeline">
-                    <div id="badge" class="timeline-badge info "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel"style="border:2px solid #5bc0de;">
+                    <div id="{{subCatPercentage.CategoryFivePercentage}}badge" class="timeline-badge info"><i id="{{subCatPercentage.CategoryFivePercentage}}i" class="glyphicon glyphicon-edit"></i></div>
+                    <div id= "{{subCatPercentage.CategoryFivePercentage}}c"class="timeline-panel"style="border:2px solid #5bc0de; box-shadow: -1px 1px 12px #5bc0de;">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">5. Maintenace</h4></a>
+                            <h4 class="timeline-title">5. Maintenace<span id="{{subCatPercentage.CategoryFivePercentage}}span"class="badge" style="float:right;">{{subCatPercentage.CategoryFivePercentage}}%</span></h4></a>
                         </div>
                         <div class="timeline-panel">
                             <div class="panel panel-default">
@@ -456,18 +693,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "5.1"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     
                                     {%endifequal%}
                                     {%endfor%}
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=5.1" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                 </div>
@@ -479,18 +729,31 @@
                                     {% load docc_tag %}
                                     {% for content in content%}
                                     {% ifequal content.sub_category "5.2"%}
-                                    <div class="list-group">
+                                      <div class="list-group">
+                                
+                                <div class="col col-md-11" style="padding-right:5px;">
+                                    <!-- If 100% then add class class = "list-group-item list-group-item-success" -->
+                                    <a class = "list-group-item" id="{{content.contentCompletedPercentage}}a" href="/courseDisplay/?contentId={{content | mongo_id}}" >
+                                        <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}
+                                            
+                                            </span></h4>
                                         
-                                        <a href="http://127.0.0.1:8000/courseDisplay/?contentId={{content | mongo_id}}" class="list-group-item">
-                                            <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-tag"> {{content.Name}}</span></h4>
-                                        </a>
-                                        
-                                    </div>
+                                    </a>
+                                </div>
+                                <div id="{{content.contentCompletedPercentage}}r" class="col col-md-1" style="padding-left:12px; padding-top:13px;">
+                                    <a  href="/removeContentFromCart?contentId={{content|mongo_id}}"><span class="glyphicon glyphicon-remove" style="color:#A30000;"> </span></a>
+                                </div>
+                                  
+                                </div>
+                                
+                                <br>
+                                <br>
+                                <br>
                                     {%endifequal%}
                                     {%endfor%}
                                     
                                     <button type="button" class="btn btn-info btn-sm">
-                                        <a href="http://127.0.0.1:8000/courseContentSelection/?subCat=5.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
+                                        <a href="/courseContentSelection/?subCat=5.2" style="color:#fff"><span class="glyphicon glyphicon-plus"></span> Add content</a>
                                     </button>
                                     
                                     
@@ -504,54 +767,7 @@
                 </li>
                 
                 <!-- End of 5 timeline badge-->
-                
-           <!--{% load docc_tag %}
-            {% for content in content%}
-            
-            <ul id="timeline" class="timeline">
-                
-                <li class="timeline">
-                    <div id="badge" class="timeline-badge "><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <a href="http://127.0.0.1:8000/courseDisplay/contentId={{content | mongo_id}}"><h4 class="timeline-title">{{content.Name}}</h4></a>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago</small></p>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Professor: {{content.prof_username}}</p><br>
-                            <p>Description: {{content.Description}} </p><br>
-                            <p>Type: {{content.Type}}</p><br>
-                            <p>Rating: {{content.Rating}}</p><br>
-                        </div>
-                    </div>
-                </li>
-                <script>
-                    
-                    $('#timeline li').each(function(e,i){
-                                           if(e%2!=0)
-                                           {
-                                           $(i).addClass('timeline-inverted');
-                                           }
-                                           })
-                    </script>
-            
-                <li class="timeline-inverted">
-                    <div class="timeline-badge"><i class="glyphicon glyphicon-credit-card"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">{{content.Name}}</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Professor: {{content.prof_username}}</p><br>
-                            <p>Description: {{content.Description}} </p><br>
-                            <p>Type: {{content.Type}}</p><br>
-                            <p>Rating: {{Content.Rating}}</p><br>
-                        </div>
-                    </div>
-                </li>
-       
-                           </ul>
-            {%endfor%}-->
+                </ul>
         </div>
     </div>
     </div>
@@ -562,7 +778,7 @@
                 <script>
                   $('#logout').on('click',function(){
 
-                      window.location.href = 'http://127.0.0.1:8000/logout/'  
+                      window.location.href = '/logout/'  
                     });
                 </script>
 

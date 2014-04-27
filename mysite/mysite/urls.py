@@ -3,8 +3,12 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf import settings
+from django.conf.urls.static import static
 admin.autodiscover()
 
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = patterns('',
     # Examples:
@@ -27,6 +31,9 @@ urlpatterns = patterns('',
      (r'^courseContentSelection/$','mysite.users.views.courseContentSelection'),
      (r'^courseContentSelection/subCatClicked$','mysite.users.views.subCatClicked'),
      (r'^addToCart/$','mysite.users.views.addToCart'),
+    (r'^removeContentFromCart/$','mysite.users.views.removeContentFromCart'),
+      (r'^playFeud/$','mysite.users.views.playFeud'),
+                      
     (r'^dashboard/$','mysite.users.views.dashboard'), 
     (r'^professorDashboard/$','mysite.users.views.professorDashboard'), 
     (r'^mostViewed/$','mysite.users.views.mostViewed'),
@@ -34,9 +41,17 @@ urlpatterns = patterns('',
      (r'^viewAll/$','mysite.users.views.viewAll'),  
      (r'^upload/$','mysite.users.views.upload'),
      (r'^uploadQuiz/$','mysite.users.views.uploadQuiz'),
+     (r'^challengeCompleted/$','mysite.users.views.challengeCompleted'),
      (r'^uploadQuestions/$','mysite.users.views.uploadQuestions'),
      (r'^nav/$','mysite.users.views.nav'), 
+     (r'^game/$','mysite.users.views.game'), 
+     (r'^profnav/$','mysite.users.views.profnav'), 
       (r'^courseDisplay/$','mysite.users.views.courseDisplay'), 
+      (r'^submitPoll/$','mysite.users.views.submitPoll'),
+      (r'^updateRating/$','mysite.users.views.updateContentRating'),
+    (r'^getQuiz/([a-zA-Z0-9_]*)$','mysite.users.views.getQuiz'),
+    (r'^submitQuizGrade/$','mysite.users.views.submitQuizGrade'),
+    (r'^endGame/$','mysite.users.views.endGame'),
        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT}),
 )

@@ -9,6 +9,7 @@ import pymongo
 from inspect import Traceback
 import traceback
 from operator import itemgetter, attrgetter
+from bson.objectid import ObjectId
 
 
 class RecoEngine(object):
@@ -30,7 +31,7 @@ class RecoEngine(object):
             interest_level = newUser['reco_attributes']['interest_level']
             interests = newUser['reco_attributes']['interests']
             
-            result = self.findMostSimilar(highest_degree, current_proficiency, current_status, programming_languages, interest_level, interests)
+            result = self.findMostSimilar(highest_degree, current_proficiency, current_status, programming_languages, interest_level, interests, username)
             return result    
         except:
             traceback.print_exc()
@@ -42,7 +43,7 @@ class RecoEngine(object):
         #return float(n / float(len(set2)))
     
     
-    def findMostSimilar(self, highest_degree, current_proficiency, current_status, programming_languages, interest_level, interests):
+    def findMostSimilar(self, highest_degree, current_proficiency, current_status, programming_languages, interest_level, interests, username):
         try:
             result = {}
             list = [highest_degree, current_proficiency, current_status, programming_languages, interest_level]
@@ -55,24 +56,42 @@ class RecoEngine(object):
             
             sim_contents = []
             for record in user_records:
-                if 'reco_attributes' in record.keys():
-                    list = [
-                        record['reco_attributes']['highest_degree'],
-                        record['reco_attributes']['current_proficiency'],
-                        record['reco_attributes']['current_status'],
-                        record['reco_attributes']['programming_languages'],
-                        record['reco_attributes']['interest_level']
+                print record
+                if record['username']!=username:
+                    if 'reco_attributes' in record.keys():
+                        if record['ContentId'] != []:
+                            print 'in find most similar'
+                            list = [
+                                record['reco_attributes']['highest_degree'],
+                                record['reco_attributes']['current_proficiency'],
+                                record['reco_attributes']['current_status'],
+                                record['reco_attributes']['programming_languages'],
+                                record['reco_attributes']['interest_level']
+                                
+                            ]
+                            
+                            for l in record['reco_attributes']['interests']:
+                                list.append(l)
+                            set2 = set(list)
+                            newRecord = [self.computeJaccardIndex(set1, set2), record['ContentId']]
+                            sim_contents.append(newRecord)
+                        else:
+                            print 'in else part'
                         
-                    ]
-                    
-                    for l in record['reco_attributes']['interests']:
-                        list.append(l)
-                    set2 = set(list)
-                    newRecord = [self.computeJaccardIndex(set1, set2), record['ContentCompleted']]
-                    sim_contents.append(newRecord)
-                
+            if sim_contents:
+                print 'sim contents present'
+                print sim_contents
+                sim_contents = sorted(sim_contents, key=itemgetter(0), reverse=True)
             
-            sim_contents = sorted(sim_contents, key=itemgetter(0), reverse=True)
+            else:
+                print 'not a single similar content, so display All contents'
+                allcontents = self.db['content'].find()
+                contents = [a for a in allcontents]
+                for content in contents:
+                    print 'CONTENT --> ', content
+                    sim_contents.append([1.0, [ObjectId(content['_id'])]])
+                
+            print sim_contents
             return sim_contents
                                 
         except:

@@ -12,7 +12,11 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.1.0/bootbox.min.js"></script>
+    
+    {% load staticfiles%}
+  
   </head>
+  
   
   <body class="">
     <div class="container">
@@ -33,6 +37,10 @@
               </div>
               <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-left navbar-nav">
+                    <li class="inactive"> <a href="/index">Home</a>
+                        
+                    </li>
+
                   <li class="inactive"> <a href="#">About</a>
 
                   </li>
@@ -44,7 +52,7 @@
                 <script>
                   $('#signin').on('click',function(){
                       bootbox.dialog({
-                            message: "<form id='SignIn' method='POST' action='http://127.0.0.1:8000/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
+                            message: "<form id='SignIn' method='POST' action='/signIn/'>{% csrf_token %} Username:<br><input type='text' name='username'></input><br><br>Password:<br><input type='password' name='password'></input></form>",
                            
                             title: "Sign In",
                             buttons: {
@@ -86,7 +94,7 @@
         <script>
           $('#logout').on('click',function(){
 
-                      window.location.href = 'http://127.0.0.1:8000/logout/'  
+                      window.location.href = '/logout/'  
                     });
                   });
         </script>
@@ -99,7 +107,7 @@
         <div class="col col-md-4">
         <div class="well well-lg">
         <legend class="the-legend"> <span class="glyphicon glyphicon-user"> </span> &nbsp; User Details </legend>
-          <form class="" role="form" action="http://127.0.0.1:8000/register/" method="post">{% csrf_token %}
+          <form class="" role="form" action="/register/" method="post">{% csrf_token %}
           	
           	<div class="form-group">
           		<label>Username</label><br>
@@ -246,7 +254,7 @@
       </div>
       <div class="row">
               <center> <button type="submit" class="btn btn-primary">Save</button> 
-            <a class="btn btn-default">cancel</a> <center>
+              <a href="/index" class="btn btn-default">cancel</a> <center>
       </div>
        </form>
       <br>
