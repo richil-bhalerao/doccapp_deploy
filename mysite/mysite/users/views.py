@@ -23,7 +23,7 @@ def nav(request):
     print 'Navigation bar loaded!'
     user = request.session['user']
     payload = {'username':user['username']}
-    user = requests.put("http://127.0.0.1:8080/getProfile", data=json.dumps(payload))
+    user = requests.put("http://localhost:8080/getProfile", data=json.dumps(payload))
     return render_to_response('nav.html', {'user':user.json()}, context_instance=RequestContext(request))
 
 def progressbar(request):
@@ -90,11 +90,11 @@ def createUser(request):
         }
                  
       #print payload
-      status=requests.post(url='http://127.0.0.1:8080/register',data=json.dumps(payload), headers=headers)
+      status=requests.post(url='http://localhost:8080/register',data=json.dumps(payload), headers=headers)
       #print status.status_code
       if(status.status_code==200):  
          #print status  
-         return HttpResponseRedirect('http://127.0.0.1:8000/index')
+         return HttpResponseRedirect('http://localhost:8000/index')
       else:
           # TO DO: Change this to handle exceptions 
          return HttpResponseRedirect('http://google.com')
@@ -109,13 +109,13 @@ def dashboard(request):
         print "User"
         print request.session['user']
         payload = {"username":user['username']}
-        content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
+        content = requests.get("http://localhost:8080/getUserContent", data = json.dumps(payload))
         contents = content.json()
         print "Content"
-        UserInfo = requests.put("http://127.0.0.1:8080/getProfile", data=json.dumps(payload))
+        UserInfo = requests.put("http://localhost:8080/getProfile", data=json.dumps(payload))
         
         UserInfos = UserInfo.json()
-        contentCount = requests.get("http://127.0.0.1:8080/getCount")
+        contentCount = requests.get("http://localhost:8080/getCount")
         contentCountJson = contentCount.json()
         print 'contentCount', contentCountJson
         UserInfos['TotalCount'] = contentCountJson
@@ -126,13 +126,13 @@ def dashboard(request):
 #             print i
         NoOfContentsInCart= len(contents)
         user.update({'NoOfContentsInCart':NoOfContentsInCart})
-        subCat = requests.put("http://127.0.0.1:8080/getCategoryCompletedPercentage", data=json.dumps(payload))
+        subCat = requests.put("http://localhost:8080/getCategoryCompletedPercentage", data=json.dumps(payload))
         print "Content--->",contents
         subCatPayload = subCat.json()
         subCatPayload['username'] = user['username']
         print 'updating all the category percentages'
         print 'subcategory payload -->', subCatPayload
-        status = requests.put("http://127.0.0.1:8080/saveProfile", data=json.dumps(subCatPayload))
+        status = requests.put("http://localhost:8080/saveProfile", data=json.dumps(subCatPayload))
         print 'save profile ', status
         for content in contents:
             for content1 in UserInfos['contentCompleted']:
@@ -143,7 +143,7 @@ def dashboard(request):
         
         print contents
         
-        rankedUsers = requests.get("http://127.0.0.1:8080/getRankedUsers")
+        rankedUsers = requests.get("http://localhost:8080/getRankedUsers")
         rankedUsersJson = rankedUsers.json()
         rank = 0
         for i in rankedUsersJson:
@@ -164,7 +164,7 @@ def professorDashboard(request):
         print "User"
         print request.session['user']
         payload = {"username":user['username']}
-        content = requests.get("http://127.0.0.1:8080/getProfessorContent", data = json.dumps(payload))
+        content = requests.get("http://localhost:8080/getProfessorContent", data = json.dumps(payload))
         print content
         return render_to_response('professorDashboard.html', {'user':request.session['user'], 'content': content.json()}, context_instance=RequestContext(request))
     else:
@@ -188,7 +188,7 @@ def login_view(request):
     #print 'password', password
     encryptedPassword = base64.b64encode(password)
     payload = {"username":username,"password":encryptedPassword}
-    status=requests.put(url='http://127.0.0.1:8080/signIn', data=json.dumps(payload), headers=headers)
+    status=requests.put(url='http://localhost:8080/signIn', data=json.dumps(payload), headers=headers)
     #print status
     jsonData = status.json()
     #print jsonData
@@ -216,7 +216,7 @@ def professor_login(request):
     encryptedPassword = base64.b64encode(password)
     payload = {"username":username,"password":encryptedPassword}
     
-    status=requests.put(url='http://127.0.0.1:8080/professorSignIn', data=json.dumps(payload), headers=headers)
+    status=requests.put(url='http://localhost:8080/professorSignIn', data=json.dumps(payload), headers=headers)
     jsonData = status.json()
     #print jsonData
     if jsonData==None:
@@ -241,7 +241,7 @@ def logout(request):
 
 def courseContentSelection(request):
     print 'Django: In course content selection page'
-#     status = requests.get(url='http://127.0.0.1:8080/courseContentSelection')
+#     status = requests.get(url='http://localhost:8080/courseContentSelection')
 #     print status.json()
     print 'inside We Suggest'
     user = request.session['user']
@@ -256,13 +256,13 @@ def courseContentSelection(request):
     print subcatjson
     print "Sub cat: " + subcat
     payload = {"username":user['username'], "sub_category":subcat}
-    url = "http://127.0.0.1:8080/wesuggest/" #+ user['username']
+    url = "http://localhost:8080/wesuggest/" #+ user['username']
     #data = urlopen(url).read()
     data=requests.get(url, data=json.dumps(payload))
     print "we suggest data"
     print data.json();
     payload = {"username":user['username']}
-    content = requests.get("http://127.0.0.1:8080/getUserContent", data = json.dumps(payload))
+    content = requests.get("http://localhost:8080/getUserContent", data = json.dumps(payload))
     print "Content"
     print content.json()
     
@@ -282,7 +282,7 @@ def edit_Profile(request):
     print 'username on wall' , user['firstname']
     username = user['username']
     payload = {'username':username}
-    status=requests.put(url='http://127.0.0.1:8080/getProfile', data=json.dumps(payload), headers=headers)
+    status=requests.put(url='http://localhost:8080/getProfile', data=json.dumps(payload), headers=headers)
     print 'STATUS_DATA ---> ', status.json()
     print status.status_code
     return render_to_response('editProfile.html',{ 'user':status.json()},context_instance=RequestContext(request))
@@ -301,7 +301,7 @@ def save_Profile(request):
     print "PAYLOAD ---> ", payload
     headers=''
     headers = {'content-type': 'application/json'}
-    status=requests.post(url='http://127.0.0.1:8080/saveProfile', data=json.dumps(payload), headers=headers)
+    status=requests.post(url='http://localhost:8080/saveProfile', data=json.dumps(payload), headers=headers)
     print "result ---> ", status
     return HttpResponseRedirect("/dashboard")
 
@@ -319,7 +319,7 @@ def subCatClicked(request):
 
 def mostViewed(request):
     print 'inside most Viewed'
-    url = "http://127.0.0.1:8080/mostviewedcontent"
+    url = "http://localhost:8080/mostviewedcontent"
     #data = urlopen(url).read()
     payload = {'sub_category':request.session['subcategorySession']}
     headers=''
@@ -331,7 +331,7 @@ def mostViewed(request):
 
 def mostRated(request):
     print 'inside most Rated'
-    url = "http://127.0.0.1:8080/mostratedcontent"
+    url = "http://localhost:8080/mostratedcontent"
     #data = urlopen(url).read()
     payload = {'sub_category':request.session['subcategorySession']}
     headers=''
@@ -342,7 +342,7 @@ def mostRated(request):
 
 def viewAll(request):
     print 'inside view All'
-    url = "http://127.0.0.1:8080/viewAll"
+    url = "http://localhost:8080/viewAll"
     payload = {'sub_category':request.session['subcategorySession']}
     print 'Session in View All: subcategory ', payload
     headers=''
@@ -355,10 +355,10 @@ def addToCart(request):
     print 'inside Add to cart'
     id = request.GET.get('courseId','')
     user = request.session['user']
-    content = requests.put(url='http://127.0.0.1:8080/getContent', data=json.dumps({'id':id}))
+    content = requests.put(url='http://localhost:8080/getContent', data=json.dumps({'id':id}))
     payload = {"username": user['username'], "contentId":id, 'sub_category':content.json()['sub_category']}
     print payload
-    status=requests.post(url='http://127.0.0.1:8080/addToCart', data=json.dumps(payload))
+    status=requests.post(url='http://localhost:8080/addToCart', data=json.dumps(payload))
     return HttpResponseRedirect("/courseContentSelection")
     
 def removeContentFromCart(request):
@@ -369,13 +369,13 @@ def removeContentFromCart(request):
 		user = request.session['user']
 		payload = {"username":user['username'], "ContentId":contentId}
 		print payload
-		status = requests.post(url='http://127.0.0.1:8080/removeFromCart', data=json.dumps(payload))
+		status = requests.post(url='http://localhost:8080/removeFromCart', data=json.dumps(payload))
 		return HttpResponseRedirect("/courseContentSelection")
 	else:
 		user = request.session['user']
 		payload = {"username":user['username'], "ContentId":contentId}
 		print payload
-		status = requests.post(url='http://127.0.0.1:8080/removeFromCart', data=json.dumps(payload))
+		status = requests.post(url='http://localhost:8080/removeFromCart', data=json.dumps(payload))
 		return HttpResponseRedirect("/dashboard")
 	
 
@@ -401,7 +401,7 @@ def uploadQuestions(request):
     contentName = request.POST['content_Name']
     final = {"Name":contentName, "payload":{"Questions": finalPayload}}
     
-    status = requests.post(url='http://127.0.0.1:8080/uploadQuiz',data=json.dumps(final), headers=headers)    
+    status = requests.post(url='http://localhost:8080/uploadQuiz',data=json.dumps(final), headers=headers)    
     print status.status_code
     return HttpResponseRedirect("/professorDashboard")
 
@@ -444,7 +444,7 @@ def upload(request):
             payload = {'Name':contentName, 'fileName':path, 'Description':description, 'sub_category':subCategory, "prof_username":username, "link":"", "Feedback":[], "RatingCount":0, "AverageRating": 0, "NoOfPeopleRated":0, "Type":"", "permalink": permalink, "count":0, "Questions":[]}
 
             print payload
-            status=requests.post(url='http://127.0.0.1:8080/uploadContent',data=json.dumps(payload), headers=headers)
+            status=requests.post(url='http://localhost:8080/uploadContent',data=json.dumps(payload), headers=headers)
             print status.status_code
             return HttpResponseRedirect("/professorDashboard")
     return render_to_response('uploadContent.html', context_instance=RequestContext(request))
@@ -452,7 +452,7 @@ def upload(request):
 def courseDisplay(request):
     print 'in course'
     category = 0
-    url = "http://127.0.0.1:8080/getCurrentContent"
+    url = "http://localhost:8080/getCurrentContent"
     user = request.session['user'] #Getting user from session
     print user
     contentId = request.GET.get('contentId')  # getting content Id from Get URL from template
@@ -460,7 +460,7 @@ def courseDisplay(request):
     username = user['username']
     print username
     print contentId
-    user = requests.put("http://127.0.0.1:8080/getProfile", data=json.dumps({'username':username})) #Getting user 
+    user = requests.put("http://localhost:8080/getProfile", data=json.dumps({'username':username})) #Getting user 
     print user.json()
     user= user.json()
     # if content Id is not found 
@@ -490,7 +490,7 @@ def courseDisplay(request):
         request.session['current_sub_category'] = content['sub_category']
         subCat = {'sub_category':content['sub_category']}
         print 'Poll: Sub Cat', subCat
-        pollQuestions = requests.put("http://127.0.0.1:8080/getRandomPoll", data=json.dumps(subCat))
+        pollQuestions = requests.put("http://localhost:8080/getRandomPoll", data=json.dumps(subCat))
         for i in user['contentCompleted']: 
             if i['ContentId'] == content['_id']:
                 content['percentage'] = i['ContentCompletedPercentage']
@@ -502,7 +502,7 @@ def courseDisplay(request):
         
         
         
-        subCatPercentages = requests.put("http://127.0.0.1:8080/getCategoryCompletedPercentage", data=json.dumps(payload2))
+        subCatPercentages = requests.put("http://localhost:8080/getCategoryCompletedPercentage", data=json.dumps(payload2))
         subCatPercentages1 = subCatPercentages.json()  
         print subCatPercentages1 
         if content['sub_category'] == "1.1" or content['sub_category'] == "1.2":
@@ -536,7 +536,7 @@ def courseDisplay(request):
         
         subCategory = {"sub_category":content['sub_category'], 'username':username}
         print 'sub Catgeory',subCategory 
-        UsersOfCategory = requests.put("http://127.0.0.1:8080/getAllUsersOfCategory", data=json.dumps(subCategory))
+        UsersOfCategory = requests.put("http://localhost:8080/getAllUsersOfCategory", data=json.dumps(subCategory))
         AllUsersJson = UsersOfCategory.json()
         print 'All Users-->', AllUsersJson
         
@@ -586,7 +586,7 @@ def uploadQuiz(request):
      print "User"
      print request.session['user']
      payload = {"username":user['username']}
-     content = requests.get("http://127.0.0.1:8080/getProfessorContent", data = json.dumps(payload))
+     content = requests.get("http://localhost:8080/getProfessorContent", data = json.dumps(payload))
      print content
      return render_to_response('uploadQuiz.html', {'content':content.json(), 'user':user}, context_instance=RequestContext(request))
 
@@ -599,12 +599,12 @@ def challengeCompleted(request):
     sub_category = request.session['current_sub_category']
     contentId = request.session['currentContentId']
     payload = {'username':username, "sub_category":sub_category,"ChallengeQuestions":[], "contentId":contentId, "ChallengeTaken":1, "ContentCompletedPercentage":100, "QuizTaken":1}
-    data = requests.put("http://127.0.0.1:8080/updateContentCompleted", data = json.dumps(payload),  headers=headers)
+    data = requests.put("http://localhost:8080/updateContentCompleted", data = json.dumps(payload),  headers=headers)
     print 'PAYLOAD -> ', payload
     print 'incrementing stars'
     payload1 = {"username":username, 'incValue':10}
     print 'payload stars', payload1
-    status = requests.put("http://127.0.0.1:8080/incStars", data=json.dumps(payload1))
+    status = requests.put("http://localhost:8080/incStars", data=json.dumps(payload1))
     print 'stars incremented', status
     return HttpResponseRedirect("/courseDisplay")
 
@@ -614,7 +614,7 @@ def afterQuiz(request):
      print "User"
      print request.session['user']
      payload = {"username":user['username']}
-     content = requests.get("http://127.0.0.1:8080/getProfessorContent", data = json.dumps(payload))
+     content = requests.get("http://localhost:8080/getProfessorContent", data = json.dumps(payload))
      print content
      
      return render_to_response('uploadQuiz.html', {'content':content.json(), 'user':user}, context_instance=RequestContext(request))
@@ -628,7 +628,7 @@ def submitPoll(request):
     print "Poll answer by user:"
    # qId = ObjectId(pollQuestionId)
     payload = {'pollQuestionId': pollQuestionId, 'optionId':answerSelected}
-    gameQuestion = requests.put("http://127.0.0.1:8080/getSpecificPollQuestion", data=json.dumps(payload) )
+    gameQuestion = requests.put("http://localhost:8080/getSpecificPollQuestion", data=json.dumps(payload) )
     Question = gameQuestion.json()
     for i in Question['answers']:
         if answerSelected == i['optionId']:
@@ -636,19 +636,19 @@ def submitPoll(request):
     
     print count 
     payload1 = {'pollQuestionId': pollQuestionId, 'optionId':answerSelected, 'count':count}
-    status = requests.put("http://127.0.0.1:8080/updatePolledQuestion", data=json.dumps(payload1))
+    status = requests.put("http://localhost:8080/updatePolledQuestion", data=json.dumps(payload1))
     print answerSelected
     user = request.session['user']
     username = user['username']
     sub_category = request.session['current_sub_category']
     contentId = request.session['currentContentId']
     payload = {'username':username, "sub_category":sub_category,"ChallengeQuestions":[], "contentId":contentId, "ChallengeTaken":1, "ContentCompletedPercentage":100, "QuizTaken":1}
-    data = requests.put("http://127.0.0.1:8080/updateContentCompleted", data = json.dumps(payload))
+    data = requests.put("http://localhost:8080/updateContentCompleted", data = json.dumps(payload))
     print 'PAYLOAD -> ', payload
     print 'incrementing stars'
     payload1 = {"username":username, 'incValue':2}
     print 'payload stars', payload1
-    status = requests.put("http://127.0.0.1:8080/incStars", data=json.dumps(payload1))
+    status = requests.put("http://localhost:8080/incStars", data=json.dumps(payload1))
     print 'stars incremented', status
     return HttpResponseRedirect("/courseDisplay")
 
@@ -660,7 +660,7 @@ def playFeud(request):
     sub_category = request.session['current_sub_category'] 
     payload = {'username':username, 'sub_category':sub_category, "opponentUsername":opponentUsername}
     print 'PAYLOAD FOR FEUD --> ', payload
-    status = requests.put("http://127.0.0.1:8080/playFeud", data = json.dumps(payload))
+    status = requests.put("http://localhost:8080/playFeud", data = json.dumps(payload))
     #print 'FEUD QUESTION -> ', feudQuestion.json()
     return HttpResponseRedirect("/game")
     #return render_to_response('game.html', {'Polldata':feudQuestion.json()}, context_instance=RequestContext(request))
@@ -669,7 +669,7 @@ def game(request):
     print 'inside game function'
     user = request.session['user']
     payload = {"username":user['username']}
-    userProfile = requests.put("http://127.0.0.1:8080/getProfile", data = json.dumps(payload))
+    userProfile = requests.put("http://localhost:8080/getProfile", data = json.dumps(payload))
     player = userProfile.json()
     category = request.session['current_category'] 
     print 'Category in Game ', category
@@ -708,20 +708,20 @@ def game(request):
     questionPayload = {"pollQuestionId":questionId}
     opponentPayload = {"username":opponentUsername}
     print 'opponent', opponentPayload
-    opponent = requests.put("http://127.0.0.1:8080/getProfile", data=json.dumps(opponentPayload) )
+    opponent = requests.put("http://localhost:8080/getProfile", data=json.dumps(opponentPayload) )
     opponentJson = opponent.json()
     print 'Feud Question Id', questionPayload
-    feudQuestion = requests.put("http://127.0.0.1:8080/getSpecificPollQuestion", data = json.dumps(questionPayload))
+    feudQuestion = requests.put("http://localhost:8080/getSpecificPollQuestion", data = json.dumps(questionPayload))
     feudQuestionJson = feudQuestion.json()
     print 'Feud Question', feudQuestionJson
     feudQuestionJson['category'] = category
     #userPayload = {"username":}
-    #user = requests.put("http://127.0.0.1:8080/getProfile", data = json.dumps(Payload))
+    #user = requests.put("http://localhost:8080/getProfile", data = json.dumps(Payload))
     return render_to_response('game.html', {'Polldata':feudQuestionJson, 'player':player, 'opponent':opponentJson}, context_instance=RequestContext(request))
     
 def getQuiz(request, contentId):
     print 'inside getQuiz'
-    url = "http://127.0.0.1:8080/getQuiz/" + contentId
+    url = "http://localhost:8080/getQuiz/" + contentId
     print 'url:', url
     headers=''
     headers = {'content-type': 'application/json'}
@@ -737,7 +737,7 @@ def submitQuizGrade(request):
     
     payload = {'username': username, 'data': {'contentId':data['contentId'], 'quiz_percentage':data['quiz_percentage']}}
     print payload
-    status = requests.post("http://127.0.0.1:8080/submitQuizGrade", data = json.dumps(payload))
+    status = requests.post("http://localhost:8080/submitQuizGrade", data = json.dumps(payload))
 
     print status
     
@@ -749,17 +749,17 @@ def submitQuizGrade(request):
     contentId = request.session['currentContentId']
     payload = {'username':username, "sub_category":sub_category,"ChallengeQuestions":[], "contentId":contentId, "ChallengeTaken":0, "ContentCompletedPercentage":60, "QuizTaken":1}
     print 'PAYLOAD -> ', payload
-    data = requests.put("http://127.0.0.1:8080/updateContentCompleted", data = json.dumps(payload),  headers=headers)
+    data = requests.put("http://localhost:8080/updateContentCompleted", data = json.dumps(payload),  headers=headers)
     print 'incrementing stars'
     payload1 = {"username":username, 'incValue':3}
     print 'payload stars', payload1
-    status = requests.put("http://127.0.0.1:8080/incStars", data=json.dumps(payload1))
+    status = requests.put("http://localhost:8080/incStars", data=json.dumps(payload1))
     print 'stars incremented', status
     
     print 'incrementing content count'
     payload2 = {"contentId": contentId}
     print 'payload content count', payload2
-    status1 = requests.put("http://127.0.0.1:8080/incContentCount", data=json.dumps(payload2))
+    status1 = requests.put("http://localhost:8080/incContentCount", data=json.dumps(payload2))
     print 'content count', status1
     #------------------------End of Rohit code ------------------------------#
     
@@ -774,20 +774,20 @@ def updateContentRating(request):
     contentId = request.POST['contentId']
     rating = request.POST['Rating']
     payload = {"id":contentId}
-    status1 = requests.put("http://127.0.0.1:8080/updateAndIncNoOfPeopleRated", data=json.dumps(payload))
+    status1 = requests.put("http://localhost:8080/updateAndIncNoOfPeopleRated", data=json.dumps(payload))
     print status1
     print 'Incremented NoOfPeopleRated by 1'
     
     # Add RatingCount by the present rating given 
     
     payload10 = {'id':contentId, 'RatingCount':rating}
-    status10 = requests.put("http://127.0.0.1:8080/updateAndAddRatingCount", data=json.dumps(payload10))
+    status10 = requests.put("http://localhost:8080/updateAndAddRatingCount", data=json.dumps(payload10))
     print status10
     print 'updated and added Rating count'
     
     #get content - NoOfPeopleRated and Rating count and compute average rating
     
-    content = requests.put("http://127.0.0.1:8080/getContent", data=json.dumps(payload))
+    content = requests.put("http://localhost:8080/getContent", data=json.dumps(payload))
     contentJson = content.json()
     AverageRating=0
     RatingCount = contentJson['RatingCount']
@@ -797,7 +797,7 @@ def updateContentRating(request):
     
     #Update averageRating
     payload2 = {'id':contentId, 'AverageRating':AverageRating}
-    status2 = requests.put("http://127.0.0.1:8080/updateAverageRating", data=json.dumps(payload2))
+    status2 = requests.put("http://localhost:8080/updateAverageRating", data=json.dumps(payload2))
     print status2
     print 'Average Rating updated'
     
@@ -812,7 +812,7 @@ def endGame(request):
     data['username'] = request.session['user']['username']
     data['score'] = request.POST['score']
     
-    requests.post("http://127.0.0.1:8080/endGame", data = json.dumps(data))
+    requests.post("http://localhost:8080/endGame", data = json.dumps(data))
     
     return HttpResponse({"sample":"sample"}, mimetype="application/json")
 
